@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Dairy Hub Panel</title>
+<title>Dairy Mahasangh Admin Panel</title>
 
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="shortcut icon"

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
 <html class="no-js" lang="">
@@ -62,16 +62,21 @@
 
 				<div align="center"></div>
 
-				<form action="getLogin">
+
+				<form action="${pageContext.request.contextPath}/loginProcess" method="post">
 					<div class="col-lg-12">
 						<div class="card">
 							<spring:message code="label.login" var="login" />
+							<c:if test="${not empty loginErr}">
+   <!-- here would be a message with a result of processing -->
+    <div style="color:red;" class="col-md-12"> ${loginErr} </div>
+    </c:if>	
 
 							<div class="card-header" align="center">
 								<spring:message code="label.login" />
 							</div>
 							<div class="card-body card-block">
-								<form action="" method="post" class="">
+								
 									<div class="form-group">
 										<div class="input-group">
 											<div class="input-group-addon">
@@ -95,10 +100,10 @@
 												placeholder="${password}" class="form-control">
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;"><spring:message
-								code="label.login" /></button>
-								</form>
+									<spring:message code="label.login" var="loginSubmit" />
+									<input type="submit" class="btn btn-primary" value="${loginSubmit}"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+								
 							</div>
 
 						</div>
@@ -108,7 +113,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>

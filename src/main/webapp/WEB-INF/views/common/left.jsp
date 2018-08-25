@@ -10,7 +10,7 @@
 				<i class="fa fa-bars"></i>
 			</button>
 			<a class="navbar-brand" href="./getLogin"> <spring:message
-					code="label.hubWebPanel" />
+					code="label.msWebPanel" />
 			</a> <a class="navbar-brand hidden" href="./"> H</a>
 		</div>
 
@@ -30,21 +30,21 @@
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showHubUser"><spring:message
-									code="label.addNewHubUser" /></a></li>
+							href="${pageContext.request.contextPath}/showAddCat"><spring:message
+									code="label.addNewCategory" /></a></li>
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showHubUserList"><spring:message
-									code="label.hubUserList" /></a></li>
+							href="${pageContext.request.contextPath}/showAddItem"><spring:message
+									code="label.addNewItem" /></a></li>
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showDistributor"><spring:message
-									code="label.addNewDist" /></a></li>
+							href="${pageContext.request.contextPath}/showAddMSUser"><spring:message
+									code="label.addMsUser" /></a></li>
 
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showDistList"><spring:message
-									code="label.distList" /></a></li>
+							href="${pageContext.request.contextPath}/showAddHub"><spring:message
+									code="label.addHub" /></a></li>
 
 
 
