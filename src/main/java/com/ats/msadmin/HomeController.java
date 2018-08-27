@@ -50,7 +50,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/loginProcess", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public ModelAndView translate(HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("Inside Login Process");
 		

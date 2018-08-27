@@ -30,19 +30,23 @@ import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.VpsImageUpload;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.master.ErrorMessage;
+import com.ats.msadmin.model.master.GetRoute;
 import com.ats.msadmin.model.master.Hub;
+import com.ats.msadmin.model.master.Route;
 import com.ats.msadmin.model.user.MahasanghUser;
 
 @Controller
 public class MasterController {
 	RestTemplate rest = new RestTemplate();
 	//
-
+	
 	List<Category> catList;
 	List<Hub> hubList;
 	List<MahasanghUser> mhsUsrList;
-	
 	List<RouteSup> routeSupList;
+	
+	List<GetRoute> routeList;
+	
 	
 
 	@RequestMapping(value = "/showAddCat", method = RequestMethod.GET)
@@ -64,7 +68,7 @@ public class MasterController {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-			Category[] catRes = rest.getForObject(Constants.url + "/getAllCatByIsUsed", Category[].class);
+			Category[] catRes = rest.getForObject(Constants.url + "getAllCatByIsUsed", Category[].class);
 			catList = new ArrayList<Category>(Arrays.asList(catRes));
 
 			model = new ModelAndView("masters/addcat");
@@ -133,7 +137,7 @@ public class MasterController {
 			cat.setCatPic(catImage);
 			cat.setIsUsed(1);
 
-			Category catInsertResponse = rest.postForObject(Constants.url + "/saveCat", cat, Category.class);
+			Category catInsertResponse = rest.postForObject(Constants.url + "saveCat", cat, Category.class);
 
 		} catch (Exception e) {
 
@@ -156,7 +160,7 @@ public class MasterController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
 			map.add("catId", catId);
-			catEdit = rest.postForObject(Constants.url + "/getCatByCatId", map, Category.class);
+			catEdit = rest.postForObject(Constants.url + "getCatByCatId", map, Category.class);
 
 		} catch (Exception e) {
 
@@ -178,7 +182,7 @@ public class MasterController {
 
 			map.add("catId", catId);
 			
-			ErrorMessage errMsg = rest.postForObject(Constants.url + "/deleteCategory", map, ErrorMessage.class);
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteCategory", map, ErrorMessage.class);
 
 		} catch (Exception e) {
 
@@ -230,13 +234,13 @@ public class MasterController {
 			model.addObject("langSelected", langSelected);
 
 			//getAllHubByIsUsed
-			Hub[] hubRes = rest.getForObject(Constants.url + "/getAllHubByIsUsed", Hub[].class);
+			Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
 			hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
 			
 			model.addObject("hubList", hubList);
 			
 			//getAllMSByIsUsed
-			MahasanghUser[] mhsUsr = rest.getForObject(Constants.url + "/getAllMSByIsUsed", MahasanghUser[].class);
+			MahasanghUser[] mhsUsr = rest.getForObject(Constants.url + "getAllMSByIsUsed", MahasanghUser[].class);
 			mhsUsrList = new ArrayList<MahasanghUser>(Arrays.asList(mhsUsr));
 			
 			model.addObject("mhsUsrList", mhsUsrList);
@@ -290,7 +294,7 @@ public class MasterController {
 			
 			System.err.println("Marathi name  " +mrName);
 			
-		MahasanghUser msUserInsertResponse = rest.postForObject(Constants.url + "/saveMahasnaghUser", msUser, MahasanghUser.class);
+		MahasanghUser msUserInsertResponse = rest.postForObject(Constants.url + "saveMahasnaghUser", msUser, MahasanghUser.class);
 
 		}catch (Exception e) {
 			System.err.println("Exception in /insertMsUser ->saveMahasnaghUser @MastContr  " + e.getMessage());
@@ -313,7 +317,7 @@ public class MasterController {
 
 			map.add("msId", msId);
 			
-			msUserEdit = rest.postForObject(Constants.url + "/getMsByMsId", map, MahasanghUser.class);
+			msUserEdit = rest.postForObject(Constants.url + "getMsByMsId", map, MahasanghUser.class);
 
 		} catch (Exception e) {
 
@@ -335,7 +339,7 @@ public class MasterController {
 
 				map.add("msId", msId);
 				
-				ErrorMessage errMsg = rest.postForObject(Constants.url + "/deleteMahasanghUser", map, ErrorMessage.class);
+				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteMahasanghUser", map, ErrorMessage.class);
 
 			} catch (Exception e) {
 
@@ -374,7 +378,7 @@ public class MasterController {
 				
 				model.addObject("langSelected", langSelected);
 
-				Hub[] hubRes = rest.getForObject(Constants.url + "/getAllHubByIsUsed", Hub[].class);
+				Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
 				hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
 
 				model.addObject("hubList", hubList);
@@ -414,7 +418,7 @@ public class MasterController {
 				
 				System.err.println("Marathi name  " +mrName);
 				
-			Hub hubInsertResponse = rest.postForObject(Constants.url + "/saveHub", hub, Hub.class);
+			Hub hubInsertResponse = rest.postForObject(Constants.url + "saveHub", hub, Hub.class);
 
 			}catch (Exception e) {
 				System.err.println("Exception in /insertHub ->saveHub @MastContr  " + e.getMessage());
@@ -437,7 +441,7 @@ public class MasterController {
 
 				map.add("hubId", hubId);
 				
-				hubEdit = rest.postForObject(Constants.url + "/getHubByHubId", map, Hub.class);
+				hubEdit = rest.postForObject(Constants.url + "getHubByHubId", map, Hub.class);
 
 			} catch (Exception e) {
 
@@ -459,7 +463,7 @@ public class MasterController {
 
 					map.add("hubId", hubId);
 					
-					ErrorMessage errMsg = rest.postForObject(Constants.url + "/deleteHub", map, ErrorMessage.class);
+					ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteHub", map, ErrorMessage.class);
 
 				} catch (Exception e) {
 
@@ -493,7 +497,7 @@ public class MasterController {
 
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-					RouteSup[] rSupRes = rest.getForObject(Constants.url + "/getAllRsByIsUsed", RouteSup[].class);
+					RouteSup[] rSupRes = rest.getForObject(Constants.url + "getAllRsByIsUsed", RouteSup[].class);
 					routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
 
 					model = new ModelAndView("masters/addroutesup");
@@ -537,7 +541,7 @@ public class MasterController {
 					rSup.setSupPwd(uPass);
 					rSup.setToken("dummy token");
 					
-					RouteSup routeSupInsertRes = rest.postForObject(Constants.url + "/saveRouteSup", rSup, RouteSup.class);
+					RouteSup routeSupInsertRes = rest.postForObject(Constants.url + "saveRouteSup", rSup, RouteSup.class);
 
 				}catch (Exception e) {
 					System.err.println("Exception in /insertRouteSup ->saveRouteSup @MastContr  " + e.getMessage());
@@ -560,7 +564,7 @@ public class MasterController {
 
 					map.add("supId", supId);
 					
-					routeSUpEdit = rest.postForObject(Constants.url + "/getRsBySupId", map, RouteSup.class);
+					routeSUpEdit = rest.postForObject(Constants.url + "getRsBySupId", map, RouteSup.class);
 
 				} catch (Exception e) {
 
@@ -582,7 +586,7 @@ public class MasterController {
 
 					map.add("supId", supId);
 					
-					ErrorMessage errMsg = rest.postForObject(Constants.url + "/deleteRouteSup", map, ErrorMessage.class);
+					ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteRouteSup", map, ErrorMessage.class);
 
 				} catch (Exception e) {
 
@@ -593,5 +597,131 @@ public class MasterController {
 				return "redirect:/showAddRouteSupervisor";
 
 			}
+			
+			
+			//showAddRoute
+			@RequestMapping(value = "/showAddRoute", method = RequestMethod.GET)
+			public ModelAndView showAddRouteMethod(HttpServletRequest request, HttpServletResponse response) {
+
+				ModelAndView model = null;
+				try {
+
+					model = new ModelAndView("masters/addroute");
+					
+					
+					Locale locale = LocaleContextHolder.getLocale();
+
+					// System.err.println("current language is - " + locale.toString());
+
+					int langSelected = 0;
+
+					if (locale.toString().equalsIgnoreCase("mr")) {
+						langSelected = 1;
+					}
+
+					model.addObject("langSelected", langSelected);
+
+					//getAllHubByIsUsed
+					Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
+					hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
+					
+					model.addObject("hubList", hubList);
+					
+					//getAllMSByIsUsed
+					GetRoute[] routeRes = rest.getForObject(Constants.url + "getAllGetRouteByIsUsed", GetRoute[].class);
+					routeList = new ArrayList<GetRoute>(Arrays.asList(routeRes));
+					
+					model.addObject("routeList", routeList);
+					
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+
+				return model;
+
+			}
+			
+			//insertRoute
+			
+			@RequestMapping(value = "/insertRoute", method = RequestMethod.POST)
+			public String insertRouteMethod(HttpServletRequest request, HttpServletResponse response) {
+				
+				try {
+
+					int routeId = Integer.parseInt(request.getParameter("route_id"));
+					
+					String mrName = request.getParameter("route_mr");
+					String engName = request.getParameter("route_eng");
+					
+					int routeSeqNo=Integer.parseInt(request.getParameter("r_seq_no"));
+					int hubId=Integer.parseInt(request.getParameter("sel_hub"));
+					
+					Route route=new Route();
+					
+					route.setRouteId(routeId);
+					route.setHubId(hubId);
+					route.setIsUsed(1);
+					route.setRouteEngName(engName);
+					route.setRouteMarName(mrName);
+					route.setRouteSeqNo(routeSeqNo);
+					
+					System.err.println("Marathi route name  " +mrName);
+					
+					Route routeInsertResponse = rest.postForObject(Constants.url + "saveRoute", route, Route.class);
+
+				}catch (Exception e) {
+					System.err.println("Exception in /insertRoute ->saveRoute @MastContr  " + e.getMessage());
+					e.printStackTrace();
+				}
+				return "redirect:/showAddRoute";
+		}
+			
+			//getEditRoute-ajax
+			@RequestMapping(value = "/getEditRoute", method = RequestMethod.GET)
+			public @ResponseBody Route getEditRouteMethod(HttpServletRequest request, HttpServletResponse response) {
+				Route routeEdit = null;
+
+				try {
+					
+					int routeId = Integer.parseInt(request.getParameter("routeId"));
+					
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					map.add("routeId", routeId);
+					
+					routeEdit = rest.postForObject(Constants.url + "getRouteByRouteId", map, Route.class);
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+
+				return routeEdit;
+
+			}
+			
+			//deleteRoute
+			@RequestMapping(value = "/deleteRoute/{routeId}", method =RequestMethod.GET)
+			public String deleteRouteMethod(HttpServletRequest request, HttpServletResponse response,@PathVariable int routeId) {
+				
+				try {
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					map.add("routeId", routeId);
+					
+					ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteRoute", map, ErrorMessage.class);
+
+				} catch (Exception e) {
+
+					System.err.println("Exception in /deleteRoute @MastContr  " + e.getMessage());
+					e.printStackTrace();
+				}
+
+				return "redirect:/showAddRoute";
+
+			}
+			
 			
 }

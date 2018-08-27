@@ -50,6 +50,10 @@
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddRouteSupervisor"><spring:message
 									code="label.addRouteSup" /></a></li>
+									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddRoute"><spring:message
+									code="label.addRoute" /></a></li>
 
 
 

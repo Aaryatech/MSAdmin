@@ -63,7 +63,7 @@
 				<div align="center"></div>
 
 
-				<form action="${pageContext.request.contextPath}/loginProcess" method="get">
+				<form action="${pageContext.request.contextPath}/loginProcess" method="post">
 					<div class="col-lg-12">
 						<div class="card">
 							<spring:message code="label.login" var="login" />
