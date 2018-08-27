@@ -63,13 +63,13 @@
 				<div align="center"></div>
 
 
-				<form action="${pageContext.request.contextPath}/loginProcess" method="post">
+				<form action="${pageContext.request.contextPath}/loginProcess" method="get">
 					<div class="col-lg-12">
 						<div class="card">
 							<spring:message code="label.login" var="login" />
 							<c:if test="${not empty loginErr}">
    <!-- here would be a message with a result of processing -->
-    <div style="color:red;" class="col-md-12"> ${loginErr} </div>
+    <div style="color:red;"  class="col-md-12"> ${loginErr} </div>
     </c:if>	
 
 							<div class="card-header" align="center">

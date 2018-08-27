@@ -116,7 +116,7 @@
 <script type="text/javascript"
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<body>
+<body onload="disableSubmit()">
 
 
 	<!-- Left Panel -->
@@ -141,9 +141,9 @@
 							<strong> <spring:message code="label.addMsUser" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form  id="msUserForm"
-								method="post" enctype="multipart/form-data">
-								
+							<form action="${pageContext.request.contextPath}/insertMsUser"
+								id="msUserForm" method="post" enctype="multipart/form-data">
+
 								<input type="hidden" name="ms_id" id="ms_id" value="0">
 								<div class="form-group"></div>
 								<div class="form-group">
@@ -175,7 +175,7 @@
 									<spring:message code="label.contactNo" />
 									<div class="input-group">
 										<input class="form-control" name="contact_no" id="contact_no"
-											type="text" required
+											onblur="validateMobNo()" type="text" required
 											oninvalid="setCustomValidity('Please enter mobile no ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]{10}" /> <span class="error"
@@ -188,7 +188,7 @@
 									<spring:message code="label.password" />
 									<div class="input-group">
 										<input class="form-control" name="usr_pass" id="usr_pass"
-											type="password" required
+											onblur="validatePass()" type="password" required
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -200,13 +200,13 @@
 									<spring:message code="label.confPass" />
 									<div class="input-group">
 										<input class="form-control" name="conf_pass" id="conf_pass"
-											type="text" required
+											onblur="validatePass()" type="text" required
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-	<div class="form-group"></div>
+								<div class="form-group"></div>
 								<div class="form-group"></div>
 								<div class="col-md-6">
 									<spring:message code="label.chooseHub" />
@@ -238,9 +238,9 @@
 								<div class="form-group"></div>
 								<div class="col-md-6">
 									<spring:message code="label.role" />
-									<spring:message code="label.staff"  var="staff"/>
+									<spring:message code="label.staff" var="staff" />
 									<spring:message code="label.admin" var="admin" />
-									
+
 									<div class="input-group">
 										<select data-placeholder="" class="standardSelect"
 											name="usr_role" id="usr_role"
@@ -264,7 +264,8 @@
 
 								<div class="col-lg-12" align="center">
 
-									<button type="button" class="btn btn-primary" onclick="validatePass()"
+									<button type="submit" class="btn btn-primary" id="submitButton"
+										disabled
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
@@ -295,7 +296,8 @@
 															</tr>
 														</thead>
 														<tbody>
-															<c:forEach items="${mhsUsrList}" var="mhsUsr" varStatus="count">
+															<c:forEach items="${mhsUsrList}" var="mhsUsr"
+																varStatus="count">
 																<tr>
 
 																	<td>${count.index+1}</td>
@@ -307,19 +309,19 @@
 
 																		</c:if></td>
 																	<td>${mhsUsr.msContactNo}</td>
-																	
+
 																	<c:choose>
-																	<c:when test="${mhsUsr.isAdmin==1}">
-																	
-																<spring:message code="label.admin" var="userType" />
-									
-																	</c:when>
-																	<c:otherwise>
-																	<spring:message code="label.staff"  var="userType"/>
-																	</c:otherwise>
+																		<c:when test="${mhsUsr.isAdmin==1}">
+
+																			<spring:message code="label.admin" var="userType" />
+
+																		</c:when>
+																		<c:otherwise>
+																			<spring:message code="label.staff" var="userType" />
+																		</c:otherwise>
 																	</c:choose>
-																		<td><c:out value="${userType}" /></td>
-																		
+																	<td><c:out value="${userType}" /></td>
+
 																	<td><div class="fa-hover col-lg-3 col-md-6">
 																			<a href="#" onclick="editMsUser(${mhsUsr.msId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
@@ -439,29 +441,66 @@
 	
 	</script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 function validatePass(){
 
 	var pass=document.getElementById("usr_pass").value;
 	var confPass=document.getElementById("conf_pass").value;
 	
+	if(confPass.length>0){
+	
 	if(pass===confPass){
-		
-		var form = document.getElementById("msUserForm");
-	    form.action ="${pageContext.request.contextPath}/insertMsUser";
-	    form.submit();
+ 		
+ 		document.getElementById('submitButton').disabled = false;
+ 		
 	}
 	else{
 		alert("Password Mismacth for Confirm Password");
 		$("#usr_pass").focus();
-	}	
-	
+		document.getElementById('submitButton').disabled = true;
+	}
+	}
+	validateMobNo();
 	
 }
 
 </script>
 
+	<script type="text/javascript">
+
+function validateMobNo(){
+	//alert("In mob no vali");
+	var mobNo=document.getElementById("contact_no").value;
+	
+	if(mobNo.length==10){
+		
+	}else{
+		
+		alert("Enter Valid Mob No");
+		$("#contact_no").focus();
+		document.getElementById('submitButton').disabled = true;
+		
+	}
+		
+	var x=isNan(mobNo);
+	if(x==false){
+ 		document.getElementById('submitButton').disabled = false;
+	 
+	}
+	else{
+		alert("Enter Valid Mob No");
+
+		$("#contact_no").focus();
+		document.getElementById('submitButton').disabled = true;
+		validatePass();
+	}
+}
+
+function disableSubmit(){
+	document.getElementById('submitButton').disabled = true;
+}
+</script>
 
 
 

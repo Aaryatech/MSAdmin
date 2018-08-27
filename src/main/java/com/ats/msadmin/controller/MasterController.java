@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -40,6 +41,8 @@ public class MasterController {
 	List<Category> catList;
 	List<Hub> hubList;
 	List<MahasanghUser> mhsUsrList;
+	
+	List<RouteSup> routeSupList;
 	
 
 	@RequestMapping(value = "/showAddCat", method = RequestMethod.GET)
@@ -350,6 +353,12 @@ public class MasterController {
 
 			ModelAndView model = null;
 			try {
+				
+				
+				HttpSession session =request.getSession();
+				
+				MahasanghUser user=(MahasanghUser)session.getAttribute("user");
+				System.err.println("USer From Session :  " +user.toString());
 
 				Locale locale = LocaleContextHolder.getLocale();
 
@@ -462,6 +471,127 @@ public class MasterController {
 
 			}
 			
+			
+			//showAddRouteSupervisor
+			
+			@RequestMapping(value = "/showAddRouteSupervisor", method = RequestMethod.GET)
+			public ModelAndView showAddRouteSupervisorMethod(HttpServletRequest request, HttpServletResponse response) {
+
+				ModelAndView model = null;
+				try {
+
+					Locale locale = LocaleContextHolder.getLocale();
+
+					// System.err.println("current language is - " + locale.toString());
+
+					int langSelected = 0;
+
+					if (locale.toString().equalsIgnoreCase("mr")) {
+						langSelected = 1;
+					}
+
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					RouteSup[] rSupRes = rest.getForObject(Constants.url + "/getAllRsByIsUsed", RouteSup[].class);
+					routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
+
+					model = new ModelAndView("masters/addroutesup");
+					model.addObject("langSelected", langSelected);
+
+					model.addObject("routeSupList", routeSupList);
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+
+				return model;
+
+			}
 		
-		
+			//insertRouteSup
+			
+			@RequestMapping(value = "/insertRouteSup", method = RequestMethod.POST)
+			public String insertRouteSupMethod(HttpServletRequest request, HttpServletResponse response) {
+				
+				try {
+
+					int supId = Integer.parseInt(request.getParameter("sup_id"));
+					
+					String mrName = request.getParameter("rsup_mr");
+					String engName = request.getParameter("rsup_eng");
+					String uPass = request.getParameter("usr_pass");
+					String conNo = request.getParameter("contact_no");
+					
+				
+					System.err.println("Marathi name  " +mrName);
+					RouteSup rSup=new RouteSup();
+					
+					rSup.setIsBlock(1);
+					rSup.setIsUsed(1);
+					rSup.setSupContactNo(conNo);
+					rSup.setSupEngName(engName);
+					rSup.setSupId(supId);
+					rSup.setSupMarName(mrName);
+					rSup.setSupPwd(uPass);
+					rSup.setToken("dummy token");
+					
+					RouteSup routeSupInsertRes = rest.postForObject(Constants.url + "/saveRouteSup", rSup, RouteSup.class);
+
+				}catch (Exception e) {
+					System.err.println("Exception in /insertRouteSup ->saveRouteSup @MastContr  " + e.getMessage());
+					e.printStackTrace();
+				}
+				return "redirect:/showAddRouteSupervisor";
+		}
+			
+			//getEditRouteSup -ajax
+			
+			@RequestMapping(value = "/getEditRouteSup", method = RequestMethod.GET)
+			public @ResponseBody RouteSup getEditRouteSupMethod(HttpServletRequest request, HttpServletResponse response) {
+				RouteSup routeSUpEdit = null;
+
+				try {
+					
+					int supId = Integer.parseInt(request.getParameter("supId"));
+					
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					map.add("supId", supId);
+					
+					routeSUpEdit = rest.postForObject(Constants.url + "/getRsBySupId", map, RouteSup.class);
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+
+				return routeSUpEdit;
+
+			}
+			
+			//deleteRouteSup
+			
+			@RequestMapping(value = "/deleteRouteSup/{supId}", method =RequestMethod.GET)
+			public String deleteRouteSupMethod(HttpServletRequest request, HttpServletResponse response,@PathVariable int supId) {
+				
+				try {
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					map.add("supId", supId);
+					
+					ErrorMessage errMsg = rest.postForObject(Constants.url + "/deleteRouteSup", map, ErrorMessage.class);
+
+				} catch (Exception e) {
+
+					System.err.println("Exception in /deleteRouteSup @MastContr  " + e.getMessage());
+					e.printStackTrace();
+				}
+
+				return "redirect:/showAddRouteSupervisor";
+
+			}
+			
 }
