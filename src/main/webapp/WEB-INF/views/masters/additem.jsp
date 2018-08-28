@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add New Item</title>
+<title>Add New Product</title>
 
 
 <link rel="apple-touch-icon"
@@ -139,7 +139,6 @@
 			}, 0);
 		});
 
-
 	} //end onLoad function
 
 	google.setOnLoadCallback(OnLoad);
@@ -173,44 +172,97 @@
 							<strong> <spring:message code="label.addNewItem" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form
-								action="${pageContext.request.contextPath}/insertItem"
+							<form action="${pageContext.request.contextPath}/insertItem"
 								method="post" enctype="multipart/form-data">
-								
+								<input type="hidden" name="item_id" id="item_id" value="${editItem.itemId}">
+
 								<div class="form-group"></div>
 								<div class="form-group">
-									<spring:message code="label.itemCategory"  />
-									<spring:message code="label.itemCategory" var="selCat"  />
+									<spring:message code="label.itemCategory" />
+									<spring:message code="label.itemCategory" var="selCat" />
 									<div class="input-group">
-										<select data-placeholder="${selCat}"
-								class="standardSelect" tabindex="1" name="item_cat" id="item_cat"
+										<select data-placeholder="${selCat}" class="standardSelect"
+											tabindex="1" name="item_cat" id="item_cat"
 											oninvalid="setCustomValidity('Please Select Category ')"
-											onchange="try{setCustomValidity('')}catch(e){}" ></select> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}">
+
+											<c:forEach items="${catList}" var="cat">
+												<c:choose>
+													<c:when test="${langSelected == 0}">
+														<c:choose>
+															<c:when test="${editItem.catId==cat.catId}">
+																<option value="${cat.catId}" selected>${cat.catEngName}</option>
+
+															</c:when>
+															<c:otherwise>
+														<option value="${cat.catId}">${cat.catEngName}</option>
+
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+													
+													<c:choose>
+															<c:when test="${editItem.catId==cat.catId}">
+																<option value="${cat.catId}" selected>${cat.catMarName}</option>
+
+															</c:when>
+															<c:otherwise>
+														<option value="${cat.catId}">${cat.catMarName}</option>
+
+															</c:otherwise>
+														</c:choose>
+														
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+
+
+
+
+
+										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
-								
+
 								<div class="form-group"></div>
 								<div class="form-group">
-									<spring:message code="label.selectHsnCode"  />
-									<spring:message code="label.selectHsnCode" var="selHsn"  />
+									<spring:message code="label.selectHsnCode" />
+									<spring:message code="label.selectHsnCode" var="selHsn" />
 									<div class="input-group">
-										<select data-placeholder="${selHsn}" name="item_hsn" id="item_hsn"
-								class="standardSelect" tabindex="1"
+										<select data-placeholder="${selHsn}" name="item_hsn"
+											id="item_hsn" class="standardSelect" tabindex="1"
 											oninvalid="setCustomValidity('Please Select HSN Code ')"
-											onchange="try{setCustomValidity('')}catch(e){}" ></select> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}">
+											<c:forEach items="${iHsnList}" var="hsn">
+
+												<c:choose>
+													<c:when test="${editItem.itemHsnId==hsn.itemHsnId}">
+
+														<option selected value="${hsn.itemHsnId}">${hsn.itemHsnCode}</option>
+
+													</c:when>
+													<c:otherwise>
+														<option value="${hsn.itemHsnId}">${hsn.itemHsnCode}</option>
+
+													</c:otherwise>
+
+												</c:choose>
+											</c:forEach>
+
+
+										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
-								
+
 								<div class="form-group"></div>
 								<div class="form-group">
 									<spring:message code="label.catEngName" />
 									<div class="input-group">
 										<input class="form-control" name="itemEng" id="itemEng"
-											type="text" required
+											type="text" required value="${editItem.itemEngName}"
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -223,18 +275,19 @@
 									<spring:message code="label.catMarName" />
 									<div class="input-group">
 										<input class="form-control" name="itemMr" id="itemMr"
-											type="text" required
+											type="text" required value="${editItem.itemMarName}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}"  />
-										<span class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<spring:message code="label.itemDescEng" />
 									<div class="input-group">
-										<input class="form-control" name="itemDescEng" id="itemDescEng"
-											type="text" required
+										<input class="form-control" name="itemDescEng"
+											id="itemDescEng" type="text" required
+											value="${editItem.itemEngDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -247,62 +300,93 @@
 									<spring:message code="label.itemDescMr" />
 									<div class="input-group">
 										<input class="form-control" name="itemDescMr" id="itemDescMr"
-											type="text" required
+											type="text" required value="${editItem.itemMarDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}"  />
-										<span class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-								
-									<div class="form-group">
+
+								<div class="form-group">
 									<spring:message code="label.itemRate" />
 									<div class="input-group">
 										<input class="form-control" name="item_rate" id="item_rate"
-											type="text" required
+											type="text" required value="${editItem.itemRate}"
 											oninvalid="setCustomValidity('Please enter rate ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite" ></span>
-
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<spring:message code="label.itemMrp" />
-									<div class="input-group">
-										<input class="form-control" name="item_mrp" id="item_mrp"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter Mrp ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite" ></span>
-
-									</div>
-								</div>
-								
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.selectUOM"  />
-									<spring:message code="label.selectUOM" var="selUom"  />
-									<div class="input-group">
-										<select data-placeholder="${selUom}"
-								class="standardSelect" tabindex="1" name="item_uom" id="item_uom"
-											oninvalid="setCustomValidity('Please Select UOM ')"
-											onchange="try{setCustomValidity('')}catch(e){}" ></select> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
-								
+
+								<div class="form-group">
+									<spring:message code="label.itemMrp" />
+									<div class="input-group">
+										<input class="form-control" name="item_mrp" id="item_mrp"
+											type="text" required value="${editItem.itemMrp}"
+											oninvalid="setCustomValidity('Please enter Mrp ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+
+									</div>
+								</div>
+
+								<div class="form-group"></div>
+								<div class="form-group">
+									<spring:message code="label.UOM" />
+									<spring:message code="label.UOM" var="selUom" />
+									<div class="input-group">
+										<select data-placeholder="${selUom}" class="standardSelect"
+											tabindex="1" name="item_uom" id="item_uom"
+											oninvalid="setCustomValidity('Please Select UOM ')"
+											onchange="try{setCustomValidity('')}catch(e){}">
+
+											<c:forEach items="${uomList}" var="uom">
+												<c:choose>
+
+													<c:when test="${editItem.itemUomId==uom.uomId}">
+														<option selected value="${uom.uomId}">${uom.uomName}</option>
+													</c:when>
+
+													<c:otherwise>
+														<option value="${uom.uomId}">${uom.uomName}</option>
+													</c:otherwise>
+
+												</c:choose>
+
+
+											</c:forEach>
+
+										</select> <span class="error" aria-live="polite"></span>
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<spring:message code="label.weight" />
+									<div class="input-group">
+										<input class="form-control" value="${editItem.itemWt}"
+											name="item_weight" id="item_weight" type="text" required
+											oninvalid="setCustomValidity('Please enter Weight ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+
+									</div>
+								</div>
+								<input type="hidden" name="prevImage" id="prevImage" value="${editItem.itemPic}">
+
 								<div class="form-group"></div>
 								<div class="form-group">
 									<spring:message code="label.catPhoto" />
 									<div class="input-group">
 										<input type='file' id="imgInp" name="imgInp" value="" /> <img
-											id="item_image" name="item_image" src="#" alt=""
+											id="item_image" name="item_image"
+											src="${imgUrl}${editItem.itemPic}" alt=""
 											style="width: 100px; height: 100px" align="top" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-								
+
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary"
@@ -347,24 +431,23 @@
 		});
 	</script>
 
-<script type="text/javascript">
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function (e) {
-            $('#item_image').attr('src', e.target.result);
-        }
-        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+	<script type="text/javascript">
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
 
-$("#imgInp").change(function(){
-    readURL(this);
-});
+				reader.onload = function(e) {
+					$('#item_image').attr('src', e.target.result);
+				}
 
-</script>
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#imgInp").change(function() {
+			readURL(this);
+		});
+	</script>
 
 
 </body>

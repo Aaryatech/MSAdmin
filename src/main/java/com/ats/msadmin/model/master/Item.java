@@ -1,6 +1,10 @@
 package com.ats.msadmin.model.master;
 
+
+
 public class Item {
+
+
 	private int itemId;
 
 	private int itemHsnId;
@@ -10,7 +14,8 @@ public class Item {
 	private String itemMarName;
 	private String itemEngDesc;
 	private String itemMarDesc;
-	private String itemUom;
+	private int itemUomId;
+	private int itemWt;
 
 	private float itemRate;
 
@@ -82,14 +87,6 @@ public class Item {
 		this.itemMarDesc = itemMarDesc;
 	}
 
-	public String getItemUom() {
-		return itemUom;
-	}
-
-	public void setItemUom(String itemUom) {
-		this.itemUom = itemUom;
-	}
-
 	public float getItemRate() {
 		return itemRate;
 	}
@@ -114,12 +111,28 @@ public class Item {
 		this.isUsed = isUsed;
 	}
 
+	public int getItemUomId() {
+		return itemUomId;
+	}
+
+	public void setItemUomId(int itemUomId) {
+		this.itemUomId = itemUomId;
+	}
+
+	public int getItemWt() {
+		return itemWt;
+	}
+
+	public void setItemWt(int itemWt) {
+		this.itemWt = itemWt;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemHsnId=" + itemHsnId + ", catId=" + catId + ", itemPic=" + itemPic
 				+ ", itemEngName=" + itemEngName + ", itemMarName=" + itemMarName + ", itemEngDesc=" + itemEngDesc
-				+ ", itemMarDesc=" + itemMarDesc + ", itemUom=" + itemUom + ", itemRate=" + itemRate + ", itemMrp="
-				+ itemMrp + ", isUsed=" + isUsed + "]";
+				+ ", itemMarDesc=" + itemMarDesc + ", itemUomId=" + itemUomId + ", itemWt=" + itemWt + ", itemRate="
+				+ itemRate + ", itemMrp=" + itemMrp + ", isUsed=" + isUsed + "]";
 	}
 
 }

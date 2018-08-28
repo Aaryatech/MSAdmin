@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Mahasangh User</title>
+<title>Product List</title>
 
 <c:url var="getEditMsUser" value="/getEditMsUser" />
 
@@ -137,142 +137,11 @@
 
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
-						<div class="card-header">
-							<strong> <spring:message code="label.addMsUser" /></strong>
-						</div>
+						<%-- <div class="card-header">
+							<strong> <spring:message code="label.itemList" /></strong>
+						</div> --%>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertMsUser"
-								id="msUserForm" method="post" enctype="multipart/form-data">
 
-								<input type="hidden" name="ms_id" id="ms_id" value="0">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInEng" />
-									<div class="input-group">
-										<input class="form-control" name="usrname_eng"
-											id="usrname_eng" type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInMr" />
-									<div class="input-group">
-										<input class="form-control" name="usrname_mr" id="usrname_mr"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.contactNo" />
-									<div class="input-group">
-										<input class="form-control" name="contact_no" id="contact_no"
-											onblur="validateMobNo()" type="text" required
-											oninvalid="setCustomValidity('Please enter mobile no ')"
-											onchange="try{setCustomValidity('')}catch(e){}"
-											pattern="[0-9]{10}" /> <span class="error"
-											aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.password" />
-									<div>
-										<input class="form-control" name="usr_pass" id="usr_pass"
-											onblur="validatePass()" type="password" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.confPass" />
-									<div>
-										<input class="form-control" name="conf_pass" id="conf_pass"
-											onblur="validatePass()" type="text" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-								<br></br>
-								<div class="form-group"></div>
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.chooseHub" />
-									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="input-group">
-										<select data-placeholder="${selHub}" multiple
-											class="standardSelect" name="sel_hub" id="sel_hub"
-											oninvalid="setCustomValidity('Please Select HUbs ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
-
-											<c:forEach items="${hubList}" var="hub">
-
-												<c:choose>
-													<c:when test="${langSelected == 0}">
-														<option value="${hub.hubId}">${hub.hubEngName}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${hub.hubId}">${hub.hubMarName}</option>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-
-
-										</select> <span class="error" aria-live="polite"></span>
-
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.role" />
-									<spring:message code="label.staff" var="staff" />
-									<spring:message code="label.admin" var="admin" />
-
-									<div class="input-group">
-										<select data-placeholder="" class="standardSelect"
-											name="usr_role" id="usr_role"
-											oninvalid="setCustomValidity('Please Select Role ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
-											<c:choose>
-												<c:when test="${langSelected == 0}">
-													<option value="0">Staff</option>
-													<option value="1">Admin</option>
-												</c:when>
-												<c:otherwise>
-													<option value="0">${staff}</option>
-													<option value="1">${admin}</option>
-												</c:otherwise>
-											</c:choose>
-
-										</select> <span class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-
-								<div class="col-lg-12" align="center">
-
-									<button type="submit" class="btn btn-primary" id="submitButton"
-										disabled
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div>
-
-							</form>
 
 							<div class="content mt-3">
 								<div class="animated fadeIn">
@@ -282,7 +151,7 @@
 											<div class="card">
 												<div class="card-header">
 													<strong class="card-title"><spring:message
-															code="label.mhusrList" /></strong>
+															code="label.itemList" /></strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -290,47 +159,54 @@
 														<thead>
 															<tr>
 																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.userName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.userType" /></th>
+																<th><spring:message code="label.name" /></th>
+																<th><spring:message code="label.category" /></th>
+																<th><spring:message code="label.hsnCode" /></th>
+																<th><spring:message code="label.UOM" /></th>
+																<th><spring:message code="label.itemWeight" /></th>
+																<th><spring:message code="label.itemRate" /></th>
+																<th><spring:message code="label.itemMrp" /></th>
 																<th><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
-															<c:forEach items="${mhsUsrList}" var="mhsUsr"
+															<c:forEach items="${itemList}" var="item"
 																varStatus="count">
 																<tr>
 
 																	<td>${count.index+1}</td>
 																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${mhsUsr.msEngName}" />
+																			<c:out value="${item.itemEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${mhsUsr.msMarName}" />
+																			<c:out value="${item.itemMarName}" />
+
 
 																		</c:if></td>
-																	<td>${mhsUsr.msContactNo}</td>
 
-																	<c:choose>
-																		<c:when test="${mhsUsr.isAdmin==1}">
+																	<td><c:if test="${langSelected == 0}">
+																			<c:out value="${item.catEngName}" />
 
-																			<spring:message code="label.admin" var="userType" />
+																		</c:if> <c:if test="${langSelected == 1}">
+																			<c:out value="${item.catMarName}" />
 
-																		</c:when>
-																		<c:otherwise>
-																			<spring:message code="label.staff" var="userType" />
-																		</c:otherwise>
-																	</c:choose>
-																	<td><c:out value="${userType}" /></td>
+
+																		</c:if></td>
+																	<td>${item.itemHsnCode}</td>
+																	<td><c:out value="${item.uomName}" /></td>
+																	<td>${item.itemWt}</td>
+
+																	<td>${item.itemRate}</td>
+																	<td><c:out value="${item.itemMrp}" /></td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editMsUser(${mhsUsr.msId})"><i
+																			<a href="${pageContext.request.contextPath}/editItem/${item.itemId}" ><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteMsUser/${mhsUsr.msId}"
+																				href="${pageContext.request.contextPath}/deleteItem/${item.itemId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
@@ -364,7 +240,7 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<!-- for multiple select  -->
+<!-- for multiple select  -->
 <script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
@@ -379,8 +255,8 @@
 	<!-- end for multiple select  -->
 
 
-<!-- for data table search and sorting  -->
-<script
+	<!-- for data table search and sorting  -->
+	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
@@ -403,7 +279,7 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-<!--end  for data table search and sorting  -->
+	<!--end  for data table search and sorting  -->
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -449,76 +325,6 @@
 	
 	</script>
 
-	<script type="text/javascript">
-
-function validatePass(){
-
-	var pass=document.getElementById("usr_pass").value;
-	var confPass=document.getElementById("conf_pass").value;
-	
-	if(confPass.length>0){
-	
-	if(pass===confPass){
- 		
- 		document.getElementById('submitButton').disabled = false;
- 		
-	}
-	else{
-		alert("Password Mismacth for Confirm Password");
-		$("#usr_pass").focus();
-		document.getElementById('submitButton').disabled = true;
-	}
-	}
-	validateMobNo();
-	
-}
-
-</script>
-
-	<script type="text/javascript">
-
-function validateMobNo(){
-	//alert("In mob no vali");
-	var mobNo=document.getElementById("contact_no").value;
-	
-	if(mobNo.length==10){
-		
-	}else{
-		
-		alert("Enter Valid Mob No");
-		$("#contact_no").focus();
-		document.getElementById('submitButton').disabled = true;
-		
-	}
-		
-	var x=isNan(mobNo);
-	if(x==false){
- 		document.getElementById('submitButton').disabled = false;
-	 
-	}
-	else{
-		alert("Enter Valid Mob No");
-
-		$("#contact_no").focus();
-		document.getElementById('submitButton').disabled = true;
-		validatePass();
-	}
-}
-
-function disableSubmit(){
-	document.getElementById('submitButton').disabled = true;
-}
-</script>
-
-<script>
-		jQuery(document).ready(function() {
-			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
-				no_results_text : "Oops, nothing found!",
-				width : "100%"
-			});
-		});
-	</script>
 
 
 

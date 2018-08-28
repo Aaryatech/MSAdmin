@@ -37,6 +37,20 @@
 							href="${pageContext.request.contextPath}/showAddItem"><spring:message
 									code="label.addNewItem" /></a></li>
 
+
+<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showItemList"><spring:message
+									code="label.itemList" /></a></li>
+									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddItemHsn"><spring:message
+									code="label.addHsnCode" /></a></li>
+
+
+
+<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddUom"><spring:message
+									code="label.addUom" /></a></li>
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddMSUser"><spring:message
 									code="label.addMsUser" /></a></li>
