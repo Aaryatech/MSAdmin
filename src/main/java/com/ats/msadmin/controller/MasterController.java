@@ -1159,7 +1159,7 @@ public class MasterController {
 		public @ResponseBody Uom getEditUomMethod(HttpServletRequest request, HttpServletResponse response) {
 			Uom uomEdit = null;
 
-			try {
+			try { 
 
 				int uomId = Integer.parseInt(request.getParameter("uomId"));
 
