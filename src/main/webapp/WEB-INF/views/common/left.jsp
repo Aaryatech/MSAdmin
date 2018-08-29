@@ -68,11 +68,22 @@
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddRoute"><spring:message
 									code="label.addRoute" /></a></li>
+									
+										
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showCreateItemConf"><spring:message
+									code="label.addConf" /></a></li>
+										
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showConfList"><spring:message
+									code="label.confList" /></a></li>
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAssignConf"><spring:message
+									code="label.assignConf" /></a></li>
 
 
 
-
-						<li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
+						<!-- <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
 						<li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
 						<li><i class="fa fa-share-square-o"></i><a
 							href="ui-social-buttons.html">Social Buttons</a></li>
@@ -85,7 +96,7 @@
 						<li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
 						<li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
 						<li><i class="fa fa-file-word-o"></i><a
-							href="ui-typgraphy.html">Typography</a></li>
+							href="ui-typgraphy.html">Typography</a></li> -->
 					</ul></li>
 
 

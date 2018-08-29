@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Mahasangh User</title>
+<title>Assign Configuration</title>
 
 <c:url var="getEditMsUser" value="/getEditMsUser" />
 
@@ -116,7 +116,7 @@
 <script type="text/javascript"
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<body onload="disableSubmit()">
+<body >
 
 
 	<!-- Left Panel -->
@@ -138,75 +138,41 @@
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
 						<div class="card-header">
-							<strong> <spring:message code="label.addMsUser" /></strong>
+							<strong> <spring:message code="label.assignConf" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertMsUser"
-								id="msUserForm" method="post" enctype="multipart/form-data">
+							<form action="${pageContext.request.contextPath}/assignConf"
+								id="assignConfForm" method="post" enctype="multipart/form-data">
 
-								<input type="hidden" name="ms_id" id="ms_id" value="0">
+								
 								<div class="form-group"></div>
 								<div class="form-group">
-									<spring:message code="label.nameInEng" />
+									<spring:message code="label.confsName" />
 									<div class="input-group">
-										<input class="form-control" name="usrname_eng"
-											id="usrname_eng" type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
+										<select data-placeholder="" 
+											class="standardSelect" name="sel_conf" id="sel_conf"
+											oninvalid="setCustomValidity('Please Select Configuration ')"
+											onchange="try{setCustomValidity('')}catch(e){}">
+
+											<c:forEach items="${confList}" var="conf">
+
+												<c:choose>
+													<c:when test="${langSelected == 0}">
+														<option value="${conf.configId}">${conf.configEngName}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${conf.configId}">${conf.configMarName}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+
+
+										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInMr" />
-									<div class="input-group">
-										<input class="form-control" name="usrname_mr" id="usrname_mr"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.contactNo" />
-									<div class="input-group">
-										<input class="form-control" name="contact_no" id="contact_no"
-											onblur="validateMobNo()" type="text" required
-											oninvalid="setCustomValidity('Please enter mobile no ')"
-											onchange="try{setCustomValidity('')}catch(e){}"
-											pattern="[0-9]{10}" /> <span class="error"
-											aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.password" />
-									<div>
-										<input class="form-control" name="usr_pass" id="usr_pass"
-											onblur="validatePass()" type="password" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.confPass" />
-									<div>
-										<input class="form-control" name="conf_pass" id="conf_pass"
-											onblur="validatePass()" type="text" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-								<br></br>
+							
 								<div class="form-group"></div>
 								<div class="form-group"></div>
 								<div class="col-md-6">
@@ -214,7 +180,7 @@
 									<spring:message code="label.chooseHub" var="selHub" />
 									<div class="input-group">
 										<select data-placeholder="${selHub}" multiple
-											class="standardSelect" name="sel_hub" id="sel_hub"
+											class="standardSelect" name="sel_hub[]" id="sel_hub[]"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -236,37 +202,12 @@
 									</div>
 								</div>
 
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.role" />
-									<spring:message code="label.staff" var="staff" />
-									<spring:message code="label.admin" var="admin" />
-
-									<div class="input-group">
-										<select data-placeholder="" class="standardSelect"
-											name="usr_role" id="usr_role"
-											oninvalid="setCustomValidity('Please Select Role ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
-											<c:choose>
-												<c:when test="${langSelected == 0}">
-													<option value="0">Staff</option>
-													<option value="1">Admin</option>
-												</c:when>
-												<c:otherwise>
-													<option value="0">${staff}</option>
-													<option value="1">${admin}</option>
-												</c:otherwise>
-											</c:choose>
-
-										</select> <span class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
+								<br></br><br></br>
 
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
-										disabled
+										
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
@@ -274,7 +215,7 @@
 
 							</form>
 
-							<div class="content mt-3">
+					<%-- 		<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
@@ -344,7 +285,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> --%>
 
 
 
@@ -361,6 +302,7 @@
 	</div>
 	<!-- .content -->
 
+	
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
@@ -391,9 +333,6 @@
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script>
-
-
-
 	<script type="text/javascript">
 	
 	function editMsUser(msId){
