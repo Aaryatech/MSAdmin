@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.VpsImageUpload;
 import com.ats.msadmin.model.master.Category;
+import com.ats.msadmin.model.master.Driver;
 import com.ats.msadmin.model.master.ErrorMessage;
 import com.ats.msadmin.model.master.GetItemName;
 import com.ats.msadmin.model.master.GetRoute;
@@ -39,6 +40,7 @@ import com.ats.msadmin.model.master.Item;
 import com.ats.msadmin.model.master.ItemHsn;
 import com.ats.msadmin.model.master.Route;
 import com.ats.msadmin.model.master.Uom;
+import com.ats.msadmin.model.master.Vehicle;
 import com.ats.msadmin.model.user.MahasanghUser;
 
 @Controller
@@ -58,6 +60,8 @@ public class MasterController {
 	List<Uom> uomList;
 
 	private ArrayList<GetItemName> itemList;
+	private ArrayList<Driver> driverList;
+	private ArrayList<Vehicle> vehicleList;
 
 	@RequestMapping(value = "/showAddCat", method = RequestMethod.GET)
 	public ModelAndView showAddCatMethod(HttpServletRequest request, HttpServletResponse response) {
@@ -223,14 +227,14 @@ public class MasterController {
 			model.addObject("langSelected", langSelected);
 
 			// getAllCatByIsUsed
-			
+
 			Category[] catRes = rest.getForObject(Constants.url + "getAllCatByIsUsed", Category[].class);
 			catList = new ArrayList<Category>(Arrays.asList(catRes));
 
 			model.addObject("catList", catList);
 
 			// getAllItemHsnByIsUsed
-			
+
 			ItemHsn[] itemHsn = rest.getForObject(Constants.url + "getAllItemHsnByIsUsed", ItemHsn[].class);
 			iHsnList = new ArrayList<ItemHsn>(Arrays.asList(itemHsn));
 
@@ -251,9 +255,9 @@ public class MasterController {
 		return model;
 
 	}
-	
-	//insertItem
-	
+
+	// insertItem
+
 	@RequestMapping(value = "/insertItem", method = RequestMethod.POST)
 	public String insertItemMethod(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("imgInp") List<MultipartFile> file) {
@@ -264,17 +268,17 @@ public class MasterController {
 
 			String mrName = request.getParameter("itemMr");
 			String engName = request.getParameter("itemEng");
-			
+
 			String mrDesc = request.getParameter("itemDescMr");
 			String engDesc = request.getParameter("itemDescEng");
-					
+
 			int catId = Integer.parseInt(request.getParameter("item_cat"));
 			int hsnId = Integer.parseInt(request.getParameter("item_hsn"));
 			float rate = Float.parseFloat(request.getParameter("item_rate"));
 			float mrp = Float.parseFloat(request.getParameter("item_mrp"));
 			int uomId = Integer.parseInt(request.getParameter("item_uom"));
-			int itemWeight=Integer.parseInt(request.getParameter("item_weight"));
-			
+			int itemWeight = Integer.parseInt(request.getParameter("item_weight"));
+
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 
@@ -296,8 +300,8 @@ public class MasterController {
 				e.printStackTrace();
 
 			}
-			
-			Item item=new Item();
+
+			Item item = new Item();
 			item.setItemId(itemId);
 			item.setCatId(catId);
 			item.setIsUsed(1);
@@ -311,26 +315,25 @@ public class MasterController {
 			item.setItemRate(rate);
 			item.setItemUomId(uomId);
 			item.setItemWt(itemWeight);
-			
-			System.err.println("Item " +item.toString());
-		
-			//saveItem
-			
-			Item itemInsertRes= rest.postForObject(Constants.url + "saveItem", item, Item.class);
-			
-		}catch (Exception e) {
-			
+
+			System.err.println("Item " + item.toString());
+
+			// saveItem
+
+			Item itemInsertRes = rest.postForObject(Constants.url + "saveItem", item, Item.class);
+
+		} catch (Exception e) {
+
 			System.err.println("Exc in insertItem  " + e.getMessage());
 			e.printStackTrace();
 
 		}
 		return "redirect:/showItemList";
-	
+
 	}
-	
-	////showItemiIst
-	
-	
+
+	//// showItemiIst
+
 	@RequestMapping(value = "/showItemList", method = RequestMethod.GET)
 	public ModelAndView showItemListMethod(HttpServletRequest request, HttpServletResponse response) {
 
@@ -365,11 +368,12 @@ public class MasterController {
 		return model;
 
 	}
-	
-	//editItem
-	
+
+	// editItem
+
 	@RequestMapping(value = "/editItem/{itemId}", method = RequestMethod.GET)
-	public ModelAndView editItemMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int itemId) {
+	public ModelAndView editItemMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int itemId) {
 		ModelAndView model = null;
 		try {
 			model = new ModelAndView("masters/additem");
@@ -378,9 +382,9 @@ public class MasterController {
 			map.add("itemId", itemId);
 
 			Item editItem = rest.postForObject(Constants.url + "getItemByItemId", map, Item.class);
-			
-			model.addObject("editItem",editItem);
-			
+
+			model.addObject("editItem", editItem);
+
 			Locale locale = LocaleContextHolder.getLocale();
 
 			// System.err.println("current language is - " + locale.toString());
@@ -394,14 +398,14 @@ public class MasterController {
 			model.addObject("langSelected", langSelected);
 
 			// getAllCatByIsUsed
-			
+
 			Category[] catRes = rest.getForObject(Constants.url + "getAllCatByIsUsed", Category[].class);
 			catList = new ArrayList<Category>(Arrays.asList(catRes));
 
 			model.addObject("catList", catList);
 
 			// getAllItemHsnByIsUsed
-			
+
 			ItemHsn[] itemHsn = rest.getForObject(Constants.url + "getAllItemHsnByIsUsed", ItemHsn[].class);
 			iHsnList = new ArrayList<ItemHsn>(Arrays.asList(itemHsn));
 
@@ -415,8 +419,6 @@ public class MasterController {
 			model.addObject("uomList", uomList);
 			model.addObject("imgUrl", Constants.ITEM_FOLDER);
 
-
-
 		} catch (Exception e) {
 
 			System.err.println("Exception in /editItem{itemId} @MastContr  " + e.getMessage());
@@ -427,32 +429,28 @@ public class MasterController {
 
 	}
 
-	
-//deleteItem
-	
-		@RequestMapping(value = "/deleteItem/{itemId}", method = RequestMethod.GET)
-		public String deleteItemMethod(HttpServletRequest request, HttpServletResponse response,
-				@PathVariable int itemId) {
+	// deleteItem
 
-			try {
+	@RequestMapping(value = "/deleteItem/{itemId}", method = RequestMethod.GET)
+	public String deleteItemMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int itemId) {
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		try {
 
-				map.add("itemId", itemId);
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteItem", map, ErrorMessage.class);
+			map.add("itemId", itemId);
 
-			} catch (Exception e) {
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteItem", map, ErrorMessage.class);
 
-				System.err.println("Exception in /deleteCategory @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
 
-			return "redirect:/showAddCat";
-
+			System.err.println("Exception in /deleteCategory @MastContr  " + e.getMessage());
+			e.printStackTrace();
 		}
 
-	
+		return "redirect:/showAddCat";
+
+	}
 
 	@RequestMapping(value = "/showAddMSUser", method = RequestMethod.GET)
 	public ModelAndView showAddMSUserMethod(HttpServletRequest request, HttpServletResponse response) {
@@ -959,8 +957,8 @@ public class MasterController {
 		return "redirect:/showAddRoute";
 
 	}
-	
-	//showAddItemHsn
+
+	// showAddItemHsn
 	@RequestMapping(value = "/showAddItemHsn", method = RequestMethod.GET)
 	public ModelAndView showAddItemHsnMethod(HttpServletRequest request, HttpServletResponse response) {
 
@@ -995,8 +993,8 @@ public class MasterController {
 		return model;
 
 	}
-	//insertHsnCode
-	
+	// insertHsnCode
+
 	@RequestMapping(value = "/insertHsnCode", method = RequestMethod.POST)
 	public String insertHsnCodeMethod(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1004,13 +1002,13 @@ public class MasterController {
 
 			int hsnId = Integer.parseInt(request.getParameter("hsn_id"));
 			System.err.println("hsnId Id  " + hsnId);
-			String hsnCode  = request.getParameter("hsn_code");
-			
+			String hsnCode = request.getParameter("hsn_code");
+
 			float cgst = Float.parseFloat(request.getParameter("cgst"));
 			float sgst = Float.parseFloat(request.getParameter("sgst"));
 			float igst = Float.parseFloat(request.getParameter("igst"));
 
-			ItemHsn hsn=new ItemHsn();
+			ItemHsn hsn = new ItemHsn();
 			hsn.setItemHsnId(hsnId);
 
 			hsn.setIsUsed(1);
@@ -1031,179 +1029,388 @@ public class MasterController {
 
 	}
 
-//getEditHsnCode
+	// getEditHsnCode
 	// getEditRoute-ajax
-		@RequestMapping(value = "/getEditHsnCode", method = RequestMethod.GET)
-		public @ResponseBody ItemHsn getEditHsnCodeMethod(HttpServletRequest request, HttpServletResponse response) {
-			ItemHsn hsnCodeEdit = null;
+	@RequestMapping(value = "/getEditHsnCode", method = RequestMethod.GET)
+	public @ResponseBody ItemHsn getEditHsnCodeMethod(HttpServletRequest request, HttpServletResponse response) {
+		ItemHsn hsnCodeEdit = null;
+
+		try {
+
+			int hsnId = Integer.parseInt(request.getParameter("hsnId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("itemHsnId", hsnId);
+
+			hsnCodeEdit = rest.postForObject(Constants.url + "getItemHsnByItemHsnId", map, ItemHsn.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return hsnCodeEdit;
+
+	}
+
+	// deleteHsn
+	@RequestMapping(value = "/deleteHsn/{hsnId}", method = RequestMethod.GET)
+	public String deleteHsnMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int hsnId) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("itemHsnId", hsnId);
+
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteItemHsn", map, ErrorMessage.class);
+
+		} catch (Exception e) {
+
+			System.err.println("Exception in /deleteHsn @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAddItemHsn";
+
+	}
+
+	// showAddUom
+
+	@RequestMapping(value = "/showAddUom", method = RequestMethod.GET)
+	public ModelAndView showAddUomMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+			model = new ModelAndView("masters/adduom");
+
+			Uom[] uomRes = rest.getForObject(Constants.url + "getAllUomByIsUsed", Uom[].class);
+			uomList = new ArrayList<Uom>(Arrays.asList(uomRes));
+
+			model.addObject("uomList", uomList);
+
+			model.addObject("langSelected", langSelected);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
+	// insertUom
+
+	@RequestMapping(value = "/insertUom", method = RequestMethod.POST)
+	public String insertUomMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			int uomId = Integer.parseInt(request.getParameter("uom_id"));
+
+			String uomName = request.getParameter("uom_name");
+
+			System.err.println("Marathi uomName   " + uomName);
+
+			Uom uom = new Uom();
+
+			uom.setIsUsed(1);
+			uom.setUomId(uomId);
+			uom.setUomName(uomName);
+
+			// saveUom
+
+			Uom uomInsertResponse = rest.postForObject(Constants.url + "saveUom", uom, Uom.class);
+
+		} catch (Exception e) {
+			System.err.println("Exception in /insertUom ->saveUom @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/showAddUom";
+	}
+
+	// getEditUom- aJax
+
+	@RequestMapping(value = "/getEditUom", method = RequestMethod.GET)
+	public @ResponseBody Uom getEditUomMethod(HttpServletRequest request, HttpServletResponse response) {
+		Uom uomEdit = null;
+
+		try {
+
+			int uomId = Integer.parseInt(request.getParameter("uomId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("uomId", uomId);
+
+			uomEdit = rest.postForObject(Constants.url + "getUomByUomId", map, Uom.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return uomEdit;
+
+	}
+
+	// deleteUom
+
+	@RequestMapping(value = "/deleteUom/{uomId}", method = RequestMethod.GET)
+	public String deleteUomrMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int uomId) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("uomId", uomId);
+
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteUom", map, ErrorMessage.class);
+
+		} catch (Exception e) {
+
+			System.err.println("Exception in /deleteUom @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAddUom";
+
+	}
+
+	// showAddDriver
+
+	@RequestMapping(value = "/showAddDriver", method = RequestMethod.GET)
+	public ModelAndView showAddDriverMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+
+			Driver[] catRes = rest.getForObject(Constants.url + "getAllDriverByIsUsed", Driver[].class);
+			driverList = new ArrayList<Driver>(Arrays.asList(catRes));
+
+			model = new ModelAndView("masters/driver");
+			
+			model.addObject("langSelected", langSelected);
+			model.addObject("driverList", driverList);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
+	// insertDriver
+	@RequestMapping(value = "/insertDriver", method = RequestMethod.POST)
+	public String insertDriverMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			int driverId = Integer.parseInt(request.getParameter("driver_id"));
+
+			String mrName = request.getParameter("drname_mr");
+			String engName = request.getParameter("drname_eng");
+			String conNo = request.getParameter("contact_no");
+
+			Driver driver = new Driver();
+
+			driver.setDriverContactNo(conNo);
+			driver.setDriverEngName(engName);
+			driver.setDriverId(driverId);
+			driver.setDriverMarName(mrName);
+			driver.setIsUsed(1);
+			
+			System.err.println(" driver Marathi name  " + mrName);
+
+			Driver driverRes = rest.postForObject(Constants.url + "saveDriver", driver, Driver.class);
+
+		} catch (Exception e) {
+			System.err.println("Exception in /insertDriver ->saveDriver @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/showAddDriver";
+	}
+	
+	//getEditDriver
+	
+	@RequestMapping(value = "/getEditDriver", method = RequestMethod.GET)
+	public @ResponseBody Driver getEditDriverMethod(HttpServletRequest request, HttpServletResponse response) {
+		Driver driverEdit = null;
+
+		try {
+			int driverId = Integer.parseInt(request.getParameter("driverId"));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("driverId", driverId);
+			driverEdit = rest.postForObject(Constants.url + "getDriverByDriverId", map, Driver.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return driverEdit;
+
+	}
+	
+
+	// deleteDriver
+		@RequestMapping(value = "/deleteDriver/{driverId}", method = RequestMethod.GET)
+		public String deleteDriverMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int driverId) {
 
 			try {
 
-				int hsnId = Integer.parseInt(request.getParameter("hsnId"));
-
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-				map.add("itemHsnId", hsnId);
+				map.add("driverId", driverId);
 
-				hsnCodeEdit = rest.postForObject(Constants.url + "getItemHsnByItemHsnId", map, ItemHsn.class);
+				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteDriver", map, ErrorMessage.class);
+
+			} catch (Exception e) {
+
+				System.err.println("Exception in /deleteDriver @MastContr  " + e.getMessage());
+				e.printStackTrace();
+			}
+
+			return "redirect:/showAddDriver";
+
+		}
+
+
+	// showAddVehicle
+
+	@RequestMapping(value = "/showAddVehicle", method = RequestMethod.GET)
+	public ModelAndView showAddVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+
+			Vehicle[] vehRes = rest.getForObject(Constants.url + "getAllVehByIsUsed", Vehicle[].class);
+			vehicleList = new ArrayList<Vehicle>(Arrays.asList(vehRes));
+
+			model = new ModelAndView("masters/vehicle");
+			model.addObject("langSelected", langSelected);
+
+			model.addObject("vehicleList", vehicleList);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
+	// insertVehicle
+		@RequestMapping(value = "/insertVehicle", method = RequestMethod.POST)
+		public String insertVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+
+			try {
+
+				int vehicleId = Integer.parseInt(request.getParameter("vehicle_id"));
+
+				String vehNo = request.getParameter("veh_no");
+				int vehOwnBy = Integer.parseInt(request.getParameter("veh_owner"));
+				String vehSerFrom = request.getParameter("veh_ser_from");
+
+				Vehicle vehicle = new Vehicle();
+				
+				vehicle.setIsUsed(1);
+				vehicle.setVehicleId(vehicleId);
+				vehicle.setVehicleInServiceFrom(vehSerFrom);
+				vehicle.setVehicleNo(vehNo);
+				vehicle.setVehicleOwnedBy(vehOwnBy);
+				
+				Vehicle vehRes = rest.postForObject(Constants.url + "saveVehicle", vehicle, Vehicle.class);
+
+			} catch (Exception e) {
+				System.err.println("Exception in /insertVehicle ->saveVehicle @MastContr  " + e.getMessage());
+				e.printStackTrace();
+			}
+			return "redirect:/showAddVehicle";
+		}
+		
+		//getEditVehicle
+		
+		@RequestMapping(value = "/getEditVehicle", method = RequestMethod.GET)
+		public @ResponseBody Vehicle getEditVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+			Vehicle vehicleEdit = null;
+
+			try {
+				int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+				map.add("vehicleId", vehicleId);
+				vehicleEdit = rest.postForObject(Constants.url + "getVehicleByVehId", map, Vehicle.class);
 
 			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
 
-			return hsnCodeEdit;
+			return vehicleEdit;
 
 		}
 		
-		//deleteHsn
-		@RequestMapping(value = "/deleteHsn/{hsnId}", method = RequestMethod.GET)
-		public String deleteHsnMethod(HttpServletRequest request, HttpServletResponse response,
-				@PathVariable int hsnId) {
 
-			try {
+		// deleteVehicle
+			@RequestMapping(value = "/deleteVehicle/{vehicleId}", method = RequestMethod.GET)
+			public String deleteVehicleMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int vehicleId) {
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				try {
 
-				map.add("itemHsnId", hsnId);
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteItemHsn", map, ErrorMessage.class);
+					map.add("vehicleId", vehicleId);
 
-			} catch (Exception e) {
+					ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteVehicle", map, ErrorMessage.class);
 
-				System.err.println("Exception in /deleteHsn @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
+				} catch (Exception e) {
 
-			return "redirect:/showAddItemHsn";
-
-		}
-		
-		
-		
-		//showAddUom
-		
-		@RequestMapping(value = "/showAddUom", method = RequestMethod.GET)
-		public ModelAndView showAddUomMethod(HttpServletRequest request, HttpServletResponse response) {
-
-			ModelAndView model = null;
-			try {
-
-				Locale locale = LocaleContextHolder.getLocale();
-
-				// System.err.println("current language is - " + locale.toString());
-
-				int langSelected = 0;
-
-				if (locale.toString().equalsIgnoreCase("mr")) {
-					langSelected = 1;
+					System.err.println("Exception in /deleteVehicle @MastContr  " + e.getMessage());
+					e.printStackTrace();
 				}
 
-				model = new ModelAndView("masters/adduom");
-				
-				Uom[] uomRes = rest.getForObject(Constants.url + "getAllUomByIsUsed", Uom[].class);
-				uomList = new ArrayList<Uom>(Arrays.asList(uomRes));
+				return "redirect:/showAddVehicle";
 
-				model.addObject("uomList", uomList);
-				
-				model.addObject("langSelected", langSelected);
-
-				
-
-				
-			} catch (Exception e) {
-
-				e.printStackTrace();
 			}
 
-			return model;
-
-		}
-		
-		
-		//insertUom
-		
-		@RequestMapping(value = "/insertUom", method = RequestMethod.POST)
-		public String insertUomMethod(HttpServletRequest request, HttpServletResponse response) {
-
-			try {
-
-				int uomId = Integer.parseInt(request.getParameter("uom_id"));
-
-				String uomName = request.getParameter("uom_name");
-			
-
-				System.err.println("Marathi uomName   " + uomName);
-
-				Uom uom=new Uom();
-				
-				uom.setIsUsed(1);
-				uom.setUomId(uomId);
-				uom.setUomName(uomName);
-				
-				//saveUom 
-				
-				Uom uomInsertResponse = rest.postForObject(Constants.url + "saveUom", uom,
-						Uom.class);
-
-			} catch (Exception e) {
-				System.err.println("Exception in /insertUom ->saveUom @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
-			return "redirect:/showAddUom";
-		}
-
-		// getEditUom- aJax
-
-		@RequestMapping(value = "/getEditUom", method = RequestMethod.GET)
-		public @ResponseBody Uom getEditUomMethod(HttpServletRequest request, HttpServletResponse response) {
-			Uom uomEdit = null;
-
-			try { 
-
-				int uomId = Integer.parseInt(request.getParameter("uomId"));
-
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-				map.add("uomId", uomId);
-
-				uomEdit = rest.postForObject(Constants.url + "getUomByUomId", map, Uom.class);
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-			}
-
-			return uomEdit;
-
-		}
-
-		// deleteUom
-
-		@RequestMapping(value = "/deleteUom/{uomId}", method = RequestMethod.GET)
-		public String deleteUomrMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int uomId) {
-
-			try {
-
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-				map.add("uomId", uomId);
-
-				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteUom", map, ErrorMessage.class);
-
-			} catch (Exception e) {
-
-				System.err.println("Exception in /deleteUom @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
-
-			return "redirect:/showAddUom";
-
-		}
-
-		
-
-		
-	
-	
 }

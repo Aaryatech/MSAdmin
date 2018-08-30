@@ -25,7 +25,9 @@ import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.master.Config;
+import com.ats.msadmin.model.master.ErrorMessage;
 import com.ats.msadmin.model.master.GetItemName;
+import com.ats.msadmin.model.master.GetSetting;
 import com.ats.msadmin.model.master.Hub;
 import com.ats.msadmin.model.master.Setting;
 import com.ats.msadmin.model.user.MahasanghUser;
@@ -39,6 +41,8 @@ public class ItemConfController {
 	private ArrayList<GetItemName> itemList;
 
 	private ArrayList<Config> confList;
+
+	private ArrayList<GetSetting> settingList;
 
 	private String convertTimeFormat(String inputTime) {
 
@@ -240,27 +244,32 @@ public class ItemConfController {
 
 			model.addObject("hubList", hubList);
 
+			// getSettingHubName
+			GetSetting[] setRes = rest.getForObject(Constants.url + "getSettingHubName", GetSetting[].class);
+			settingList = new ArrayList<GetSetting>(Arrays.asList(setRes));
+
+			model.addObject("settingList", settingList);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return model;
 	}
-	
-	//assignConf insert into t_setting
-	
+
+	// assignConf insert into t_setting
+
 	@RequestMapping(value = "/assignConf", method = RequestMethod.POST)
 	public String assignConfMethod(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
 
-			
 			int confId = Integer.parseInt(request.getParameter("sel_conf"));
 
 			String[] selHub = request.getParameterValues("sel_hub[]");
 			StringBuilder sb = new StringBuilder();
-			
-			List<Integer> hubIds=new ArrayList<Integer>();
-			
+
+			List<Integer> hubIds = new ArrayList<Integer>();
+
 			for (int i = 0; i < selHub.length; i++) {
 				sb = sb.append(selHub[i] + ",");
 
@@ -271,19 +280,24 @@ public class ItemConfController {
 			System.out.println("hubs" + hubs);
 			System.out.println("hubIds List" + hubIds);
 			
-		
-			if(hubIds.size()>0) {
-			for(int i=0;i<hubIds.size();i++) {
-				
-				Setting setting=new Setting();
-				setting.setConfigId(confId);
-				setting.setHubId(hubIds.get(i));
-				setting.setIsUsed(1);
-				Setting msUserInsertResponse = rest.postForObject(Constants.url + "saveSetting", setting,
-						Setting.class);
-			}//end of for
+			List<Setting> setList=new ArrayList<Setting>();
 			
-			}//end of if size >0
+ 			if (hubIds.size() > 0) {
+				for (int i = 0; i < hubIds.size(); i++) {
+
+					Setting setting = new Setting();
+					setting.setConfigId(confId);
+					setting.setHubId(hubIds.get(i));
+					setting.setIsUsed(1);
+					setList.add(setting);
+					
+				} // end of for
+
+			} // end of if size >0
+ 			
+ 			ErrorMessage saveSettingList = rest.postForObject(Constants.url + "saveSettingList", setList,
+ 					ErrorMessage.class);
+ 			
 		} catch (Exception e) {
 			System.err.println("Exception in /insertMsUser ->saveMahasnaghUser @MastContr  " + e.getMessage());
 			e.printStackTrace();
@@ -291,5 +305,4 @@ public class ItemConfController {
 		return "redirect:/showAssignConf";
 	}
 
-	
 }

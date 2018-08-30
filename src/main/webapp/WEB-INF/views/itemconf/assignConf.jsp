@@ -215,7 +215,7 @@
 
 							</form>
 
-					<%-- 		<div class="content mt-3">
+							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
@@ -223,7 +223,7 @@
 											<div class="card">
 												<div class="card-header">
 													<strong class="card-title"><spring:message
-															code="label.mhusrList" /></strong>
+															code="label.assignConfList" /></strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -231,40 +231,59 @@
 														<thead>
 															<tr>
 																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.userName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.userType" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th><spring:message code="label.hubsName" /></th>
+																<th><spring:message code="label.confsName" /></th>
+																<th><spring:message code="label.confType" /></th>
+																<th><spring:message code="label.confTypeDesc" /></th>
+																<th><spring:message code="label.hubTime" /></th>
+																<th><spring:message code="label.distTime" /></th>
+																<%-- <th><spring:message code="label.action" /></th> --%>
 															</tr>
 														</thead>
 														<tbody>
-															<c:forEach items="${mhsUsrList}" var="mhsUsr"
+															<c:forEach items="${settingList}" var="setting"
 																varStatus="count">
 																<tr>
 
 																	<td>${count.index+1}</td>
 																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${mhsUsr.msEngName}" />
+																			<c:out value="${setting.hubEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${mhsUsr.msMarName}" />
+																			<c:out value="${setting.hubMarName}" />
 
 																		</c:if></td>
-																	<td>${mhsUsr.msContactNo}</td>
+																		
+																		<td><c:if test="${langSelected == 0}">
+																			<c:out value="${setting.configEngName}" />
 
-																	<c:choose>
-																		<c:when test="${mhsUsr.isAdmin==1}">
+																		</c:if> <c:if test="${langSelected == 1}">
+																			<c:out value="${setting.configMarName}" />
 
-																			<spring:message code="label.admin" var="userType" />
+																		</c:if></td>
+																		
+																		<td><c:if test="${setting.configType == 1}">
+																			<spring:message code="label.dateBasis" />
 
-																		</c:when>
-																		<c:otherwise>
-																			<spring:message code="label.staff" var="userType" />
-																		</c:otherwise>
-																	</c:choose>
-																	<td><c:out value="${userType}" /></td>
+																		</c:if> <c:if test="${setting.configType == 2}">
+																			<spring:message code="label.dayBasis" />
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																		</c:if>
+																		
+																		 <c:if test="${setting.configType == 3}">
+																			<spring:message code="label.dailyBasis" />
+
+																		</c:if>
+																		
+																		</td>
+																		
+																		
+																	<td>${setting.configTypeDetails}</td>
+
+																	<td><c:out value="${setting.hubFromTime} To ${setting.hubToTime}" /></td>
+																	<td><c:out value="${setting.distFromTime} To ${setting.distToTime}" /></td>
+
+																	<%-- <td><div class="fa-hover col-lg-3 col-md-6">
 																			<a href="#" onclick="editMsUser(${mhsUsr.msId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
@@ -275,7 +294,7 @@
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
-
+ --%>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -285,7 +304,7 @@
 										</div>
 									</div>
 								</div>
-							</div> --%>
+							</div>
 
 
 

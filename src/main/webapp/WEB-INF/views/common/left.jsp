@@ -80,6 +80,15 @@
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAssignConf"><spring:message
 									code="label.assignConf" /></a></li>
+									
+									
+										<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddDriver"><spring:message
+									code="label.addDriver" /></a></li>
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddVehicle"><spring:message
+									code="label.addVehicle" /></a></li>
+									
 
 
 
