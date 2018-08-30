@@ -1290,7 +1290,7 @@ public class MasterController {
 
 				map.add("driverId", driverId);
 
-				ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteDriver", map, ErrorMessage.class);
+		 		ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteDriver", map, ErrorMessage.class);
 
 			} catch (Exception e) {
 
