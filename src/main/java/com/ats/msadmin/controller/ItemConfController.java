@@ -39,7 +39,7 @@ public class ItemConfController {
 
 	List<Hub> hubList;
 	private ArrayList<GetItemName> itemList;
-
+ 
 	private ArrayList<Config> confList;
 
 	private ArrayList<GetSetting> settingList;
