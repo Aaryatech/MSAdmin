@@ -89,6 +89,15 @@
 							href="${pageContext.request.contextPath}/showAddVehicle"><spring:message
 									code="label.addVehicle" /></a></li>
 									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAddRouteAllocation"><spring:message
+									code="label.routeAllocation" /></a></li>
+									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showAllocatedRoute"><spring:message
+									code="label.alcrtlist" /></a></li>
+									
+									
 
 
 

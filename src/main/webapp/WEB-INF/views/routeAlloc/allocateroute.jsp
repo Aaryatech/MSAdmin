@@ -141,51 +141,59 @@
 							<strong> <spring:message code="label.routeAllocation" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertVehicle"
+							<form action="${pageContext.request.contextPath}/insertRouteAlloc"
 								method="post" enctype="multipart/form-data">
 								<div class="form-group"></div>
 								<div class="row">
 									
 									<div class="col-md-2">
 										<spring:message code="label.fromDate" /></div><div class="col-md-3"><input type="date" id="from_date"
-												name="from_date" value="0000" /> <span class="error"
+												name="from_date" value="0000" onblur="getData1()" /> <span class="error"
 												aria-live="polite"></span>
 
 									</div>
 									
 									<div class="col-md-2">
 										<spring:message code="label.toDate" /></div><div class="col-md-3"><input type="date" id="to_date"
-												name="to_date" value="1111" onblur="getData()" /> <span class="error"
+												name="to_date" value="1111" onblur="getData1()" /> <span class="error"
 												aria-live="polite"></span>
 
 									</div>
 									
+									
 								</div>
-								<input type="hidden" name="vehicle_id" id="vehicle_id" value="0">
-
-
+								<input type="hidden" name="tr_id" id="tr_id" value="0">
+								<br></br>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-3">
+									<button type="button" class="btn btn-primary" onclick="getData()"
+									style="align-content: center; width: 100px; margin-left: 80px;">
+										<spring:message code="label.submit" />
+									</button>
+									</div>
+									
+</div>
+<br></br>
 
 
 								<div class="row">
-									<div class="col-lg-6">
-
-										<div class="card-body text-secondary">
+									
+										<div class="col-md-2">
 											<spring:message code="label.routeName" />
-											&nbsp;&nbsp; <select data-placeholder=""
-												class="standardSelect" name="route_name" id="route_name"
+											</div><div class="col-md-3"> <select data-placeholder="" style="width: 250px;"
+												class="form-control" name="route_name" id="route_name"
 												oninvalid="setCustomValidity('Please Select Route Name ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
 												
 											</select> <span class="error" aria-live="polite"></span>
 										</div>
 
-									</div>
-									<div class="col-lg-6 ">
-
-										<div class="card-body text-secondary">
+								&nbsp;&nbsp;
+										<div class="col-md-2">
 											<spring:message code="label.vehNo" />
-											&nbsp;&nbsp;<select data-placeholder=""
-												class="standardSelect" name="veh_no" id="veh_no"
+											</div><div class="col-md-3"><select data-placeholder="" style="width: 250px;"
+												class="form-control" name="veh_no" id="veh_no"
 												oninvalid="setCustomValidity('Please Select Vehicle No ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
 												
@@ -194,24 +202,52 @@
 
 									</div>
 
+								
+								<br></br>
+								
+								<div class="row">
+
+										<div class="col-md-2">
+											<spring:message code="label.routeSupName" />
+											 </div><div class="col-md-3"><select data-placeholder="" style="width: 250px;"
+												class="form-control" name="sup_name" id="sup_name"
+												oninvalid="setCustomValidity('Please Select Route Supervisior ')"
+												onchange="try{setCustomValidity('')}catch(e){}">
+												
+											</select> <span class="error" aria-live="polite"></span>
+										</div>
+
+&nbsp;&nbsp;
+										<div class="col-md-2">
+											<spring:message code="label.driverName" />
+											</div><div class="col-md-3"><select data-placeholder=""  style="width: 250px;"
+												class="form-control" name="driver_name" id="driver_name"
+												oninvalid="setCustomValidity('Please Select Driver')"
+												onchange="try{setCustomValidity('')}catch(e){}">
+												
+											</select> <span class="error" aria-live="polite"></span>
+										</div>
+
+
 								</div>
 								
 								
+								
+<br></br>
 
 
 
-
-								<%-- <div class="col-lg-12" align="center">
+								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
-								</div> --%>
+								</div>
 
 							</form>
 
-							<div class="content mt-3">
+			<%-- 				<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
@@ -272,7 +308,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> --%>
 
 
 
@@ -365,12 +401,14 @@
 	<script type="text/javascript">
 	
 	function getData() {
-		alert("Hi");
+		//alert("Hi");
 		 var fromDate=document.getElementById("from_date").value;
-		var toDate=document.getElementById("to_date").value;
+		 var  toDate=document.getElementById("to_date").value;
 
-		alert("from Date " +fromDate);
-		alert("toDate " +toDate);
+		//alert("from Date " +fromDate);
+		//alert("toDate " +toDate);
+		
+		if(toDate!=null || toDate!=""){
 		
 $.getJSON('${getRouteAllocData}',{
 			
@@ -381,11 +419,81 @@ $.getJSON('${getRouteAllocData}',{
 		},
 		
 		function(data){
-		alert(data[0].routeEngName);
+		//alert(data.vehicleList);
+				var selLang=${langSelected};
 
+		
+		var html = '<option value="" selected >Select Route</option>';
+		
+		var len = data.routeList.length;
+		
+		//alert(selLang);
+		var routeName;
+		for ( var i = 0; i < len; i++) {
+			if(selLang==0){
+				routeName=data.routeList[i].routeEngName;
+			}else{
+				routeName=data.routeList[i].routeMarName;
+			}
+			html += '<option value="' + data.routeList[i].routeId + '">'
+					+ routeName+ '</option>';
+		}
+		html += '</option>';
+		$('#route_name').html(html);
+		
+		
+		var  html1 = '<option value="" selected >Select Vehicle No</option>';
+		 var len1 = data.vehicleList.length;
+		 
+		for ( var j = 0; j < len1; j++) {
+			
+			html1 += '<option value="' + data.vehicleList[j].vehicleId + '">'
+					+ data.vehicleList[j].vehicleNo + '</option>';
+		}
+		html1 += '</option>';
+		$('#veh_no').html(html1);
+
+		var supName;
+		 html = '<option value="" selected >Select Route Supervisor</option>';
+		 len = data.routeSupList.length;
+		for ( var i = 0; i < len; i++) {
+			if(selLang==0){
+				supName=data.routeSupList[i].supEngName;
+			}else{
+				supName=data.routeSupList[i].supMarName;
+			}
+			
+			html += '<option value="' + data.routeSupList[i].supId + '">'
+					+supName+ '</option>';
+		}
+		html += '</option>';
+		$('#sup_name').html(html);
+		//$('#sup_name').formcontrol('refresh');
+		
+		var driverName;
+		
+		 html = '<option value="" selected >Select Driver</option>';
+		 len = data.driverList.length;
+		for ( var i = 0; i < len; i++) {
+			
+			if(selLang==0){
+				driverName=data.driverList[i].driverEngName;
+			}else{
+				driverName=data.driverList[i].driverMarName;
+			}
+			
+			html += '<option value="' + data.driverList[i].driverId + '">'
+					+driverName+ '</option>';
+		}
+		html += '</option>';
+		$('#driver_name').html(html);
+		$('#driver_name').formcontrol('refresh');
+		
+		
 		});
 		
 		
+		}//end of if
 		
 		
 		
