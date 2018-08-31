@@ -12,6 +12,7 @@ import javax.crypto.SealedObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -33,6 +34,7 @@ import com.ats.msadmin.model.master.Setting;
 import com.ats.msadmin.model.user.MahasanghUser;
 
 @Controller
+@Scope("session")
 public class ItemConfController {
 
 	RestTemplate rest = new RestTemplate();

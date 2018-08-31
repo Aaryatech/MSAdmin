@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -44,6 +45,7 @@ import com.ats.msadmin.model.master.Vehicle;
 import com.ats.msadmin.model.user.MahasanghUser;
 
 @Controller
+@Scope("session")
 public class MasterController {
 	RestTemplate rest = new RestTemplate();
 	//

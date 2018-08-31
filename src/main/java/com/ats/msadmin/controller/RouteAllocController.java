@@ -1,17 +1,14 @@
 package com.ats.msadmin.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FilenameUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,16 +16,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.DateConvertor;
-import com.ats.msadmin.common.VpsImageUpload;
-import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.master.DatewiseRoute;
 import com.ats.msadmin.model.master.Driver;
 import com.ats.msadmin.model.master.GetRoute;
@@ -37,6 +30,7 @@ import com.ats.msadmin.model.master.RouteAllocation;
 import com.ats.msadmin.model.master.RouteAllocationWithName;
 import com.ats.msadmin.model.master.Vehicle;
 
+@Scope("session")
 @Controller
 public class RouteAllocController {
 	RestTemplate rest = new RestTemplate();

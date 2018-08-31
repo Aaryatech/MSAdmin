@@ -98,7 +98,13 @@
 									code="label.alcrtlist" /></a></li>
 									
 									
-
+										
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
+									code="label.alcrtlist" /></a></li>
+									
+									
+s
 
 
 						<!-- <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
