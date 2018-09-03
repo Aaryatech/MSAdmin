@@ -51,7 +51,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public ModelAndView translate(HttpServletRequest request, HttpServletResponse response) {
+	public String translate(HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("Inside Login Process");
 		
 		ModelAndView model = null;
@@ -72,15 +72,17 @@ public class HomeController {
 			
 			HttpSession session =request.getSession();
 			session.setAttribute("user", logResMU.getMahasnaghUser());
-			
+			return "redirect:/home";
 		}
 		else {
 			model = new ModelAndView("login");
-			model.addObject("loginErr","Login Failed");
+			model.addObject("loginErr","Invalid Login");
+			
+			return "redirect:/invalidLogin";
 
 		}
 		
-		System.err.println("logResMU" +logResMU.toString());
+		/*System.err.println("logResMU" +logResMU.toString());
 		Locale locale = LocaleContextHolder.getLocale();
 
 		// System.err.println("current language is - " + locale.toString());
@@ -92,11 +94,63 @@ public class HomeController {
 		}
 
 		model.addObject("langSelected", langSelected);
+*/
+		
+
+	}
+	
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		System.out.println("User Logout");
+
+		session.invalidate();
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/sessionTimeOut", method = RequestMethod.GET)
+	public ModelAndView displayLoginAgain(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("login");
+
+		logger.info("/sessionTimeOut request mapping.");
+
+		model.addObject("loginErr", "Session timeout ! Please login again . . .");
 
 		return model;
 
 	}
 	
+	
+	@RequestMapping(value = "/invalidLogin", method = RequestMethod.GET)
+	public ModelAndView invalidLogin(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView model = new ModelAndView("login");
+		try {
+
+			model.addObject("loginErr","Invalid Login Details");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
+		
+		ModelAndView model = new ModelAndView("home");
+		try {
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+	
+
 	
 	
 }

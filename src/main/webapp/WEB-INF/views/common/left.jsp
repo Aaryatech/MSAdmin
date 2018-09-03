@@ -97,14 +97,7 @@
 							href="${pageContext.request.contextPath}/showAllocatedRoute"><spring:message
 									code="label.alcrtlist" /></a></li>
 									
-									<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
-									code="label.orList" /></a></li>
-									
-									<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showOrderHistory"><spring:message
-									code="label.ordHistory" /></a></li>
-									
+								
 
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showStartDistri"><spring:message
@@ -113,28 +106,34 @@
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddNotif"><spring:message
 									code="label.addNotif" /></a></li>
-									
-
-
-						<!-- <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-						<li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-						<li><i class="fa fa-share-square-o"></i><a
-							href="ui-social-buttons.html">Social Buttons</a></li>
-						<li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-						<li><i class="fa fa-exclamation-triangle"></i><a
-							href="ui-alerts.html">Alerts</a></li>
-						<li><i class="fa fa-spinner"></i><a
-							href="ui-progressbar.html">Progress Bars</a></li>
-						<li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-						<li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-						<li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-						<li><i class="fa fa-file-word-o"></i><a
-							href="ui-typgraphy.html">Typography</a></li> -->
+					
 					</ul></li>
+					
+					
+					
+					
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.order" />
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+					
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
+									code="label.orList" /></a></li>
+									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOrderHistory"><spring:message
+									code="label.ordHistory" /></a></li>
+									</ul>
+									</li>
+									
+					
 
 
-				<h3 class="menu-title">Icons</h3>
-				<!-- /.menu-title -->
+			<!-- 	<h3 class="menu-title">Icons</h3>
+				/.menu-title
 
 				<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -172,7 +171,7 @@
 							href="maps-vector.html">Vector Maps</a></li>
 					</ul></li>
 				<h3 class="menu-title">Extras</h3>
-				<!-- /.menu-title -->
+				/.menu-title
 				<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages
@@ -185,7 +184,7 @@
 						<li><i class="menu-icon fa fa-paper-plane"></i><a
 							href="pages-forget.html">Forgotten Password</a></li>
 					</ul></li>
-			</ul>
+			</ul> -->
 		</div>
 		<!-- /.navbar-collapse -->
 	</nav>

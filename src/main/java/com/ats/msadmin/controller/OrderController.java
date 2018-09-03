@@ -258,7 +258,7 @@ public class OrderController {
 
 	}
 
-	// getOrderHistory
+	// getOrderHistory-> by selected hub id and  date
 
 	@RequestMapping(value = "/getOrderHistory", method = RequestMethod.POST)
 	public ModelAndView getOrderHistoryMethod(HttpServletRequest request, HttpServletResponse response) {
@@ -271,7 +271,6 @@ public class OrderController {
 			String date = request.getParameter("date");
 			Locale locale = LocaleContextHolder.getLocale();
 
-			 System.err.println("current date is - " + date);
 
 			int langSelected = 0;
 

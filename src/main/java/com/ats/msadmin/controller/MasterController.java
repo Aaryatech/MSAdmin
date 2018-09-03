@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,9 +40,11 @@ import com.ats.msadmin.model.master.GetRoute;
 import com.ats.msadmin.model.master.Hub;
 import com.ats.msadmin.model.master.Item;
 import com.ats.msadmin.model.master.ItemHsn;
+import com.ats.msadmin.model.master.Notification;
 import com.ats.msadmin.model.master.Route;
 import com.ats.msadmin.model.master.Uom;
 import com.ats.msadmin.model.master.Vehicle;
+import com.ats.msadmin.model.user.LoginResponseMU;
 import com.ats.msadmin.model.user.MahasanghUser;
 
 @Controller
@@ -64,6 +67,8 @@ public class MasterController {
 	private ArrayList<GetItemName> itemList;
 	private ArrayList<Driver> driverList;
 	private ArrayList<Vehicle> vehicleList;
+
+	List<Notification> notifList;
 
 	@RequestMapping(value = "/showAddCat", method = RequestMethod.GET)
 	public ModelAndView showAddCatMethod(HttpServletRequest request, HttpServletResponse response) {
@@ -266,11 +271,11 @@ public class MasterController {
 
 		try {
 
-			int itemId=0;
+			int itemId = 0;
 			try {
-			itemId= Integer.parseInt(request.getParameter("item_id"));
-			}catch (Exception e) {
-				itemId=0;
+				itemId = Integer.parseInt(request.getParameter("item_id"));
+			} catch (Exception e) {
+				itemId = 0;
 			}
 
 			String mrName = request.getParameter("itemMr");
@@ -1215,12 +1220,11 @@ public class MasterController {
 				langSelected = 1;
 			}
 
-
 			Driver[] catRes = rest.getForObject(Constants.url + "getAllDriverByIsUsed", Driver[].class);
 			driverList = new ArrayList<Driver>(Arrays.asList(catRes));
 
 			model = new ModelAndView("masters/driver");
-			
+
 			model.addObject("langSelected", langSelected);
 			model.addObject("driverList", driverList);
 
@@ -1252,7 +1256,7 @@ public class MasterController {
 			driver.setDriverId(driverId);
 			driver.setDriverMarName(mrName);
 			driver.setIsUsed(1);
-			
+
 			System.err.println(" driver Marathi name  " + mrName);
 
 			Driver driverRes = rest.postForObject(Constants.url + "saveDriver", driver, Driver.class);
@@ -1263,9 +1267,9 @@ public class MasterController {
 		}
 		return "redirect:/showAddDriver";
 	}
-	
-	//getEditDriver
-	
+
+	// getEditDriver
+
 	@RequestMapping(value = "/getEditDriver", method = RequestMethod.GET)
 	public @ResponseBody Driver getEditDriverMethod(HttpServletRequest request, HttpServletResponse response) {
 		Driver driverEdit = null;
@@ -1285,30 +1289,29 @@ public class MasterController {
 		return driverEdit;
 
 	}
-	
 
 	// deleteDriver
-		@RequestMapping(value = "/deleteDriver/{driverId}", method = RequestMethod.GET)
-		public String deleteDriverMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int driverId) {
+	@RequestMapping(value = "/deleteDriver/{driverId}", method = RequestMethod.GET)
+	public String deleteDriverMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int driverId) {
 
-			try {
+		try {
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-				map.add("driverId", driverId);
+			map.add("driverId", driverId);
 
-		 		ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteDriver", map, ErrorMessage.class);
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteDriver", map, ErrorMessage.class);
 
-			} catch (Exception e) {
+		} catch (Exception e) {
 
-				System.err.println("Exception in /deleteDriver @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
-
-			return "redirect:/showAddDriver";
-
+			System.err.println("Exception in /deleteDriver @MastContr  " + e.getMessage());
+			e.printStackTrace();
 		}
 
+		return "redirect:/showAddDriver";
+
+	}
 
 	// showAddVehicle
 
@@ -1328,7 +1331,6 @@ public class MasterController {
 				langSelected = 1;
 			}
 
-
 			Vehicle[] vehRes = rest.getForObject(Constants.url + "getAllVehByIsUsed", Vehicle[].class);
 			vehicleList = new ArrayList<Vehicle>(Arrays.asList(vehRes));
 
@@ -1347,122 +1349,226 @@ public class MasterController {
 	}
 
 	// insertVehicle
-		@RequestMapping(value = "/insertVehicle", method = RequestMethod.POST)
-		public String insertVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/insertVehicle", method = RequestMethod.POST)
+	public String insertVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			int vehicleId = Integer.parseInt(request.getParameter("vehicle_id"));
+
+			String vehNo = request.getParameter("veh_no");
+			int vehOwnBy = Integer.parseInt(request.getParameter("veh_owner"));
+			String vehSerFrom = request.getParameter("veh_ser_from");
+
+			Vehicle vehicle = new Vehicle();
+
+			vehicle.setIsUsed(1);
+			vehicle.setVehicleId(vehicleId);
+			vehicle.setVehicleInServiceFrom(vehSerFrom);
+			vehicle.setVehicleNo(vehNo);
+			vehicle.setVehicleOwnedBy(vehOwnBy);
+
+			Vehicle vehRes = rest.postForObject(Constants.url + "saveVehicle", vehicle, Vehicle.class);
+
+		} catch (Exception e) {
+			System.err.println("Exception in /insertVehicle ->saveVehicle @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/showAddVehicle";
+	}
+
+	// getEditVehicle
+
+	@RequestMapping(value = "/getEditVehicle", method = RequestMethod.GET)
+	public @ResponseBody Vehicle getEditVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
+		Vehicle vehicleEdit = null;
+
+		try {
+			int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("vehicleId", vehicleId);
+			vehicleEdit = rest.postForObject(Constants.url + "getVehicleByVehId", map, Vehicle.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return vehicleEdit;
+
+	}
+
+	// deleteVehicle
+	@RequestMapping(value = "/deleteVehicle/{vehicleId}", method = RequestMethod.GET)
+	public String deleteVehicleMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int vehicleId) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("vehicleId", vehicleId);
+
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteVehicle", map, ErrorMessage.class);
+
+		} catch (Exception e) {
+
+			System.err.println("Exception in /deleteVehicle @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAddVehicle";
+
+	}
+
+	// Notification
+
+	@RequestMapping(value = "/showAddNotif", method = RequestMethod.GET)
+	public ModelAndView showAddNotifMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+
+			model = new ModelAndView("masters/notification");
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+			model.addObject("langSelected", langSelected);
+
+			// getAllHubByIsUsed
+			Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
+			hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
+
+			model.addObject("hubList", hubList);
+
+			RouteSup[] rSupRes = rest.getForObject(Constants.url + "getAllRsByIsUsed", RouteSup[].class);
+			routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
+
+			model.addObject("routeSupList", routeSupList);
+			
+			// getNotiByNotifiType
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("notifiType", "0,1");
+
+			Notification[] notifRes = rest.postForObject(Constants.url + "getNotiByNotifiType", map,
+					Notification[].class);
+			notifList = new ArrayList<Notification>(Arrays.asList(notifRes));
+
+			model.addObject("notifList", notifList);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
+	// insertNotif
+
+	@RequestMapping(value = "/insertNotif", method = RequestMethod.POST)
+	public String insertNotifMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			String notfText = null;
+			int notiFType = 1;
+
+			HttpSession session = request.getSession();
+			MahasanghUser user = (MahasanghUser) session.getAttribute("user");
+			int notiFrom = user.getMsId();
 
 			try {
 
-				int vehicleId = Integer.parseInt(request.getParameter("vehicle_id"));
+				System.err.println("notifi text marathi " + request.getParameter("notf_mr"));
+				System.err.println("notifi text english " + request.getParameter("notf_eng"));
 
-				String vehNo = request.getParameter("veh_no");
-				int vehOwnBy = Integer.parseInt(request.getParameter("veh_owner"));
-				String vehSerFrom = request.getParameter("veh_ser_from");
+				String langSelected = request.getParameter("lang");
+				System.err.println("lang selected " + langSelected);
 
-				Vehicle vehicle = new Vehicle();
-				
-				vehicle.setIsUsed(1);
-				vehicle.setVehicleId(vehicleId);
-				vehicle.setVehicleInServiceFrom(vehSerFrom);
-				vehicle.setVehicleNo(vehNo);
-				vehicle.setVehicleOwnedBy(vehOwnBy);
-				
-				Vehicle vehRes = rest.postForObject(Constants.url + "saveVehicle", vehicle, Vehicle.class);
+				if (langSelected.equals("0")) {
 
-			} catch (Exception e) {
-				System.err.println("Exception in /insertVehicle ->saveVehicle @MastContr  " + e.getMessage());
-				e.printStackTrace();
-			}
-			return "redirect:/showAddVehicle";
-		}
-		
-		//getEditVehicle
-		
-		@RequestMapping(value = "/getEditVehicle", method = RequestMethod.GET)
-		public @ResponseBody Vehicle getEditVehicleMethod(HttpServletRequest request, HttpServletResponse response) {
-			Vehicle vehicleEdit = null;
+					notfText = request.getParameter("notf_eng");
+				} else {
+					notfText = request.getParameter("notf_mr");
 
-			try {
-				int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-				map.add("vehicleId", vehicleId);
-				vehicleEdit = rest.postForObject(Constants.url + "getVehicleByVehId", map, Vehicle.class);
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-			}
-
-			return vehicleEdit;
-
-		}
-		
-
-		// deleteVehicle
-			@RequestMapping(value = "/deleteVehicle/{vehicleId}", method = RequestMethod.GET)
-			public String deleteVehicleMethod(HttpServletRequest request, HttpServletResponse response, @PathVariable int vehicleId) {
-
-				try {
-
-					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-					map.add("vehicleId", vehicleId);
-
-					ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteVehicle", map, ErrorMessage.class);
-
-				} catch (Exception e) {
-
-					System.err.println("Exception in /deleteVehicle @MastContr  " + e.getMessage());
-					e.printStackTrace();
 				}
 
-				return "redirect:/showAddVehicle";
+			} catch (Exception e) {
+				notfText = request.getParameter("notf_eng");
+				System.err.println("from catch eng " + notfText);
+			}
+
+			System.err.println("notfText " + notfText);
+
+			String[] selHubOrSup = request.getParameterValues("sel_hub");
+
+			System.err.println("selHubOrSup ");
+
+			if (selHubOrSup == null || selHubOrSup.equals("")) {
+
+				notiFType = 0;
+
+				selHubOrSup = request.getParameterValues("sup_name");
+
+				System.err.println("sup name ");
+			}
+			StringBuilder sb = new StringBuilder();
+
+			for (int i = 0; i < selHubOrSup.length; i++) {
+				sb = sb.append(selHubOrSup[i] + ",");
 
 			}
-			
 
-			// Notification
-		
-			
-			
-			@RequestMapping(value = "/showAddNotif", method = RequestMethod.GET)
-			public ModelAndView showAddNotifMethod(HttpServletRequest request, HttpServletResponse response) {
+			String notiTo = sb.toString();
+			notiTo = notiTo.substring(0, notiTo.length() - 1);
 
-				ModelAndView model = null;
-				try {
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(now.getTime());
 
-					model = new ModelAndView("masters/notification");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			String timeStamp = dateFormat.format(cal.getTime());
 
-					Locale locale = LocaleContextHolder.getLocale();
+			List<Notification> notfList = new ArrayList<Notification>();
 
-					// System.err.println("current language is - " + locale.toString());
+			for (int i = 0; i < selHubOrSup.length; i++) {
 
-					int langSelected = 0;
+				Notification notf = new Notification();
 
-					if (locale.toString().equalsIgnoreCase("mr")) {
-						langSelected = 1;
-					}
+				notf.setIsRead(0);
+				notf.setNotifiDate(date);
+				notf.setNotifiDatetime(timeStamp);
+				notf.setNotifiText(notfText);
 
-					model.addObject("langSelected", langSelected);
+				notf.setNotifiFrom(notiFrom);
+				notf.setNotifiTo(Integer.parseInt(selHubOrSup[i]));
 
-					// getAllHubByIsUsed
-					Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
-					hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
-
-					model.addObject("hubList", hubList);
-					
-					
-					RouteSup[] rSupRes = rest.getForObject(Constants.url + "getAllRsByIsUsed", RouteSup[].class);
-					routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
-
-					model.addObject("routeSupList", routeSupList);
-				} catch (Exception e) {
-
-					e.printStackTrace();
-				}
-
-				return model;
-
+				notf.setNotifiType(notiFType);
+				notfList.add(notf);
 			}
+
+			// saveNotifiList
+			List<Notification> notfInsertRes = rest.postForObject(Constants.url + "saveNotifiList", notfList,
+					List.class);
+
+		} catch (Exception e) {
+			System.err.println("Exception in /insertNotif ->saveNotifiList @MastContr  " + e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/showAddNotif";
+	}
 
 }

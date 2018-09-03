@@ -72,11 +72,12 @@ public class DistributionController {
 			DailyDistHeader[] dailyDistRes = rest.postForObject(Constants.url + "getDailyDistByDate", map,
 					DailyDistHeader[].class);
 			dailyDistHeadList = new ArrayList<DailyDistHeader>(Arrays.asList(dailyDistRes));
-
+			
+			datewiseRouteList.get(0)
+			.setCurrDate(DateConvertor.convertToDMY(datewiseRouteList.get(0).getCurrDate()));
+			
 			for (int i = 0; i < datewiseRouteList.get(0).getRouteAllocationList().size(); i++) {
-
-				datewiseRouteList.get(0)
-						.setCurrDate(DateConvertor.convertToDMY(datewiseRouteList.get(i).getCurrDate()));
+				
 				boolean isSameRoute = false;
 				
 				for (int j = 0; j < dailyDistHeadList.size(); j++) {

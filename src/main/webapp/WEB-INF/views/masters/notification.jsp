@@ -37,10 +37,7 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
-<!-- DatePicker -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- css for date picker proper UI -->
+<!-- DatePicker --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- css for date picker proper UI -->
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
@@ -50,9 +47,7 @@
 
 
 <!-- DatePicker -->
-
 </head>
-
 
 <!-- Translate -->
 
@@ -154,9 +149,9 @@
 								<div class="form-group">
 									<spring:message code="label.notif" />
 									<div class="input-group">
-										<input type="radio" checked name="lang" id="lang" value="0"
-											onchange="openDiv(0)"> English <input type="radio"
-											name="lang" id="lang" value="1" onchange="openDiv(1)">
+										<input type="radio" checked name="lang" id="lang" 
+											onchange="openDiv(0)" value="0"> English <input type="radio"
+											name="lang" id="lang"  onchange="openDiv(1)" value="1">
 										Marathi
 									</div>
 								</div>
@@ -179,7 +174,7 @@
 									<spring:message code="label.mrNoti" />
 									<div class="input-group">
 										<input class="form-control" name="notf_mr" id="notf_mr"
-											type="text" required value=""
+											type="text"  
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -194,9 +189,8 @@
 										<div class="input-group">
 											<select data-placeholder="${selHub}" multiple
 												class="standardSelect" name="sel_hub" id="sel_hub"
-												oninvalid="setCustomValidity('Please Select HUbs ')"
+												oninvalid="setCustomValidity('Please Select Hubs ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
-												<option value="-1">Please Select Hub</option>
 
 												<c:forEach items="${hubList}" var="hub">
 
@@ -216,16 +210,16 @@
 									</div>
 
 									<div class="col-md-6">
+									OR &nbsp;
 										<spring:message code="label.routeSupName" />
 										<spring:message code="label.routeSupName" var="selRouteSup" />
 
 										<div class="input-group">
 											<select data-placeholder="${selRouteSup}"
 												class="standardSelect" name="sup_name" id="sup_name"
-												multiple
-												oninvalid="setCustomValidity('Please Select Route Supervisior ')"
+												multiple 
+												oninvalid="setCustomValidity('Please Select Route Supervisiors ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
-												<option value="-1">Please Select Route Supervisor</option>
 												<c:forEach items="${routeSupList}" var="sup">
 
 													<c:choose>
@@ -255,10 +249,12 @@
 
 								<div class="col-lg-12" align="center">
 
-									<button type="submit" class="btn btn-primary"
+									<button type="submit" class="btn btn-primary" onclick="validateForm()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
+																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
+									
 								</div>
 
 							</form>
@@ -266,6 +262,55 @@
 					</div>
 				</div>
 			</div>
+			
+				<div class="content mt-3">
+								<div class="animated fadeIn">
+									<div class="row">
+
+										<div class="col-md-12">
+											<div class="card">
+												<div class="card-header">
+													<strong class="card-title"><spring:message
+															code="label.notifList" /></strong>
+												</div>
+												<div class="card-body">
+													<table id="bootstrap-data-table"
+														class="table table-striped table-bordered">
+														<thead>
+															<tr>
+																<th><spring:message code="label.srNo" /></th>
+																<th><spring:message code="label.notif" /></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${notifList}" var="notif" varStatus="count">
+																<tr>
+
+																	<td>${count.index+1}</td>
+																	
+																	<td>${notif.notifiText}</td>
+																	<%-- <td><div class="fa-hover col-lg-3 col-md-6">
+																			<a href="#" onclick="editCate(${cat.catId})"><i
+																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
+																		</div>
+
+																		<div class="fa-hover col-lg-3 col-md-6">
+																			<a
+																				href="${pageContext.request.contextPath}/deleteCategory/${cat.catId}"
+																				onClick="return confirm('Are you sure want to delete this record');"><i
+																				class="fa fa-trash-o"></i></a>
+																		</div></td> --%>
+
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
 		</div>
@@ -276,41 +321,25 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -344,6 +373,87 @@
 			});
 		});
 	</script>
+	
+	<!-- <script type="text/javascript">
+	
+	function validateForm() {
+		var route=document.getElementById("route_name").value;
+		
+		 var veh=document.getElementById("veh_no").value;
+		var sup=document.getElementById("sup_name").value;
+		 var driver=document.getElementById("driver_name").value;
+	
+		 var valid=true;
+		if(route<0 ){
+			valid=false;
+			alert("Select Route");
+		}
+		else if(veh<0){
+				
+			valid=false;
+			alert("Select Vehicle");
+		}
+		else if(sup<0){
+			valid=false; 	
+			alert("Select Supervisor"); 
+				}
+		else if(driver<0){
+			valid=false; 
+			alert("Select Driver");
+					}
+				
+		if(valid==true){
+					//alert("all true");
+					var form=document.getElementById("route_alloc_form");
+					form.action="${pageContext.request.contextPath}/insertRouteAlloc";
+					form.submit();
+				}
+			
+		}
+	</script>
+	 -->
+	 
+	 <script type="text/javascript">
+	 
+	
+	 $(document).ready(function() { 
+			$('#sel_hub').change(
+					function() {
+						//alert("Hii");
+						var y=$('select#sel_hub option').length;
+						//alert("Y " +y);
+						//$('#sup_name').setAttr('disabled', true);
+						 var x = document.getElementById("sel_hub").length; 
+						// alert("x==" +x);
+						 var p=$('#sel_hub').val();
+						 //alert("P " +p);
+						 
+						 if(p!=null){
+					//	document.getElementById("sup_name").options.length = 0;
+							 //document.getElementById("sup_name").selectedIndex = "-1"; 
+							 
+							 $('#sup_name').setAttr('disabled', true);
+						 }
+						 else{
+							 //document.getElementById("sup_name").options.length=${routeSupList}
+								//$('#sup_name').formcontrol('refresh');
+
+						 }
+ 
+
+					});
+		});
+	 
+	 $(document).ready(function() { 
+			$('#sup_name').change(
+					function() {
+						
+						//document.getElementById("sel_hub").options.length = 0;
+
+					});
+		});
+	
+	 </script>
 
 
 
