@@ -16,6 +16,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,7 @@ import com.ats.msadmin.model.master.Driver;
 import com.ats.msadmin.model.master.GetRoute;
 import com.ats.msadmin.model.master.RouteAlloCommonBean;
 import com.ats.msadmin.model.master.RouteAllocation;
+import com.ats.msadmin.model.master.RouteAllocationWithName;
 import com.ats.msadmin.model.master.Vehicle;
 
 @Controller
@@ -143,7 +145,13 @@ public class RouteAllocController {
 		try {
 				
 		//when edit get this	
-			//int catId = Integer.parseInt(request.getParameter("cat_id"));
+			int trId=0;
+			try {
+			trId = Integer.parseInt(request.getParameter("tr_id"));
+			}catch (Exception e) {
+				trId=0;
+				
+			}
 			//System.err.println("cat Id  " + catId);
 			
 			String fromDate = request.getParameter("from_date");
@@ -158,6 +166,8 @@ public class RouteAllocController {
 			
 			//routeAllo.setFromDate(DateConvertor.convertToYMD(fromDate));
 			//routeAllo.setToDate(DateConvertor.convertToYMD(toDate));
+			
+			routeAllo.setTrId(trId);
 			routeAllo.setFromDate(fromDate);
 			routeAllo.setToDate(toDate);
 			routeAllo.setRouteId(routeId);
@@ -201,8 +211,14 @@ public class RouteAllocController {
 			
 			//getRouteAllocationDatewise
 			
-			DatewiseRoute[] catRes = rest.getForObject(Constants.url + "getRouteAllocationDatewise",  DatewiseRoute[].class);
-			datewiseRouteList = new ArrayList<DatewiseRoute>(Arrays.asList(catRes));
+			DatewiseRoute[] dateWiseRouteAll = rest.getForObject(Constants.url + "getRouteAllocationDatewise",  DatewiseRoute[].class);
+			datewiseRouteList = new ArrayList<DatewiseRoute>(Arrays.asList(dateWiseRouteAll));
+			
+			for(int i=0;i<datewiseRouteList.size();i++) {
+				
+				datewiseRouteList.get(i).setCurrDate(DateConvertor.convertToDMY(datewiseRouteList.get(i).getCurrDate()));
+				
+			}
 
 			model.addObject("datewiseRouteList",datewiseRouteList);
 			System.err.println("datewiseRouteList " +datewiseRouteList.toString());
@@ -211,6 +227,83 @@ public class RouteAllocController {
 
 			e.printStackTrace();
 		} 
+
+		return model;
+
+	}
+
+	
+	//editRoutealloc
+	
+	@RequestMapping(value = "/editRoutealloc/{trId}", method = RequestMethod.GET)
+	public ModelAndView editRouteallocMethod(HttpServletRequest request, HttpServletResponse response,@PathVariable int trId) {
+
+		ModelAndView model = null;
+		try {
+
+			model = new ModelAndView("routeAlloc/allocateroute");
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+			model.addObject("langSelected", langSelected);
+			
+			RouteAllocationWithName rAlWithName=new RouteAllocationWithName();
+			for(int i=0;i<datewiseRouteList.get(i).getRouteAllocationList().size();i++) {
+				
+				if(datewiseRouteList.get(i).getRouteAllocationList().get(i).getTrId()==trId) {
+					
+					 rAlWithName=datewiseRouteList.get(i).getRouteAllocationList().get(i);
+					break;
+				}
+				
+			}//end of for
+			
+			System.err.println("RAWN BEAN "+rAlWithName.toString()); 
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			//map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+			//map.add("toDate", DateConvertor.convertToYMD(toDate));
+			
+			map.add("fromDate", rAlWithName.getFromDate());
+			map.add("toDate", rAlWithName.getToDate());
+
+			GetRoute[] routeRes = rest.postForObject(Constants.url + "getRouteBetDate", map, GetRoute[].class);
+			routeList = new ArrayList<GetRoute>(Arrays.asList(routeRes));
+			
+			System.err.println("routeList for edit  " +routeList.toString());
+
+			Vehicle[] vehRes = rest.postForObject(Constants.url + "getVehicleBetDate", map, Vehicle[].class);
+			vehicleList = new ArrayList<Vehicle>(Arrays.asList(vehRes));
+			System.err.println("vehicleList for edit  " +vehicleList.toString());
+
+			RouteSup[] rSupRes = rest.postForObject(Constants.url + "getSupBetDate", map, RouteSup[].class);
+			routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
+			System.err.println("routeSupList for edit  " +routeSupList.toString());
+
+			Driver[] drRes = rest.postForObject(Constants.url + "getDriverBetDate", map, Driver[].class);
+			driverList = new ArrayList<Driver>(Arrays.asList(drRes));
+			
+			System.err.println("driverList for edit  " +driverList.toString());
+
+			
+			model.addObject("routeList",routeList);
+			model.addObject("vehicleList",vehicleList);
+			model.addObject("routeSupList",routeSupList);
+			model.addObject("driverList",driverList);
+			model.addObject("editRouteAll",rAlWithName);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 
 		return model;
 

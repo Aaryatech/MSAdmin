@@ -68,30 +68,35 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<h4><spring:message
-															code="label.alcrtlist" /></h4>
+				<h4>
+					<spring:message code="label.alcrtlist" />
+				</h4>
 			</div>
 			<div class="card-body">
 				<div class="custom-tab">
 
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-						
+
 							<a class="nav-item nav-link active" id="custom-nav-home-tab"
 								data-toggle="tab" href="#custom-nav-home" role="tab"
 								aria-controls="custom-nav-home" aria-selected="true">${datewiseRouteList[0].currDate}</a>
-								
+
 							<a class="nav-item nav-link" id="custom-nav-profile-tab"
 								data-toggle="tab" href="#custom-nav-profile" role="tab"
 								aria-controls="custom-nav-profile" aria-selected="false">${datewiseRouteList[1].currDate}</a>
 							<a class="nav-item nav-link" id="custom-nav-contact-tab"
 								data-toggle="tab" href="#custom-nav-contact" role="tab"
 								aria-controls="custom-nav-contact" aria-selected="false">${datewiseRouteList[2].currDate}</a>
-								
-								
-								   <a class="nav-item nav-link" id="custom-nav-day4-tab" data-toggle="tab" href="#custom-nav-day4" role="tab" aria-controls="custom-nav-day4" aria-selected="false">${datewiseRouteList[3].currDate}</a>
-                                           <a class="nav-item nav-link" id="custom-nav-day5-tab" data-toggle="tab" href="#custom-nav-day5" role="tab" aria-controls="custom-nav-day5" aria-selected="false">${datewiseRouteList[4].currDate}</a>
-                                           
+
+
+							<a class="nav-item nav-link" id="custom-nav-day4-tab"
+								data-toggle="tab" href="#custom-nav-day4" role="tab"
+								aria-controls="custom-nav-day4" aria-selected="false">${datewiseRouteList[3].currDate}</a>
+							<a class="nav-item nav-link" id="custom-nav-day5-tab"
+								data-toggle="tab" href="#custom-nav-day5" role="tab"
+								aria-controls="custom-nav-day5" aria-selected="false">${datewiseRouteList[4].currDate}</a>
+
 						</div>
 					</nav>
 					<div class="tab-content pl-3 pt-2" id="nav-tabContent">
@@ -105,8 +110,10 @@
 										<div class="col-md-12">
 											<div class="card">
 												<div class="card-header">
-													<strong class="card-title"><%-- <spring:message
-															code="label.alcrtlist" /> --%></strong>
+													<strong class="card-title">
+														<%-- <spring:message
+															code="label.alcrtlist" /> --%>
+													</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -148,17 +155,17 @@
 																	<td>${routeAl.vehicleNo}</td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${routeAl.trId})"><i
+																			<a
+																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${routeAl.trId}"
+																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
-
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -174,7 +181,6 @@
 						<div class="tab-pane fade" id="custom-nav-profile" role="tabpanel"
 							aria-labelledby="custom-nav-profile-tab">
 							<p>
-							
 							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
@@ -182,8 +188,10 @@
 										<div class="col-md-12">
 											<div class="card">
 												<div class="card-header">
-													<strong class="card-title"><%-- <spring:message
-															code="label.alcrtlist" /> --%></strong>
+													<strong class="card-title">
+														<%-- <spring:message
+															code="label.alcrtlist" /> --%>
+													</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -225,17 +233,17 @@
 																	<td>${routeAl.vehicleNo}</td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${routeAl.trId})"><i
+																			<a
+																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${routeAl.trId}"
+																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
-
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -246,20 +254,23 @@
 									</div>
 								</div>
 							</div>
-							
+
 							</p>
 						</div>
 						<div class="tab-pane fade" id="custom-nav-contact" role="tabpanel"
 							aria-labelledby="custom-nav-contact-tab">
-							<p><div class="content mt-3">
+							<p>
+							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
 										<div class="col-md-12">
 											<div class="card">
 												<div class="card-header">
-													<strong class="card-title"><%-- <spring:message
-															code="label.alcrtlist" /> --%></strong>
+													<strong class="card-title">
+														<%-- <spring:message
+															code="label.alcrtlist" /> --%>
+													</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -301,17 +312,17 @@
 																	<td>${routeAl.vehicleNo}</td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${routeAl.trId})"><i
+																			<a
+																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${routeAl.trId}"
+																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
-
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -323,21 +334,25 @@
 								</div>
 							</div>
 							</p>
-							
-							</div>
-				
-							
-							<div class="tab-pane fade" id="custom-nav-day4" role="tabpanel" aria-labelledby="custom-nav-day4-tab">
-							
-							<p><div class="content mt-3">
+
+						</div>
+
+
+						<div class="tab-pane fade" id="custom-nav-day4" role="tabpanel"
+							aria-labelledby="custom-nav-day4-tab">
+
+							<p>
+							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
 										<div class="col-md-12">
 											<div class="card">
 												<div class="card-header">
-													<strong class="card-title"><%-- <spring:message
-															code="label.alcrtlist" /> --%></strong>
+													<strong class="card-title">
+														<%-- <spring:message
+															code="label.alcrtlist" /> --%>
+													</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -379,17 +394,17 @@
 																	<td>${routeAl.vehicleNo}</td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${routeAl.trId})"><i
+																			<a
+																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${routeAl.trId}"
+																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
-
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -402,20 +417,22 @@
 							</div>
 							</p>
 						</div>
-						
+
 						<!--  Day 5 -->
-						 <div class="tab-pane fade" id="custom-nav-day5" role="tabpanel" aria-labelledby="custom-nav-day5-tab">
-						 <p>
-						 
-						 <div class="content mt-3">
+						<div class="tab-pane fade" id="custom-nav-day5" role="tabpanel"
+							aria-labelledby="custom-nav-day5-tab">
+							<p>
+							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
 
 										<div class="col-md-12">
 											<div class="card">
 												<div class="card-header">
-													<strong class="card-title"><%-- <spring:message
-															code="label.alcrtlist" /> --%></strong>
+													<strong class="card-title">
+														<%-- <spring:message
+															code="label.alcrtlist" /> --%>
+													</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -457,13 +474,14 @@
 																	<td>${routeAl.vehicleNo}</td>
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${routeAl.trId})"><i
+																			<a
+																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${routeAl.trId}"
+																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
@@ -478,11 +496,11 @@
 									</div>
 								</div>
 							</div>
-						 </p>
-						 
-						 </div>
-						
-						
+							</p>
+
+						</div>
+
+
 					</div>
 
 				</div>
@@ -531,30 +549,30 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-    </script>
+		jQuery(document).ready(function() {
+			jQuery(".standardSelect").chosen({
+				disable_search_threshold : 10,
+				no_results_text : "Oops, nothing found!",
+				width : "100%"
+			});
+		});
+	</script>
 
 	<script type="text/javascript">
-        $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-        } );
-    </script>
+		$(document).ready(function() {
+			$('#bootstrap-data-table-export').DataTable();
+		});
+	</script>
 
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy'
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
-  } );
-  </script>
+	</script>
 
 
 </body>
