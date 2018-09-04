@@ -104,7 +104,7 @@
 									code="label.alcrtlist" /></a></li>
 									
 									
-s
+
 
 
 						<!-- <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>

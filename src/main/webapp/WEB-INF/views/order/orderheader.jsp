@@ -58,65 +58,12 @@
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script>
-	function OnLoad() {
-		var options = {
-			sourceLanguage : google.elements.transliteration.LanguageCode.ENGLISH,
-			destinationLanguage : [ google.elements.transliteration.LanguageCode.MARATHI ],
-			shortcutKey : 'ctrl+g',
-			transliterationEnabled : true
-		};
 
-		var control = new google.elements.transliteration.TransliterationControl(
-				options);
-		control.makeTransliteratable([ "usrname_mr" ]);
-		var keyVal = 32; // Space key
-		$("#usrname_eng")
-				.on(
-						'keydown',
-						function(event) {
-							if (event.keyCode === 32) {
-								var engText = $("#usrname_eng").val() + " ";
-								var engTextArray = engText.split(" ");
-								$("#usrname_mr")
-										.val(
-												$("#usrname_mr").val()
-														+ engTextArray[engTextArray.length - 2]);
-
-								document.getElementById("usrname_mr").focus();
-								$("#usrname_mr").trigger({
-									type : 'keypress',
-									keyCode : keyVal,
-									which : keyVal,
-									charCode : keyVal
-								});
-							}
-
-							else if ((event.keyCode === 8 || event.keyCode === 46)) {
-								$("#usrname_mr").val("");
-
-								$("#usrname_eng").val("");
-							}
-						});
-
-		$("#usrname_mr").bind("keyup", function(event) {
-			setTimeout(function() {
-				$("#usrname_eng").val($("#usrname_eng").val() + " ");
-				document.getElementById("usrname_eng").focus()
-			}, 0);
-		});
-
-		
-
-	} //end onLoad function
-
-	google.setOnLoadCallback(OnLoad);
-</script>
 <!-- Translate -->
 <script type="text/javascript"
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<body onload="disableSubmit()">
+<body >
 
 
 	<!-- Left Panel -->
@@ -151,7 +98,7 @@
 									<spring:message code="label.chooseHub" />
 									<spring:message code="label.chooseHub" var="selHub" />
 									<div class="input-group">
-										<select data-placeholder="${selHub}" multiple
+										<select data-placeholder="${selHub}" 
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -177,7 +124,7 @@
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
-										disabled
+										
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
@@ -192,7 +139,7 @@
 											<div class="card">
 												<div class="card-header">
 													<strong class="card-title"><spring:message
-															code="label.alcrtlist" /></strong>
+															code="label.toDate" /></strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -200,11 +147,11 @@
 														<thead>
 															<tr>
 																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.distName" /></th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.srNo" /></th>
+																<th><spring:message code="label.srNo" />dname</th>
+																<th><spring:message code="label.srNo" />mo</th>
+																<th><spring:message code="label.srNo" />or to</th>
+																<th><spring:message code="label.srNo" />pend cra</th>
+																<th><spring:message code="label.srNo" />pend amt</th>
 																<th><spring:message code="label.srNo" /></th>
 																
 																<!-- 
@@ -218,49 +165,42 @@
 															</tr>
 														</thead>
 														<tbody>
-															<%-- <c:forEach items="${itemList}" var="item"
+															<c:forEach items="${ordHeaderList}" var="item"
 																varStatus="count">
 																<tr>
 
 																	<td>${count.index+1}</td>
 																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${item.itemEngName}" />
+																			<c:out value="${item.distEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${item.itemMarName}" />
+																			<c:out value="${item.distMarName}" />
 
 
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${item.catEngName}" />
+																	
+																	<td>${item.distContactNo}</td>
+																	<td><c:out value="${item.orderTotal}" /></td>
+																	<td>${item.prevPendingCrateBal}</td>
 
-																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${item.catMarName}" />
-
-
-																		</c:if></td>
-																	<td>${item.itemHsnCode}</td>
-																	<td><c:out value="${item.uomName}" /></td>
-																	<td>${item.itemWt}</td>
-
-																	<td>${item.itemRate}</td>
-																	<td><c:out value="${item.itemMrp}" /></td>
+																	<td>${item.prevPendingAmt}</td>
+																	
 
 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="${pageContext.request.contextPath}/editItem/${item.itemId}" ><i
+																			<a href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}" ><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteItem/${item.itemId}"
+																				href="${pageContext.request.contextPath}/deleteOrder/${item.orderHeaderId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
 
 																</tr>
-															</c:forEach> --%>
+															</c:forEach>
 														</tbody>
 													</table>
 												</div>
@@ -288,52 +228,51 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-<!-- for multiple select  -->
-<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
-
-	<!-- end for multiple select  -->
+  <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-	<!-- for data table search and sorting  -->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-	<!--end  for data table search and sorting  -->
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
+    <script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+        } );
+    </script>
+    
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+	  $('input[id$=datepicker]').datepicker({
+		    dateFormat: 'dd-mm-yy'
 		});
-	</script>
+  } );
+  </script>
 
 	
 </body>
