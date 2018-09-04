@@ -266,7 +266,12 @@ public class MasterController {
 
 		try {
 
-			int itemId = Integer.parseInt(request.getParameter("item_id"));
+			int itemId=0;
+			try {
+			itemId= Integer.parseInt(request.getParameter("item_id"));
+			}catch (Exception e) {
+				itemId=0;
+			}
 
 			String mrName = request.getParameter("itemMr");
 			String engName = request.getParameter("itemEng");

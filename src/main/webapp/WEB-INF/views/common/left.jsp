@@ -97,11 +97,9 @@
 							href="${pageContext.request.contextPath}/showAllocatedRoute"><spring:message
 									code="label.alcrtlist" /></a></li>
 									
-									
-										
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
-									code="label.alcrtlist" /></a></li>
+									code="label.orList" /></a></li>
 									
 									
 

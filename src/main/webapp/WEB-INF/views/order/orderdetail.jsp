@@ -63,7 +63,7 @@
 <script type="text/javascript"
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<body >
+<body>
 
 
 	<!-- Left Panel -->
@@ -88,49 +88,74 @@
 							<strong> <spring:message code="label.itemList" /></strong>
 						</div> --%>
 						<div class="card-body card-block">
-<form action="${pageContext.request.contextPath}/getOrderHeader"
-								id="order_search_form" method="post" enctype="multipart/form-data">
+							
 
 
-<div class="form-group"></div>
 								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.chooseHub" />
-									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="input-group">
-										<select data-placeholder="${selHub}" 
-											class="standardSelect" name="sel_hub" id="sel_hub"
-											oninvalid="setCustomValidity('Please Select HUbs ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
+							
+								<div class="row">
 
-											<c:forEach items="${hubList}" var="hub">
-
-												<c:choose>
-													<c:when test="${langSelected == 0}">
-														<option value="${hub.hubId}">${hub.hubEngName}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${hub.hubId}">${hub.hubMarName}</option>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-
-
-										</select> <span class="error" aria-live="polite"></span>
-
+									<div class="col-md-2">
+										<spring:message code="label.distName" />
+										<span class="error" aria-live="polite"></span>
 									</div>
+									<div class="col-md-3">
+										<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b>
+									</div>
+
+									<div class="col-md-2">
+										<spring:message code="label.contactNo" />
+										<span class="error" aria-live="polite"></span>
+									</div>
+									<div class="col-md-2">
+										<b><c:out value="${ordHeadDetail.distContactNo}"></c:out></b>
+									</div>
+
 								</div>
 								
-								<div class="col-lg-12" align="center">
+								<hr></hr>
+								<div class="row">
+
+									<div class="col-md-2">
+										<spring:message code="label.orderTotal" />
+										<span class="error" aria-live="polite"></span>
+									</div>
+									<div class="col-md-2">
+										<b><c:out value="${ordHeadDetail.orderTotal}"></c:out></b>
+									</div>
+
+									<div class="col-md-2">
+										<spring:message code="label.pendCrates" />
+										<span class="error" aria-live="polite"></span>
+									</div>
+									<div class="col-md-2">
+										<b><c:out value="${ordHeadDetail.prevPendingCrateBal}"></c:out></b>
+									</div>
+									
+									<div class="col-md-2">
+										<spring:message code="label.pendAmt" />
+										<span class="error" aria-live="polite"></span>
+									</div>
+									<div class="col-md-2">
+										<b><c:out value="${ordHeadDetail.prevPendingAmt}"></c:out></b>
+									</div>
+									
+
+								</div>
+								
+
+								<%-- <div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
 										
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
-								</div>
-								
-									</form>
+								</div> --%>
+
+							<form action="${pageContext.request.contextPath}/editOrderProcess"
+								id="order_search_form" method="post"
+								enctype="multipart/form-data">
 							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
@@ -147,59 +172,66 @@
 														<thead>
 															<tr>
 																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.srNo" />dname</th>
-																<th><spring:message code="label.srNo" />mo</th>
-																<th><spring:message code="label.srNo" />or to</th>
-																<th><spring:message code="label.srNo" />pend cra</th>
-																<th><spring:message code="label.srNo" />pend amt</th>
-																<th><spring:message code="label.srNo" /></th>
+																<th><spring:message code="label.name" /></th>
+																<th><spring:message code="label.itemWeight" /></th>
+																<th><spring:message code="label.UOM" /></th>
+																<th><spring:message code="label.itemRate" /></th>
+																<th><spring:message code="label.orderQty" /></th>
 																
-																<!-- 
-																<th>Sr no</th>
-																<th>Dist Name</th>
-																<th>Mob no</th>
-																<th>order tot</th>
-																<th>Pend crates</th>
-																<th>pend amt</th>
-																<th>action</th> -->
+																<th><spring:message code="label.total" /></th>
+ 
+																
 															</tr>
 														</thead>
 														<tbody>
-															<c:forEach items="${ordHeaderList}" var="item"
+															<c:forEach items="${ordHeadDetail.getOrderDetailList}" var="order"
 																varStatus="count">
 																<tr>
 
 																	<td>${count.index+1}</td>
 																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${item.distEngName}" />
+																			<c:out value="${order.itemEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${item.distMarName}" />
-
-
+																			<c:out value="${order.itemMarName}" />
 																		</c:if></td>
 
-																	
-																	<td>${item.distContactNo}</td>
-																	<td><c:out value="${item.orderTotal}" /></td>
-																	<td>${item.prevPendingCrateBal}</td>
 
-																	<td>${item.prevPendingAmt}</td>
-																	
+																	<td>${order.itemWt}</td>
+																	<td><c:out value="${order.uomName}" /></td>
+																	<td>${order.itemRate}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}" ><i
+																	<td style="text-align: center;	"><input  name='hub_ord_qty${order.orderDetailId}'
+											id="hub_ord_qty" type="number" required value="${order.msQty}" min=0  style="width: 75px;"
+											
+											onchange="updateTotal(this.value,${order.orderDetailId},${order.itemRate})" pattern="[0-9]" /> <span
+											
+											class="error" aria-live="polite"></span>
+																	</td>
+																	
+																	<td style="text-align: center;"><input  name='item_total${order.orderDetailId}'
+											id='item_total${order.orderDetailId}' style="width: 90px;" type="number" readonly  required value="${order.itemTotal}" min=0
+											oninvalid="setCustomValidity('Please enter item total')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											
+											class="error" aria-live="polite"></span>
+																	</td>
+
+
+<%-- 																	<td><div class="fa-hover col-lg-3 col-md-6">
+																			<a
+																				href="${pageContext.request.contextPath}/editOrderDetail/${order.orderDetailId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
 																			<a
-																				href="${pageContext.request.contextPath}/deleteOrder/${item.orderHeaderId}"
+																				href="${pageContext.request.contextPath}/deleteOrderDetail/${order.orderDetailId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
 
-																</tr>
+ --%>																</tr>
 															</c:forEach>
 														</tbody>
 													</table>
@@ -211,8 +243,15 @@
 							</div>
 
 
+<div class="col-lg-12" align="center">
 
-
+									<button type="submit" class="btn btn-primary" id="submitButton"
+										
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.submit" />
+									</button>
+								</div>
+</form>
 
 						</div>
 					</div>
@@ -228,27 +267,43 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-  <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
-    <script>
+	<script>
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
                 disable_search_threshold: 10,
@@ -258,22 +313,32 @@
         });
     </script>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
         } );
     </script>
-    
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
   $( function() {
 	  $('input[id$=datepicker]').datepicker({
 		    dateFormat: 'dd-mm-yy'
 		});
   } );
   </script>
+  
+  <script type="text/javascript">
+  function updateTotal(qty,detailId,rate){
+	  var itemTot=qty*parseFloat(rate);
+	  
+	  //$('#item_total'+detailId).value=itemTot;
+	  document.getElementById("item_total"+detailId).value=itemTot.toFixed(2);
+  }
+  
+  </script>
 
-	
+
 </body>
 </html>
