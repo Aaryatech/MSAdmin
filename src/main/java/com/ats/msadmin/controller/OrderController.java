@@ -115,15 +115,14 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping(value = "/editOrder/{ordHeaderId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/editOrder/{ordHeaderId}", method = RequestMethod.GET)
 	public ModelAndView getOrderDetailForEdit(HttpServletRequest request, HttpServletResponse response,@PathVariable int ordHeaderId) {
 
 		ModelAndView model = null;
 		try {
 			model = new ModelAndView("order/orderdetail");
 			
-			int hubId=Integer.parseInt(request.getParameter("sel_hub"));
-			
+					
 			Locale locale = LocaleContextHolder.getLocale();
 
 			// System.err.println("current language is - " + locale.toString());
@@ -135,17 +134,15 @@ public class OrderController {
 			}
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("orderStatus", 1);
-			map.add("orderType", 0);
-			map.add("hubId", hubId);
-
-			// getAllHubByIsUsed
-			GetOrder[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
-					GetOrder[].class);
-			ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
-			System.err.println("ordHeaderList " + ordHeaderList.toString());
+			map.add("orderHeaderId", ordHeaderId);
+		
+			// getOrderByOrderHeaderId
+			GetOrder ordHeadDetail = rest.postForObject(Constants.url + "getOrderByOrderHeaderId", map,
+					GetOrder.class);
+			//ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
+			System.err.println("ordHeadDetail " + ordHeadDetail.toString());
 			model.addObject("hubList", hubList);
-			model.addObject("ordHeaderList", ordHeaderList);
+			model.addObject("ordHeadDetail", ordHeadDetail);
 
 			model.addObject("langSelected", langSelected);
 

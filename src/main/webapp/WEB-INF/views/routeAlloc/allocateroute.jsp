@@ -644,6 +644,15 @@
 
 		}
 	</script>
+	
+	<script>
+  $( function() {
+	  $('input[id$=datepicker]').datepicker({
+		    dateFormat: 'dd-mm-yy'
+		});
+  } );
+  </script>
+    
 
 
 </body>
