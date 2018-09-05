@@ -97,11 +97,11 @@ public class RouteAllocController {
 			System.err.println("From Date  " + fromDate);
 			System.err.println("toDate Date  " + toDate);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			//map.add("fromDate", DateConvertor.convertToYMD(fromDate));
-			//map.add("toDate", DateConvertor.convertToYMD(toDate));
+			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+			map.add("toDate", DateConvertor.convertToYMD(toDate));
 			
-			map.add("fromDate", fromDate);
-			map.add("toDate", toDate);
+			//map.add("fromDate", fromDate);
+			//map.add("toDate", toDate);
 
 			GetRoute[] routeRes = rest.postForObject(Constants.url + "getRouteBetDate", map, GetRoute[].class);
 			routeList = new ArrayList<GetRoute>(Arrays.asList(routeRes));
@@ -158,12 +158,12 @@ public class RouteAllocController {
 			
 			RouteAllocation routeAllo=new RouteAllocation();
 			
-			//routeAllo.setFromDate(DateConvertor.convertToYMD(fromDate));
-			//routeAllo.setToDate(DateConvertor.convertToYMD(toDate));
+			routeAllo.setFromDate(DateConvertor.convertToYMD(fromDate));
+			routeAllo.setToDate(DateConvertor.convertToYMD(toDate));
 			
 			routeAllo.setTrId(trId);
-			routeAllo.setFromDate(fromDate);
-			routeAllo.setToDate(toDate);
+			//routeAllo.setFromDate(fromDate);
+			//routeAllo.setToDate(toDate);
 			routeAllo.setRouteId(routeId);
 			routeAllo.setSupervisorId(supId);
 			routeAllo.setVehicleId(vehicleId);
@@ -177,7 +177,7 @@ public class RouteAllocController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/showAddRouteAllocation";
+		return "redirect:/showAllocatedRoute";
 
 	}
 	

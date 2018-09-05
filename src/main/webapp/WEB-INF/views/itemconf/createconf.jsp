@@ -37,18 +37,14 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
-<!-- DatePicker -->
+<!-- DatePicker --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- css for date picker proper UI -->
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-<script>
-	$(function() {
-		$("#datepicker-12").datepicker();
-	});
-</script>
+
 
 <!-- DatePicker -->
 
@@ -265,7 +261,7 @@
 								<div class="form-group" id="dateDiv">
 									<spring:message code="label.selDate"  />
 									<div class="input-group">
-										<input type="text" id="datepicker-12"  value="0" required oninvalid="setCustomValidity('Please Select Date ')"
+										<input type="text" id="datepicker"  value="0" required oninvalid="setCustomValidity('Please Select Date ')"
 											onchange="try{setCustomValidity('')}catch(e){}"   name="date" class="form-control"> <span class="error" aria-live="polite"></span>
 									</div>
 								</div>
@@ -347,16 +343,25 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -387,7 +392,14 @@
 	}
 	
 	</script>
-	
+	 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+  $( function() {
+	  $('input[id$=datepicker]').datepicker({
+		    dateFormat: 'dd-mm-yy'
+		});
+  } );
+  </script>
 	
 
 

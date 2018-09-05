@@ -40,7 +40,9 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
-
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- css for date picker proper UI -->
 
 
 </head>
@@ -140,39 +142,38 @@
 							<strong> <spring:message code="label.routeAllocation" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form
-								action="${pageContext.request.contextPath}/insertRouteAlloc"
+							<form id="route_alloc_form"
+								
 								method="post" enctype="multipart/form-data">
 								<div class="form-group"></div>
 								<div class="row">
 
-									<div class="col-md-2">
+									<div class="col-md-1">
 										<spring:message code="label.fromDate" />
 									</div>
 									<div class="col-md-3">
-										<input type="date" id="from_date" name="from_date"
-											value="${editRouteAll.fromDate}" onblur="getData1()" /> <span class="error"
-											aria-live="polite"></span>
+										<input type="text" id="from_date" name="from_date"
+											value="${editRouteAll.fromDate}" onblur="getData1()" /> <span
+											class="error" aria-live="polite"></span>
 
 									</div>
 
-									<div class="col-md-2">
+									<div class="col-md-1">
 										<spring:message code="label.toDate" />
 									</div>
 									<div class="col-md-3">
-										<input type="date" id="to_date" name="to_date" value="${editRouteAll.toDate}"
-											onblur="getData1()" /> <span class="error"
-											aria-live="polite"></span>
+										<input type="text" id="to_date" name="to_date"
+											value="${editRouteAll.toDate}" onblur="getData1()" /> <span
+											class="error" aria-live="polite"></span>
 
 									</div>
 
 
-								</div>
-								<input type="hidden" name="tr_id" id="tr_id" value="${editRouteAll.trId}">
+									<!-- </div>
 								<br></br>
-								<div class="row">
-									<div class="col-md-2"></div>
-									<div class="col-md-3">
+									<div class="row"> -->
+									
+									<div class="col-md-1">
 										<button type="button" class="btn btn-primary"
 											onclick="getData()"
 											style="align-content: center; width: 100px; margin-left: 80px;">
@@ -182,7 +183,8 @@
 
 								</div>
 								<br></br>
-
+	<input type="hidden" name="tr_id" id="tr_id"
+									value="${editRouteAll.trId}"> 
 
 								<div class="row">
 
@@ -328,7 +330,7 @@
 
 									&nbsp;&nbsp;
 									<div class="col-md-2">
-										<spring:message code="label.driverName"/>
+										<spring:message code="label.driverName" />
 									</div>
 									<div class="col-md-3">
 										<select data-placeholder="" style="width: 250px;"
@@ -383,7 +385,8 @@
 
 								<div class="col-lg-12" align="center">
 
-									<button type="submit" class="btn btn-primary"
+									<button type="button" class="btn btn-primary"
+										onclick="validateForm()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
@@ -505,56 +508,63 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+
+	<script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+        } );
+    </script>
+
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+  $( function() {
+	  $('input[id$=from_date]').datepicker({
+		    dateFormat: 'dd-mm-yy'
 		});
-	</script>
+  } );
+  
+  $( function() {
+	  $('input[id$=to_date]').datepicker({
+		    dateFormat: 'dd-mm-yy'
+		});
+  } );
+  </script>
 
-	<script type="text/javascript">
-		function editVehicle(vehicleId) {
 
-			//alert(catId);
-
-			$
-					.getJSON(
-							'${getEditVehicle}',
-							{
-
-								vehicleId : vehicleId,
-
-								ajax : 'true',
-
-							},
-
-							function(data) {
-								$("#veh_no").val(data.vehicleNo);
-								document.getElementById("veh_owner").options.selectedIndex = data.vehicleOwnedBy;
-								$("#veh_ser_from").val(
-										data.vehicleInServiceFrom);
-								//$("#veh_owner").val(data.vehicleOwnedBy);
-
-								//hidden field vehicleId
-								$("#vehicle_id").val(data.vehicleId);
-
-							});
-
-		}
-	</script>
 
 	<script type="text/javascript">
 		function getData() {
 			
-			alert("Hi");
+			//alert("Hi");
 			//alert("Hi");
 			var fromDate = document.getElementById("from_date").value;
 			var toDate = document.getElementById("to_date").value;
 
 			//alert("from Date " +fromDate);
 			//alert("toDate " +toDate);
-
+var valid=true;
+		if(fromDate==null || fromDate==""){
+		valid=false;
+		alert("Select From Date");
+		}else if(toDate==null || toDate==""){
+			valid=false;
+			alert("Select To Date");
+		}
 		
+		if(valid==true){
 
 				$
 						.getJSON(
@@ -568,11 +578,11 @@
 								},
 
 								function(data) {
-									alert(data);
+									
 									var selLang = ${langSelected};
 									
 
-									var html = '<option value="" selected >Select Route</option>';
+									var html = '<option value="-1" selected >Select Route</option>';
 
 									var len = data.routeList.length;
 
@@ -590,7 +600,7 @@
 									html += '</option>';
 									$('#route_name').html(html);
 
-									var html1 = '<option value="" selected >Select Vehicle No</option>';
+									var html1 = '<option value="-1" selected >Select Vehicle No</option>';
 									var len1 = data.vehicleList.length;
 
 									for (var j = 0; j < len1; j++) {
@@ -603,7 +613,7 @@
 									$('#veh_no').html(html1);
 
 									var supName;
-									html = '<option value="" selected >Select Route Supervisor</option>';
+									html = '<option value="-1" selected >Select Route Supervisor</option>';
 									len = data.routeSupList.length;
 									for (var i = 0; i < len; i++) {
 										if (selLang == 0) {
@@ -621,7 +631,7 @@
 
 									var driverName;
 
-									html = '<option value="" selected >Select Driver</option>';
+									html = '<option value="-1" selected >Select Driver</option>';
 									len = data.driverList.length;
 									for (var i = 0; i < len; i++) {
 
@@ -640,19 +650,49 @@
 
 								});
 
-			
+		}//end of if
 
 		}
 	</script>
+
+	<script type="text/javascript">
 	
-	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy'
-		});
-  } );
-  </script>
-    
+	function validateForm() {
+		var route=document.getElementById("route_name").value;
+		
+		 var veh=document.getElementById("veh_no").value;
+		var sup=document.getElementById("sup_name").value;
+		 var driver=document.getElementById("driver_name").value;
+	
+		 var valid=true;
+		if(route<0 ){
+			valid=false;
+			alert("Select Route");
+		}
+		else if(veh<0){
+				
+			valid=false;
+			alert("Select Vehicle");
+		}
+		else if(sup<0){
+			valid=false; 	
+			alert("Select Supervisor"); 
+				}
+		else if(driver<0){
+			valid=false; 
+			alert("Select Driver");
+					}
+				
+		if(valid==true){
+					//alert("all true");
+					var form=document.getElementById("route_alloc_form");
+					form.action="${pageContext.request.contextPath}/insertRouteAlloc";
+					form.submit();
+				}
+			
+		}
+	</script>
+
 
 
 </body>

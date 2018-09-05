@@ -244,7 +244,7 @@ public class OrderController {
 			
 			
 			Date now = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			String date = sdf.format(now.getTime());
 			model.addObject("ordDate", date);
 			

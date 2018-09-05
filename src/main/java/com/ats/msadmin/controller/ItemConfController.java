@@ -100,7 +100,7 @@ public class ItemConfController {
 
 	// insertItemConf
 	@RequestMapping(value = "/insertItemConf", method = RequestMethod.POST)
-	public ModelAndView insertItemConfMethod(HttpServletRequest request, HttpServletResponse response) {
+	public String insertItemConfMethod(HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = null;
 		try {
@@ -177,7 +177,7 @@ public class ItemConfController {
 			System.err.println("Exce in insertItemConf @ ItemConfContr " + e.getMessage());
 			e.printStackTrace();
 		}
-		return model;
+		return "redirect:/showConfList";
 	}
 
 	// showConfList
