@@ -28,6 +28,18 @@ public class RouteAllocationWithName {
 	private String driverEngName;
 	private String driverMarName;
 	private String driverContactNo;
+	
+
+	//new temp field to check if  same route already present for current day distribution.. Sachin 5 Sept 2018
+	private int isSameRoute;
+
+	public int getIsSameRoute() {
+		return isSameRoute;
+	}
+
+	public void setIsSameRoute(int isSameRoute) {
+		this.isSameRoute = isSameRoute;
+	}
 
 	public int getTrId() {
 		return trId;
@@ -164,7 +176,7 @@ public class RouteAllocationWithName {
 				+ ", vehicleNo=" + vehicleNo + ", routeEngName=" + routeEngName + ", routeMarName=" + routeMarName
 				+ ", supEngName=" + supEngName + ", supMarName=" + supMarName + ", supContactNo=" + supContactNo
 				+ ", driverEngName=" + driverEngName + ", driverMarName=" + driverMarName + ", driverContactNo="
-				+ driverContactNo + "]";
+				+ driverContactNo + ", isSameRoute=" + isSameRoute + "]";
 	}
 
 }
