@@ -101,8 +101,15 @@
 							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
 									code="label.orList" /></a></li>
 									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOrderHistory"><spring:message
+									code="label.ordHistory" /></a></li>
 									
 
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showStartDistri"><spring:message
+									code="label.startDist" /></a></li>
+									
 
 
 						<!-- <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>

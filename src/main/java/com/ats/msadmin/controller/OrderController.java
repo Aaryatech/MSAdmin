@@ -116,6 +116,7 @@ public class OrderController {
 			model.addObject("ordHeaderList", ordHeaderList);
 
 			model.addObject("langSelected", langSelected);
+			model.addObject("selectedHub", hubId);
 
 		} catch (Exception e) {
 
@@ -239,6 +240,14 @@ public class OrderController {
 
 			model.addObject("hubList", hubList);
 			model.addObject("langSelected", langSelected);
+			
+			
+			
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(now.getTime());
+			model.addObject("ordDate", date);
+			
 
 		} catch (Exception e) {
 
@@ -256,7 +265,7 @@ public class OrderController {
 
 		ModelAndView model = null;
 		try {
-			model = new ModelAndView("order/orderheader");
+			model = new ModelAndView("order/orderhistory");
 
 			int hubId = Integer.parseInt(request.getParameter("sel_hub"));
 			String date = request.getParameter("date");
@@ -288,9 +297,10 @@ public class OrderController {
 			model.addObject("ordHeaderList", ordHeaderList);
 
 			model.addObject("langSelected", langSelected);
-
+			model.addObject("selectedHub", hubId);
+			model.addObject("ordDate", date);
 		} catch (Exception e) {
-
+			//model = new ModelAndView("order/orderhistory");
 			e.printStackTrace();
 		}
 
@@ -304,7 +314,7 @@ public class OrderController {
 
 		ModelAndView model = null;
 		try {
-			model = new ModelAndView("order/orderdetail");
+			model = new ModelAndView("order/ordHistDetail");
 
 			Locale locale = LocaleContextHolder.getLocale();
 

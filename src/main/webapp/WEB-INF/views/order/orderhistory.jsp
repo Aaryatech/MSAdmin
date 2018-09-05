@@ -107,13 +107,26 @@
 											onchange="try{setCustomValidity('')}catch(e){}">
 
 											<c:forEach items="${hubList}" var="hub">
-
-												<c:choose>
+<c:choose>
 													<c:when test="${langSelected == 0}">
-														<option value="${hub.hubId}">${hub.hubEngName}</option>
+														<c:choose>
+															<c:when test="${hub.hubId==selectedHub}">
+																<option selected value="${hub.hubId}">${hub.hubEngName}</option>
+															</c:when>
+															<c:otherwise>
+																<option  value="${hub.hubId}">${hub.hubEngName}</option>
+															</c:otherwise>
+														</c:choose>
 													</c:when>
 													<c:otherwise>
-														<option value="${hub.hubId}">${hub.hubMarName}</option>
+													<c:choose>
+															<c:when test="${hub.hubId==selectedHub}">
+																<option selected value="${hub.hubId}">${hub.hubMarName}</option>
+															</c:when>
+															<c:otherwise>
+																<option  value="${hub.hubId}">${hub.hubMarName}</option>
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
@@ -127,7 +140,7 @@
 									</div>
 									
 									<div class="col-md-1">
-										<input type="text" id="datepicker" name="date"/> <span class="error" aria-live="polite"></span>
+										<input type="text" value="${ordDate}" id="datepicker" name="date"/> <span class="error" aria-live="polite"></span>
 									</div>&nbsp;&nbsp;
 									<div class="col-md-2">
 									
