@@ -13,9 +13,9 @@
 
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
-<link rel="shortcut icon"
+<%-- <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/favicon.ico">
-
+ --%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
 <link rel="stylesheet"

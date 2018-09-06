@@ -1419,5 +1419,50 @@ public class MasterController {
 				return "redirect:/showAddVehicle";
 
 			}
+			
+
+			// Notification
+		
+			
+			
+			@RequestMapping(value = "/showAddNotif", method = RequestMethod.GET)
+			public ModelAndView showAddNotifMethod(HttpServletRequest request, HttpServletResponse response) {
+
+				ModelAndView model = null;
+				try {
+
+					model = new ModelAndView("masters/notification");
+
+					Locale locale = LocaleContextHolder.getLocale();
+
+					// System.err.println("current language is - " + locale.toString());
+
+					int langSelected = 0;
+
+					if (locale.toString().equalsIgnoreCase("mr")) {
+						langSelected = 1;
+					}
+
+					model.addObject("langSelected", langSelected);
+
+					// getAllHubByIsUsed
+					Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
+					hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
+
+					model.addObject("hubList", hubList);
+					
+					
+					RouteSup[] rSupRes = rest.getForObject(Constants.url + "getAllRsByIsUsed", RouteSup[].class);
+					routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
+
+					model.addObject("routeSupList", routeSupList);
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+
+				return model;
+
+			}
 
 }
