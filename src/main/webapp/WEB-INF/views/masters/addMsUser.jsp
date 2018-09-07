@@ -439,7 +439,9 @@
 			temp=(data.hubIds).split(",");
 			//alert(temp);
 			$("#sel_hub").val(temp); 
-			$("#sel_hub").triger("chosen:updated");
+			$("#sel_hub").trigger("chosen:updated");
+			$("#usr_role").trigger("chosen:updated");
+
 			//$('#sel_hub').formcontrol('refresh');
 			
 
