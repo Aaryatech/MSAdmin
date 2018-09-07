@@ -287,7 +287,9 @@ public class RouteAllocController {
 			
 			System.err.println("driverList for edit  " +driverList.toString());
 
-			
+			rAlWithName.setFromDate(DateConvertor.convertToDMY(rAlWithName.getFromDate()));
+			rAlWithName.setToDate(DateConvertor.convertToDMY(rAlWithName.getToDate()));
+
 			model.addObject("routeList",routeList);
 			model.addObject("vehicleList",vehicleList);
 			model.addObject("routeSupList",routeSupList);

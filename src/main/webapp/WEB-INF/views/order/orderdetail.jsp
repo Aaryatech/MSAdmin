@@ -202,7 +202,7 @@
 																	<td>${order.itemRate}</td>
 
 																	<td style="text-align: center;	"><input  name='hub_ord_qty${order.orderDetailId}'
-											id="hub_ord_qty" type="number" required value="${order.msQty}" min=0  style="width: 75px;"
+											id="hub_ord_qty${order.orderDetailId}" type="number" required value="${order.msQty}" min=0  style="width: 75px;"
 											
 											onchange="updateTotal(this.value,${order.orderDetailId},${order.itemRate})" pattern="[0-9]" /> <span
 											
@@ -331,10 +331,17 @@
   
   <script type="text/javascript">
   function updateTotal(qty,detailId,rate){
-	  var itemTot=qty*parseFloat(rate);
 	  
-	  //$('#item_total'+detailId).value=itemTot;
+	  if(qty>=0){
+	  
+		var itemTot=qty*parseFloat(rate);
+	  
 	  document.getElementById("item_total"+detailId).value=itemTot.toFixed(2);
+	  
+	  }else{
+		  
+		  document.getElementById("hub_ord_qty"+detailId).value="0";
+	  }
   }
   
   </script>

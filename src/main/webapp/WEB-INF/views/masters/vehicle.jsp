@@ -40,6 +40,11 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- css for date picker proper UI -->
+	
 
 
 
@@ -196,7 +201,7 @@
                     </div>
                     <div class="col-lg-4 ">
                        
-                           <div class="card-body text-secondary"> <spring:message code="label.inServiceFrom" />&nbsp;&nbsp;<input type='date' id="veh_ser_from" name="veh_ser_from" value="0000" />  <span
+                           <div class="card-body text-secondary"> <spring:message code="label.inServiceFrom" />&nbsp;&nbsp;<input type="text" id="veh_ser_from" name="veh_ser_from" value="0000" />  <span
 											class="error" aria-live="polite"></span></div>
                         
                     </div>
@@ -342,13 +347,40 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+
+	<script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
-		});
-	</script>
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+        } );
+    </script>
 
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+  $( function() {
+	  $('input[id$=veh_ser_from]').datepicker({
+		    dateFormat: 'dd-mm-yy'
+		});
+  } );
+  
+  $( function() {
+	  $('input[id$=to_date]').datepicker({
+		    dateFormat: 'dd-mm-yy'
+		});
+  } );
+  </script>
 	<script type="text/javascript">
 	
 	function editVehicle(vehicleId){
@@ -364,8 +396,11 @@
 		},
 		
 		function(data){
+			
 			$("#veh_no").val(data.vehicleNo);
 			document.getElementById("veh_owner").options.selectedIndex =data.vehicleOwnedBy;
+			//$('#veh_owner').formcontrol('refresh');
+			$("#veh_owner").triger("chosen:updated");
 			$("#veh_ser_from").val(data.vehicleInServiceFrom);
 			//$("#veh_owner").val(data.vehicleOwnedBy);
 			

@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
+import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.common.VpsImageUpload;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.master.Driver;
@@ -1336,6 +1337,11 @@ public class MasterController {
 
 			model = new ModelAndView("masters/vehicle");
 			model.addObject("langSelected", langSelected);
+			
+			for(int i=0;i<vehicleList.size();i++) {
+				
+				vehicleList.get(i).setVehicleInServiceFrom(DateConvertor.convertToDMY(vehicleList.get(i).getVehicleInServiceFrom()));
+			}
 
 			model.addObject("vehicleList", vehicleList);
 
@@ -1364,7 +1370,7 @@ public class MasterController {
 
 			vehicle.setIsUsed(1);
 			vehicle.setVehicleId(vehicleId);
-			vehicle.setVehicleInServiceFrom(vehSerFrom);
+			vehicle.setVehicleInServiceFrom(DateConvertor.convertToYMD(vehSerFrom));
 			vehicle.setVehicleNo(vehNo);
 			vehicle.setVehicleOwnedBy(vehOwnBy);
 
@@ -1389,7 +1395,7 @@ public class MasterController {
 
 			map.add("vehicleId", vehicleId);
 			vehicleEdit = rest.postForObject(Constants.url + "getVehicleByVehId", map, Vehicle.class);
-
+			vehicleEdit.setVehicleInServiceFrom(DateConvertor.convertToDMY(vehicleEdit.getVehicleInServiceFrom()));
 		} catch (Exception e) {
 
 			e.printStackTrace();

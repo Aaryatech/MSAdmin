@@ -204,7 +204,7 @@
 													<c:when test="${langSelected==0}">
 														<c:choose>
 															<c:when test="${route.routeId==editRouteAll.routeId}">
-																<option selected value="${route.routeId}">${route.routeEngName }</option>
+																<option selected value="${route.routeId}">${route.routeEngName}</option>
 
 															</c:when>
 															<c:otherwise>
@@ -254,10 +254,10 @@
 											<c:forEach items="${vehicleList}" var="veh">
 												<c:choose>
 													<c:when test="${editRouteAll.vehicleId==veh.vehicleId}">
-														<option selected value="${veh.vehicleId}">${veh.vehicleNo }</option>
+														<option selected value="${veh.vehicleId}">${veh.vehicleNo}</option>
 													</c:when>
 													<c:otherwise>
-														<option value="${veh.vehicleId}">${veh.vehicleNo }</option>
+														<option value="${veh.vehicleId}">${veh.vehicleNo}</option>
 													</c:otherwise>
 
 												</c:choose>
@@ -291,7 +291,7 @@
 													<c:when test="${langSelected==0}">
 														<c:choose>
 															<c:when test="${sup.supId==editRouteAll.supervisorId}">
-																<option selected value="${sup.supId}">${sup.supEngName }</option>
+																<option selected value="${sup.supId}">${sup.supEngName}</option>
 
 															</c:when>
 															<c:otherwise>
@@ -345,7 +345,7 @@
 													<c:when test="${langSelected==0}">
 														<c:choose>
 															<c:when test="${drList.driverId==editRouteAll.driverId}">
-																<option selected value="${driver.driverId}">${driver.driverEngName }</option>
+																<option selected value="${driver.driverId}">${drList.driverEngName}</option>
 															</c:when>
 															<c:otherwise>
 																<option value="${drList.driverId}">${drList.driverEngName}</option>

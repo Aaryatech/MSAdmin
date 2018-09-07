@@ -48,16 +48,16 @@ public class ItemConfController {
 
 	private String convertTimeFormat(String inputTime) {
 
-		SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm");
+		SimpleDateFormat displayFormat = new SimpleDateFormat("hh:mm a");
+		SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm:ss");
 		Date date = null;
 		try {
 			date = parseFormat.parse(inputTime);
 		} catch (ParseException e) {
-			System.err.println("Exce in convertTimeFormat  " + e.getMessage());
+			//System.err.println("Exce in convertTimeFormat  " + e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("convertTimeFormat" + parseFormat.format(date) + " = " + displayFormat.format(date));
+		//System.out.println("convertTimeFormat" + parseFormat.format(date) + " = " + displayFormat.format(date));
 
 		return displayFormat.format(date);
 	}
@@ -149,13 +149,14 @@ public class ItemConfController {
 
 			String hFT = request.getParameter("hubFTime");
 			String hTT = request.getParameter("hubTTime");
+			System.err.println("Timing before  " + "dFT =" + dFT + "dTT =" + dTT + "hFT =" + hFT + "hTT =" + hTT);
 
-			dFT = convertTimeFormat(dFT);
+			/*dFT = convertTimeFormat(dFT);
 			dTT = convertTimeFormat(dTT);
 			hFT = convertTimeFormat(hFT);
 			hTT = convertTimeFormat(hTT);
-			System.err.println("Timing " + "dFT " + dFT + "dTT " + dTT + "hFT " + hFT + "hTT " + hTT);
-
+			System.err.println("Timing " + "dFT= " + dFT + "dTT =" + dTT + "hFT =" + hFT + "hTT =" + hTT);
+*/
 			// saveConfig
 
 			Config config = new Config();
@@ -164,10 +165,10 @@ public class ItemConfController {
 			config.setItemIds(itemIds);
 			config.setConfigType(confType);
 			config.setConfigTypeDetails(confDetail);
-			config.setDistFromTime(dFT);
-			config.setDistToTime(dTT);
-			config.setHubFromTime(hFT);
-			config.setHubToTime(hTT);
+			config.setDistFromTime(dFT+":00");
+			config.setDistToTime(dTT+":00");
+			config.setHubFromTime(hFT+":00");
+			config.setHubToTime(hTT+":00");
 			config.setIsUsed(1);
 
 			Config configInsertResponse = rest.postForObject(Constants.url + "saveConfig", config, Config.class);
@@ -203,6 +204,15 @@ public class ItemConfController {
 
 			Config[] confRes = rest.getForObject(Constants.url + "getAllConfigByIsUsed", Config[].class);
 			confList = new ArrayList<Config>(Arrays.asList(confRes));
+			
+			for(int i=0;i<confList.size();i++) {
+				
+				confList.get(i).setDistFromTime(convertTimeFormat(confList.get(i).getDistFromTime()));
+				confList.get(i).setDistToTime(convertTimeFormat(confList.get(i).getDistToTime()));
+				confList.get(i).setHubFromTime(convertTimeFormat(confList.get(i).getHubFromTime()));
+				confList.get(i).setHubToTime(convertTimeFormat(confList.get(i).getHubToTime()));
+				
+			}
 
 			model.addObject("confList", confList);
 
