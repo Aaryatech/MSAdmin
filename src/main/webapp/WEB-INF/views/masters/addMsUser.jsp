@@ -440,7 +440,7 @@
 			//alert(temp);
 			$("#sel_hub").val(temp); 
 			$("#sel_hub").trigger("chosen:updated");
-			$("#usr_role").trigger("chosen:updated");
+			$("#sel_hub").trigger("chosen:updated");
 
 			//$('#sel_hub').formcontrol('refresh');
 			
