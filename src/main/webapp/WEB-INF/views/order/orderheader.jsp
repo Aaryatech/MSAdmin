@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>Order List</title>
 
-<c:url var="getEditMsUser" value="/getEditMsUser" />
 
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
@@ -145,6 +144,11 @@
 								</div>
 
 							</form>
+							
+							<form action="${pageContext.request.contextPath}/startProd"
+								id="start_prod_form" method="post"
+								enctype="multipart/form-data">
+							
 							<div class="content mt-3">
 								<div class="animated fadeIn">
 									<div class="row">
@@ -160,6 +164,8 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
+															<th class="check" ><input type="checkbox" 
+																	name="selAll" id="selAll" /> All</th>
 																<th><spring:message code="label.srNo" /></th>
 																<th><spring:message code="label.distName" /></th>
 																<th><spring:message code="label.contactNo" /></th>
@@ -182,6 +188,8 @@
 															<c:forEach items="${ordHeaderList}" var="item"
 																varStatus="count">
 																<tr>
+																<td><input type="checkbox" name="startProdOrdHeader"
+																		value="${item.orderHeaderId}" /></td>
 
 																	<td>${count.index+1}</td>
 																	<td><c:if test="${langSelected == 0}">
@@ -219,15 +227,23 @@
 														</tbody>
 													</table>
 												</div>
+												
+												
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 
+	<div class="col-lg-12" align="center">
 
+									<button type="button" class="btn btn-primary" id="submitButton" onclick="valthisform()"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.submit" />
+									</button>
+								</div>
 
-
+</form>
 
 						</div>
 					</div>
@@ -305,6 +321,38 @@
   } );
   </script>
 
+<script type="text/javascript">
 
+function valthisform()
+{
+    var checkboxs=document.getElementsByName("startProdOrdHeader");
+    var okay=false;
+    for(var i=0,l=checkboxs.length;i<l;i++)
+    {
+        if(checkboxs[i].checked)
+        {
+            okay=true;
+            break;
+        }
+    }
+    if(okay){
+    	
+    	var form=document.getElementById("start_prod_form");
+    	//form.action="${pageContext.request.contextPath}/startProd";
+    	form.submit();
+    }
+    else alert("Please check atleast one checkbox");
+}
+</script>
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('#bootstrap-data-table-export').DataTable();
+			
+			   $("#selAll").click(function () {
+		              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
+		          });
+		});
+	</script>
 </body>
 </html>
