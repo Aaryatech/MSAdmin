@@ -1342,6 +1342,12 @@ public class MasterController {
 				
 				vehicleList.get(i).setVehicleInServiceFrom(DateConvertor.convertToDMY(vehicleList.get(i).getVehicleInServiceFrom()));
 			}
+			
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			String date = sdf.format(now.getTime());
+			model.addObject("date", date);
+			
 
 			model.addObject("vehicleList", vehicleList);
 

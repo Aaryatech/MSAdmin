@@ -184,21 +184,23 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="col-md-6">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.password" />
-									<div>
+									</div>
+									<div class="col-md-3">
 										<input class="form-control" name="usr_pass" id="usr_pass"
 											onblur="validatePass()" type="password" required
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
-								</div>
+							<!-- 	</div>
 
 								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.confPass" />
-									<div>
+ -->								<div class="col-md-2">
+									<spring:message code="label.confPass" /></div>
+									<div class="col-md-3">
 										<input class="form-control" name="conf_pass" id="conf_pass"
 											onblur="validatePass()" type="text" required
 											oninvalid="setCustomValidity('Please enter password ')"
@@ -206,13 +208,16 @@
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-								<br></br>
+								<!-- <br></br>
+								<div class="form-group"></div> -->
 								<div class="form-group"></div>
-								<div class="form-group"></div>
-								<div class="col-md-6">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.chooseHub" />
+									</div>
+									
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="input-group">
+									<div class="col-md-3">
 										<select data-placeholder="${selHub}" multiple
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
@@ -234,16 +239,18 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
+								<!-- </div>
 
-								<div class="form-group"></div>
-								<div class="col-md-6">
+								<div class="form-group"></div> -->
+								<div class="col-md-2">
 									<spring:message code="label.role" />
+									</div>
+										<spring:message code="label.role" var="urole"/>
 									<spring:message code="label.staff" var="staff" />
 									<spring:message code="label.admin" var="admin" />
 
-									<div class="input-group">
-										<select data-placeholder="" class="standardSelect"
+									<div class="col-md-3">
+										<select data-placeholder="${urole}" class="standardSelect"
 											name="usr_role" id="usr_role"
 											oninvalid="setCustomValidity('Please Select Role ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -345,10 +352,6 @@
 									</div>
 								</div>
 							</div>
-
-
-
-
 
 						</div>
 					</div>

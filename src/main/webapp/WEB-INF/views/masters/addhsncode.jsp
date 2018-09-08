@@ -158,9 +158,10 @@
 								<input type="hidden" name="hsn_id" id="hsn_id" value="0">
 
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-1">
 										<spring:message code="label.cgst" />
-										<div class="card-body text-secondary">
+										</div>
+										<div class="col-md-3">
 											<input class="form-control" name="cgst" id="cgst"
 												type="number" required
 												oninvalid="setCustomValidity('Please enter value ')"
@@ -168,22 +169,24 @@
 												pattern="^[1-9]\d*(\.\d+)?$" /> <span class="error"
 												aria-live="polite"></span>
 										</div>
-									</div>
+									
 
-									<div class="col-md-4">
+									<div class="col-md-1">
 										<spring:message code="label.sgst" />
-										<div class="card-body text-secondary">
+										</div>
+										<div class="col-md-3">
 											<input class="form-control" name="sgst" id="sgst"
 												type="number" required
 												oninvalid="setCustomValidity('Please enter value ')"
 												onchange="try{setCustomValidity('')}catch(e){}" /> <span
 												class="error" aria-live="polite"></span>
 										</div>
-									</div>
+								
 
-									<div class="col-md-4">
+									<div class="col-md-1">
 										<spring:message code="label.igst" />
-										<div class="card-body text-secondary">
+										</div>
+									<div class="col-md-3">
 											<input class="form-control" name="igst" id="igst"
 												type="number" required
 												oninvalid="setCustomValidity('Please enter value ')"
@@ -192,7 +195,7 @@
 										</div>
 									</div>
 
-								</div>
+								
 
 								<%-- <div class="form-group"></div>
 								<div class="form-group">
@@ -217,7 +220,7 @@
 											class="error" aria-live="polite"></span>
 									</div>
 								</div> --%>
-
+<br></br>
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary"

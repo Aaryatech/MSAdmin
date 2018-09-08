@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Order History Detail</title>
+<title>Order Prod Detail</title>
 
 <c:url var="getEditMsUser" value="/getEditMsUser" />
 
@@ -88,11 +88,12 @@
 							<strong> <spring:message code="label.itemList" /></strong>
 						</div> --%>
 						<div class="card-body card-block">
-							
 
 
-								<div class="form-group"></div>
-							
+
+							<div class="form-group"></div>
+							<section class="form-control">
+
 								<div class="row">
 
 									<div class="col-md-2">
@@ -100,12 +101,13 @@
 										<span class="error" aria-live="polite"></span>
 									</div>
 									<div class="col-md-3">
-										
-										<c:if test="${langSelected == 0}">
+									
+									<c:if test="${langSelected == 0}">
 										<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b></c:if>
 										
 										<c:if test="${langSelected == 1}">
 										<b><c:out value="${ordHeadDetail.distMarName}"></c:out></b></c:if>
+										
 									</div>
 
 									<div class="col-md-2">
@@ -117,83 +119,28 @@
 									</div>
 
 								</div>
-								<section class="form-control">
-								
-								<div class="row">
-									<div class="col-md-2">
-										<spring:message code="label.pendCrates" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${ordHeadDetail.prevPendingCrateBal}"></c:out></b>
-									</div>
-									
-									<div class="col-md-2">
-										<spring:message code="label.cratesIssued" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${ordHeadDetail.cratesIssued}"></c:out></b>
-									</div>
-									
-									<div class="col-md-2">
-										<spring:message code="label.cratesReceived" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${ordHeadDetail.cratesReceived}"></c:out></b>
-									</div>
-									
-									<c:set var="balanceCrate" value="${(ordHeadDetail.prevPendingCrateBal+ordHeadDetail.cratesIssued)-ordHeadDetail.cratesReceived}"/>
-									
-									<div class="col-md-2">
-										<spring:message code="label.cratesBalance" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${balanceCrate}"></c:out></b>
-									</div>
-								</div>
-								
+
 								<hr></hr>
 								<div class="row">
 									<div class="col-md-2">
-										<spring:message code="label.amtPending" />
+										<spring:message code="label.orderDate" />
 										<span class="error" aria-live="polite"></span>
 									</div>
-									<div class="col-md-1">
-										<b><c:out value="${ordHeadDetail.prevPendingAmt}"></c:out></b>
+									<div class="col-md-3">
+										<b><c:out value="${ordHeadDetail.orderDate}"></c:out></b>
 									</div>
-									
+
 									<div class="col-md-2">
 										<spring:message code="label.orderTotal" />
 										<span class="error" aria-live="polite"></span>
 									</div>
-									<div class="col-md-1">
+									<div class="col-md-3">
 										<b><c:out value="${ordHeadDetail.orderTotal}"></c:out></b>
 									</div>
-									
-									<div class="col-md-2">
-										<spring:message code="label.amtReceived" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${ordHeadDetail.amtReceived}"></c:out></b>
-									</div>
-									
-									<c:set var="balanceAmt" value="${(ordHeadDetail.prevPendingAmt+ordHeadDetail.orderTotal)-ordHeadDetail.amtReceived}"/>
-									
-									<div class="col-md-2">
-										<spring:message code="label.balanceAmt" />
-										<span class="error" aria-live="polite"></span>
-									</div>
-									<div class="col-md-1">
-										<b><c:out value="${balanceAmt}"></c:out></b>
-									</div>
 								</div>
-								
-</section>
-								<%-- <div class="col-lg-12" align="center">
+
+							</section>
+							<%-- <div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
 										
@@ -202,109 +149,71 @@
 									</button>
 								</div> --%>
 
-							<form action="${pageContext.request.contextPath}/editOrderProcess"
+							<form
+								action="${pageContext.request.contextPath}/editOrderProcess"
 								id="order_search_form" method="post"
 								enctype="multipart/form-data">
-							<div class="content mt-3">
-								<div class="animated fadeIn">
-									<div class="row">
+								<div class="content mt-3">
+									<div class="animated fadeIn">
+										<div class="row">
 
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.orList" /></strong>
-												</div>
-												<div class="card-body">
-													<table id="bootstrap-data-table"
-														class="table table-striped table-bordered">
-														<thead>
-															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.name" /></th>
-																<th><spring:message code="label.itemWeight" /></th>
-																<th><spring:message code="label.UOM" /></th>
-																<th><spring:message code="label.itemRate" /></th>
-																<th><spring:message code="label.orderQty" /></th>
-																
-																<th><spring:message code="label.total" /></th>
- 
-																
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${ordHeadDetail.getOrderDetailList}" var="order"
-																varStatus="count">
+											<div class="col-md-12">
+												<div class="card">
+													<div class="card-header">
+														<strong class="card-title"><spring:message
+																code="label.orList" /></strong>
+													</div>
+													<div class="card-body">
+														<table id="bootstrap-data-table"
+															class="table table-striped table-bordered">
+															<thead>
 																<tr>
+																	<th><spring:message code="label.srNo" /></th>
+																	<th><spring:message code="label.name" /></th>
+																	<th><spring:message code="label.itemWeight" /></th>
+																	<th><spring:message code="label.UOM" /></th>
+																	<th><spring:message code="label.itemRate" /></th>
+																	<th><spring:message code="label.orderQty" /></th>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${order.itemEngName}" />
-
-																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${order.itemMarName}" />
-																		</c:if></td>
+																	<th><spring:message code="label.total" /></th>
 
 
-																	<td>${order.itemWt}</td>
-																	<td><c:out value="${order.uomName}" /></td>
-																	<td>${order.itemRate}</td>
-																	
-																	<td style="text-align: center;	"><c:out value="${order.msQty}" /></td>
-																	<td style="text-align: right;	">${order.itemTotal}</td>
-																	
+																</tr>
+															</thead>
+															<tbody>
+																<c:forEach items="${ordHeadDetail.getOrderDetailList}"
+																	var="order" varStatus="count">
+																	<tr>
 
-																	<%-- <td style="text-align: center;	"><input  name='hub_ord_qty${order.orderDetailId}'
-											id="hub_ord_qty" type="number" required value="${order.msQty}" min=0  style="width: 75px;"
-											
-											onchange="updateTotal(this.value,${order.orderDetailId},${order.itemRate})" pattern="[0-9]" /> <span
-											
-											class="error" aria-live="polite"></span>
-																	</td>
-																	
-																	<td style="text-align: center;"><input  name='item_total${order.orderDetailId}'
-											id='item_total${order.orderDetailId}' style="width: 90px;" type="number" readonly  required value="${order.itemTotal}" min=0
-											oninvalid="setCustomValidity('Please enter item total')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											
-											class="error" aria-live="polite"></span>
-																	</td>
- --%>
+																		<td>${count.index+1}</td>
+																		<td><c:if test="${langSelected == 0}">
+																				<c:out value="${order.itemEngName}" />
 
-<%-- 																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/editOrderDetail/${order.orderDetailId}"><i
-																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
+																			</c:if> <c:if test="${langSelected == 1}">
+																				<c:out value="${order.itemMarName}" />
+																			</c:if></td>
 
-																		<div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/deleteOrderDetail/${order.orderDetailId}"
-																				onClick="return confirm('Are you sure want to delete this record');"><i
-																				class="fa fa-trash-o"></i></a>
-																		</div></td>
 
- --%>																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
+																		<td>${order.itemWt}</td>
+																		<td><c:out value="${order.uomName}" /></td>
+																		<td>${order.itemRate}</td>
+
+																		<td style="text-align: center;"><c:out
+																				value="${order.msQty}" /></td>
+																		<td style="text-align: right;">${order.itemTotal}</td>
+
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-
-<div class="col-lg-12" align="center">
-
-									<button type="submit" class="btn btn-primary" id="submitButton"
-										
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div>
-</form>
+							</form>
 
 						</div>
 					</div>
@@ -381,8 +290,8 @@
 		});
   } );
   </script>
-  
-  <script type="text/javascript">
+
+	<script type="text/javascript">
   function updateTotal(qty,detailId,rate){
 	  var itemTot=qty*parseFloat(rate);
 	  

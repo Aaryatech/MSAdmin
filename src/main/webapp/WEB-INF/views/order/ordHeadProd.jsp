@@ -7,8 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Order List</title>
+<title>Orders In Production</title>
 
+<c:url var="getEditMsUser" value="/getEditMsUser" />
 
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
@@ -87,12 +88,12 @@
 							<strong> <spring:message code="label.itemList" /></strong>
 						</div> --%>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/getOrderHeader"
+							<form action="${pageContext.request.contextPath}/getOrderHeaderForProd"
 								id="order_search_form" method="post"
 								enctype="multipart/form-data">
 
 
-								<div class="form-group"></div>
+									<div class="form-group"></div>
 								<div class="form-group"></div>
 								<div class="row">
 								<div class="col-md-2">
@@ -146,47 +147,55 @@
 									</button>
 									</div>
 								</div>
+								<%--	<div class="col-md-1">
+										<spring:message code="label.selDate" />
+									</div>
 
-							<%-- 	<div class="col-lg-12" align="center">
+									 <div class="col-md-1">
+										<input type="text" value="${ordDate}" id="datepicker"
+											name="date" /> <span class="error" aria-live="polite"></span>
+									</div> --%>
+								
+									
+								<div class="col-lg-12" align="center">
 
-									<button type="submit" class="btn btn-primary" id="submitButton"
+									<%-- <button type="submit" class="btn btn-primary" id="submitButton"
+										
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
-									</button>
-								</div> --%>
-
+									</button> --%>
+								</div>
 							</form>
-							
-							<form action="${pageContext.request.contextPath}/startProd"
-								id="start_prod_form" method="post"
-								enctype="multipart/form-data">
-							
-							<div class="content mt-3">
-								<div class="animated fadeIn">
-									<div class="row">
+						</div>
 
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.orList" /></strong>
-												</div>
-												<div class="card-body">
-													<table id="bootstrap-data-table"
-														class="table table-striped table-bordered">
-														<thead>
-															<tr>
-															<th class="check" ><input type="checkbox" 
-																	name="selAll" id="selAll" /> All</th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.distName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.orderTotal" /></th>
-																<th><spring:message code="label.pendCrates" /></th>
-																<th><spring:message code="label.pendAmt" /></th>
-																<th><spring:message code="label.action" /></th>
 
-																<!-- 
+
+
+						<div class="content mt-3">
+							<div class="animated fadeIn">
+								<div class="row">
+
+									<div class="col-md-12">
+										<div class="card">
+											<div class="card-header">
+												<strong class="card-title"><spring:message
+														code="label.ordHistory" /></strong>
+											</div>
+											<div class="card-body">
+												<table id="bootstrap-data-table"
+													class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th><spring:message code="label.srNo" /></th>
+															<th><spring:message code="label.distName" /></th>
+															<th><spring:message code="label.contactNo" /></th>
+															<th><spring:message code="label.orderTotal" /></th>
+															<th><spring:message code="label.pendCrates" /></th>
+															<th><spring:message code="label.pendAmt" /></th>
+															<th><spring:message code="label.orderType" /></th>
+															<th><spring:message code="label.action" /></th>
+
+															<!-- 
 																<th>Sr no</th>
 																<th>Dist Name</th>
 																<th>Mob no</th>
@@ -194,84 +203,82 @@
 																<th>Pend crates</th>
 																<th>pend amt</th>
 																<th>action</th> -->
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${ordHeaderList}" var="item"
-																varStatus="count">
-																<tr>
-																<td><input type="checkbox" name="startProdOrdHeader"
-																		value="${item.orderHeaderId}" /></td>
+														</tr>
+													</thead>
+													<tbody>
+														<c:forEach items="${ordHeaderList}" var="item"
+															varStatus="count">
+															<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${item.distEngName}" />
+																<td>${count.index+1}</td>
+																<td><c:if test="${langSelected == 0}">
+																		<c:out value="${item.distEngName}" />
 
-																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${item.distMarName}" />
+																	</c:if> <c:if test="${langSelected == 1}">
+																		<c:out value="${item.distMarName}" />
 
 
-																		</c:if></td>
+																	</c:if></td>
 
 
-																	<td>${item.distContactNo}</td>
-																	<td><c:out value="${item.orderTotal}" /></td>
-																	<td>${item.prevPendingCrateBal}</td>
+																<td>${item.distContactNo}</td>
+																<td><c:out value="${item.orderTotal}" /></td>
+																<td>${item.prevPendingCrateBal}</td>
 
-																	<td>${item.prevPendingAmt}</td>
+																<td>${item.prevPendingAmt}</td>
+
+																<td><c:if test="${item.orderType == 0}">
+																		<spring:message code="label.regOrder" />
+
+																	</c:if> <c:if test="${item.orderType == 1}">
+
+																		<spring:message code="label.spOrder" />
+																	</c:if></td>
 
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}"><i
-																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
+																<td><div class="fa-hover col-lg-3 col-md-6">
+																		<a
+																			href="${pageContext.request.contextPath}/showProdOrderDetail/${item.orderHeaderId}" title="view Detail"><i
+																			class="fa fa-list"></i> <span class="text-muted"></span></a>
+																	</div>
 
-																		<div class="fa-hover col-lg-3 col-md-6">
-																			<a
+																	<div class="fa-hover col-lg-3 col-md-6">
+																		<%-- <a
 																				href="${pageContext.request.contextPath}/deleteOrder/${item.orderHeaderId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
-																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																				class="fa fa-trash-o"></i></a> --%>
+																	</div></td>
 
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
-												</div>
-												
-												
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-
-	<div class="col-lg-12" align="center">
-
-									<button type="button" class="btn btn-primary" id="submitButton" onclick="valthisform()"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div>
-
-</form>
-
 						</div>
+
+
+
+
+
 					</div>
 				</div>
 			</div>
-
-
 		</div>
-		<!-- .animated -->
+
+
 	</div>
+	<!-- .animated -->
+
 	<!-- .content -->
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
+<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -333,38 +340,6 @@
   } );
   </script>
 
-<script type="text/javascript">
 
-function valthisform()
-{
-    var checkboxs=document.getElementsByName("startProdOrdHeader");
-    var okay=false;
-    for(var i=0,l=checkboxs.length;i<l;i++)
-    {
-        if(checkboxs[i].checked)
-        {
-            okay=true;
-            break;
-        }
-    }
-    if(okay){
-    	
-    	var form=document.getElementById("start_prod_form");
-    	//form.action="${pageContext.request.contextPath}/startProd";
-    	form.submit();
-    }
-    else alert("Please check atleast one checkbox");
-}
-</script>
-
-<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
-			
-			   $("#selAll").click(function () {
-		              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
-		          });
-		});
-	</script>
 </body>
 </html>

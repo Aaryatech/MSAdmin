@@ -20,6 +20,7 @@
 						class="menu-icon fa fa-dashboard"></i> <spring:message
 							code="label.dashboard" />
 				</a></li>
+				
 
 				<!--                     <h3 class="menu-title">UI elements</h3>/.menu-title
  -->
@@ -126,6 +127,29 @@
 									<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showOrderHistory"><spring:message
 									code="label.ordHistory" /></a></li>
+									</ul>
+									</li>
+									
+									
+									
+									
+									<!-- Production -->
+									
+									
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.item" />
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+					
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showHubOrders"><spring:message
+									code="label.startProd" /></a></li>
+									
+									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showOrderProd"><spring:message
+									code="label.viewProd" /></a></li>
 									</ul>
 									</li>
 									

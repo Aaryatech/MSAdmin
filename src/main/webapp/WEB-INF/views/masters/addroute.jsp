@@ -168,24 +168,26 @@
 									</div>
 								</div>
 
-								<div class="form-group"></div>
+								<div class="row">
 								<div class="col-md-3">
 									<spring:message code="label.routeSeqNo" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-3">
 										<input class="form-control" name="r_seq_no" id="r_seq_no"
 											min=1 type="number" required
 											oninvalid="setCustomValidity('Please enter Seq No ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]" /> <span class="error" aria-live="polite"></span>
 									</div>
-								</div>
+								<!-- </div>
 
 
-								<div class="form-group"></div>
-								<div class="col-md-9">
+								<div class="form-group"></div> -->
+								<div class="col-md-2">
 									<spring:message code="label.chooseHub" />
+									</div>
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="input-group">
+									<div class="col-md-3">
 										<select data-placeholder="${selHub}" onfocus="enableSubmit()"
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select Hub ')"
@@ -208,7 +210,7 @@
 
 									</div>
 								</div>
-
+<div class="form-group"></div>
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"

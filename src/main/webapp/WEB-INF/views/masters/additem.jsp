@@ -177,10 +177,13 @@
 								<input type="hidden" name="item_id" id="item_id" value="${editItem.itemId}">
 
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.itemCategory" />
+									</div>
+									<div class="col-md-4">
 									<spring:message code="label.itemCategory" var="selCat" />
-									<div class="input-group">
+									
 										<select data-placeholder="${selCat}" class="standardSelect"
 											tabindex="1" name="item_cat" id="item_cat"
 											oninvalid="setCustomValidity('Please Select Category ')"
@@ -224,13 +227,14 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
+								<!-- </div>//prev end of row
 
-								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="form-group"></div> -->
+								<div class="col-md-2">
 									<spring:message code="label.selectHsnCode" />
+									</div>
 									<spring:message code="label.selectHsnCode" var="selHsn" />
-									<div class="input-group">
+									<div class="col-md-4">
 										<select data-placeholder="${selHsn}" name="item_hsn"
 											id="item_hsn" class="standardSelect" tabindex="1"
 											oninvalid="setCustomValidity('Please Select HSN Code ')"
@@ -307,9 +311,11 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.itemRate" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" name="item_rate" id="item_rate"
 											type="text" required value="${editItem.itemRate}"
 											oninvalid="setCustomValidity('Please enter rate ')"
@@ -317,11 +323,11 @@
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
 
-								<div class="form-group">
+								<div class="col-md-2">
 									<spring:message code="label.itemMrp" />
-									<div class="input-group">
+								</div>
+									<div class="col-md-4">
 										<input class="form-control" name="item_mrp" id="item_mrp"
 											type="text" required value="${editItem.itemMrp}"
 											oninvalid="setCustomValidity('Please enter Mrp ')"
@@ -332,10 +338,12 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.UOM" />
+									</div>
 									<spring:message code="label.UOM" var="selUom" />
-									<div class="input-group">
+									<div class="col-md-4">
 										<select data-placeholder="${selUom}" class="standardSelect"
 											tabindex="1" name="item_uom" id="item_uom"
 											oninvalid="setCustomValidity('Please Select UOM ')"
@@ -360,11 +368,11 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
-
-								<div class="form-group">
+								
+								<div class="col-md-2">
 									<spring:message code="label.weight" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" value="${editItem.itemWt}"
 											name="item_weight" id="item_weight" type="text" required
 											oninvalid="setCustomValidity('Please enter Weight ')"

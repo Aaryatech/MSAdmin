@@ -100,7 +100,11 @@
 										<span class="error" aria-live="polite"></span>
 									</div>
 									<div class="col-md-3">
-										<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b>
+										<c:if test="${langSelected == 0}">
+										<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b></c:if>
+										
+										<c:if test="${langSelected == 1}">
+										<b><c:out value="${ordHeadDetail.distMarName}"></c:out></b></c:if>
 									</div>
 
 									<div class="col-md-2">

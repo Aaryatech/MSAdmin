@@ -179,6 +179,31 @@
 											aria-live="polite"></span>
 									</div>
 								</div>
+								
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.password" />
+									</div>
+									<div class="col-md-3">
+										<input class="form-control" name="usr_pass" id="usr_pass"
+											onblur="validatePass()" type="password" required
+											oninvalid="setCustomValidity('Please enter password ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+									</div>
+							<!-- 	</div>
+
+								<div class="form-group"></div>
+ -->								<%-- <div class="col-md-2">
+									<spring:message code="label.confPass" /></div>
+									<div class="col-md-3">
+										<input class="form-control" name="conf_pass" id="conf_pass"
+											onblur="validatePass()" type="text" required
+											oninvalid="setCustomValidity('Please enter password ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+									</div>
+								</div>
 
 								<div class="form-group"></div>
 								<div class="col-md-6">
@@ -191,7 +216,7 @@
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-
+ --%>
 								<div class="form-group"></div>
 								<div class="col-md-6">
 									<spring:message code="label.confPass" />

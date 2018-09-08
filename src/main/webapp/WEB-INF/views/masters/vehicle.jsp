@@ -188,9 +188,9 @@
 
 
  <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-md-2"><spring:message code="label.vehOwner" /></div>
                        
-                            <div class="card-body text-secondary"><spring:message code="label.vehOwner" />&nbsp;&nbsp;	<select data-placeholder="" class="standardSelect"
+                            <div class="col-md-2"><select data-placeholder="" class="standardSelect"
 											name="veh_owner" id="veh_owner"
 											oninvalid="setCustomValidity('Please Select Vehicle Owner ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -198,25 +198,25 @@
 													<option value="1"><spring:message code="label.contractor" /></option>
 										</select> <span class="error" aria-live="polite"></span></div>
                        
-                    </div>
-                    <div class="col-lg-4 ">
+                   
+                    <div class="col-md-3">
                        
-                           <div class="card-body text-secondary"> <spring:message code="label.inServiceFrom" />&nbsp;&nbsp;<input type="text" id="veh_ser_from" name="veh_ser_from" value="0000" />  <span
+                          <spring:message code="label.inServiceFrom" /></div><div class="col-md-2"><input type="text" id="veh_ser_from" name="veh_ser_from" value="${date}" />  <span
 											class="error" aria-live="polite"></span></div>
                         
-                    </div>
+                   
                     
-                     <div class="col-lg-4 ">
+                     <div class="col-md-1"></div>
                        
-                           <div class="card-body text-secondary"> 
+                       <div class="col-md-1">
 									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px;">
+										style="align-content: center; width: 150px;">
 										<spring:message code="label.submit" />
 									</button>  <span
 											class="error" aria-live="polite"></span></div>
                         
                     </div>
-                </div>
+             
 
 
 
