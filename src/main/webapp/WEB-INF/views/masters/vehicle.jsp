@@ -399,10 +399,11 @@
 			
 			$("#veh_no").val(data.vehicleNo);
 			document.getElementById("veh_owner").options.selectedIndex =data.vehicleOwnedBy;
-			//$('#veh_owner').formcontrol('refresh');
-			$("#veh_owner").triger("chosen:updated");
+			
+			//$("#veh_owner").triger("chosen:updated");
+			$("#veh_owner").trigger("chosen:updated");
 			$("#veh_ser_from").val(data.vehicleInServiceFrom);
-			//$("#veh_owner").val(data.vehicleOwnedBy);
+			
 			
 			//hidden field vehicleId
 			$("#vehicle_id").val(data.vehicleId);
