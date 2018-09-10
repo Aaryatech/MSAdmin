@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.model.master.ErrorMessage;
+import com.ats.msadmin.model.master.GetOrderHub;
 import com.ats.msadmin.model.master.Hub;
 import com.ats.msadmin.model.order.GetOrder;
 
@@ -31,7 +32,7 @@ import com.ats.msadmin.model.order.GetOrder;
 @Scope("session")
 public class ProdController {
 
-	List<GetOrder> ordHeaderList;
+	List<GetOrderHub> ordHeaderList;
 	List<Hub> hubList;
 	
 	RestTemplate rest = new RestTemplate();
@@ -142,9 +143,9 @@ public class ProdController {
 			String date = sdf.format(now.getTime());
 			map.add("date", date);
 			// getAllHubByIsUsed
-			GetOrder[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
-					GetOrder[].class);
-			ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
+			GetOrderHub[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
+					GetOrderHub[].class);
+			ordHeaderList = new ArrayList<GetOrderHub>(Arrays.asList(orderRes));
 			System.err.println("ordHeaderList " + ordHeaderList.toString());
 			model.addObject("hubList", hubList);
 			model.addObject("ordHeaderList", ordHeaderList);

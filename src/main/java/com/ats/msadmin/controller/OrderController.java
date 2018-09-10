@@ -26,6 +26,7 @@ import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.master.ErrorMessage;
+import com.ats.msadmin.model.master.GetOrderHub;
 import com.ats.msadmin.model.master.Hub;
 import com.ats.msadmin.model.order.EditOrderDataBean;
 import com.ats.msadmin.model.order.GetOrder;
@@ -36,10 +37,10 @@ import com.ats.msadmin.model.order.GetOrderDetail;
 public class OrderController {
 	RestTemplate rest = new RestTemplate();
 	List<Category> catList;
-	List<GetOrder> ordHeaderList;
+	List<GetOrderHub> ordHeaderList;
 	List<Hub> hubList;
 
-	GetOrder ordHeadDetail;
+	GetOrderHub  ordHeadDetail;
 
 	@RequestMapping(value = "/showHubOrders", method = RequestMethod.GET)
 	public ModelAndView showAddCatMethod(HttpServletRequest request, HttpServletResponse response) {
@@ -108,9 +109,9 @@ public class OrderController {
 			String date = sdf.format(now.getTime());
 			map.add("date", date);
 			// getAllHubByIsUsed
-			GetOrder[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
-					GetOrder[].class);
-			ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
+			GetOrderHub[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
+					GetOrderHub[].class);
+			ordHeaderList = new ArrayList<GetOrderHub>(Arrays.asList(orderRes));
 			System.err.println("ordHeaderList " + ordHeaderList.toString());
 			model.addObject("hubList", hubList);
 			model.addObject("ordHeaderList", ordHeaderList);
@@ -149,7 +150,7 @@ public class OrderController {
 			map.add("orderHeaderId", ordHeaderId);
 
 			// getOrderByOrderHeaderId
-			ordHeadDetail = rest.postForObject(Constants.url + "getOrderByOrderHeaderId", map, GetOrder.class);
+			ordHeadDetail = rest.postForObject(Constants.url + "getOrderByOrderHeaderId", map, GetOrderHub.class);
 			// ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
 			System.err.println("ordHeadDetail " + ordHeadDetail.toString());
 			model.addObject("hubList", hubList);
@@ -286,10 +287,10 @@ public class OrderController {
 			map.add("date", DateConvertor.convertToYMD(date));
 
 			// getOrderByHubIdStausAndType
-			GetOrder[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
-					GetOrder[].class);
+			GetOrderHub[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
+					GetOrderHub[].class);
 
-			ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
+			ordHeaderList = new ArrayList<GetOrderHub>(Arrays.asList(orderRes));
 
 			System.err.println("ordHeaderList " + ordHeaderList.toString());
 			model.addObject("hubList", hubList);
@@ -329,7 +330,7 @@ public class OrderController {
 			map.add("orderHeaderId", ordHeaderId);
 
 			// getOrderByOrderHeaderId
-			ordHeadDetail = rest.postForObject(Constants.url + "getOrderByOrderHeaderId", map, GetOrder.class);
+			ordHeadDetail = rest.postForObject(Constants.url + "getOrderByOrderHeaderId", map, GetOrderHub.class);
 			// ordHeaderList = new ArrayList<GetOrder>(Arrays.asList(orderRes));
 			System.err.println("ordHeadDetail " + ordHeadDetail.toString());
 			model.addObject("hubList", hubList);
