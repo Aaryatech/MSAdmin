@@ -90,7 +90,32 @@
 							href="${pageContext.request.contextPath}/showAddVehicle"><spring:message
 									code="label.addVehicle" /></a></li>
 									
-									<li class="active"><i class="fa fa-puzzle-piece"></i><a
+									
+								
+
+									<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showStartDistri"><spring:message
+									code="label.startDist" /></a></li> --%>
+									
+								
+					
+					</ul></li>
+					
+					
+					
+					<!--Route Allocation   -->
+					
+					
+								
+									
+					<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.routeAllocation" />
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+					
+				<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddRouteAllocation"><spring:message
 									code="label.routeAllocation" /></a></li>
 									
@@ -98,20 +123,19 @@
 							href="${pageContext.request.contextPath}/showAllocatedRoute"><spring:message
 									code="label.alcrtlist" /></a></li>
 									
-								
-
-									<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showStartDistri"><spring:message
-									code="label.startDist" /></a></li>
-									
-									<li class="active"><i class="fa fa-puzzle-piece"></i><a
-							href="${pageContext.request.contextPath}/showAddNotif"><spring:message
-									code="label.addNotif" /></a></li>
-					
-					</ul></li>
+									</ul>
+									</li>
+									<!--  end Route Allocation -->
 					
 					
 					
+					
+						
+						<li class="menu-item-has-children dropdown"><a
+							href="${pageContext.request.contextPath}/showAddNotif"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.addNotif" />
+							</a>
+							</li>
 					
 					<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -139,7 +163,7 @@
 					<li class="menu-item-has-children dropdown"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
-							code="label.item" />
+							code="label.prod" />
 				</a>
 					<ul class="sub-menu children dropdown-menu ">
 					
@@ -153,6 +177,23 @@
 									</ul>
 									</li>
 									
+					<!--start dist  -->
+					
+					<%-- 		
+							<li class="menu-item-has-children dropdown"><a href="${pageContext.request.contextPath}/showStartDistri"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.startDist" /></a> --%>
+						
+						
+						
+						<li class="menu-item-has-children dropdown"><a
+							href="${pageContext.request.contextPath}/showStartDistri"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.startDist" />
+							</a>
+							</li>
+							</ul>
+												
 					
 
 

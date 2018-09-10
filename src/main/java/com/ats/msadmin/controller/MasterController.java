@@ -71,6 +71,35 @@ public class MasterController {
 
 	List<Notification> notifList;
 
+	@RequestMapping(value = "/showErrMsg", method = RequestMethod.GET)
+	public ModelAndView showErrMsgMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+			model = new ModelAndView("common/errorMsg");
+			model.addObject("langSelected", langSelected);
+
+		} catch (Exception e) {
+
+			System.err.println("Exception in showing Error Message Page " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
 	@RequestMapping(value = "/showAddCat", method = RequestMethod.GET)
 	public ModelAndView showAddCatMethod(HttpServletRequest request, HttpServletResponse response) {
 
@@ -510,6 +539,8 @@ public class MasterController {
 	@RequestMapping(value = "/insertMsUser", method = RequestMethod.POST)
 	public String insertMsUserMethod(HttpServletRequest request, HttpServletResponse response) {
 
+		String returnString = null;
+
 		try {
 
 			int msId = Integer.parseInt(request.getParameter("ms_id"));
@@ -545,14 +576,24 @@ public class MasterController {
 
 			System.err.println("Marathi name  " + mrName);
 
-			MahasanghUser msUserInsertResponse = rest.postForObject(Constants.url + "saveMahasnaghUser", msUser,
-					MahasanghUser.class);
+			ErrorMessage msUserInsertResponse = rest.postForObject(Constants.url + "saveMahasanghUserExisting", msUser,
+					ErrorMessage.class);
+
+			if (msUserInsertResponse.getMessage().equalsIgnoreCase("Mobile No Already Exist")
+					|| msUserInsertResponse.isError() == true) {
+
+				returnString = "showErrMsg";
+
+			} else if (msUserInsertResponse.isError() == false) {
+
+				returnString = "showAddMSUser";
+			}
 
 		} catch (Exception e) {
 			System.err.println("Exception in /insertMsUser ->saveMahasnaghUser @MastContr  " + e.getMessage());
 			e.printStackTrace();
 		}
-		return "redirect:/showAddMSUser";
+		return "redirect:/" + returnString;
 	}
 
 	// getEditMsUser- aJax
@@ -767,7 +808,7 @@ public class MasterController {
 
 	@RequestMapping(value = "/insertRouteSup", method = RequestMethod.POST)
 	public String insertRouteSupMethod(HttpServletRequest request, HttpServletResponse response) {
-
+		String returnString = null;
 		try {
 
 			int supId = Integer.parseInt(request.getParameter("sup_id"));
@@ -789,13 +830,25 @@ public class MasterController {
 			rSup.setSupPwd(uPass);
 			rSup.setToken("dummy token");
 
-			RouteSup routeSupInsertRes = rest.postForObject(Constants.url + "saveRouteSup", rSup, RouteSup.class);
+			ErrorMessage routeSupInsertRes = rest.postForObject(Constants.url + "saveRouteSuperVisorExisting", rSup, ErrorMessage.class);
+			
+			if (routeSupInsertRes.getMessage().equalsIgnoreCase("Mobile No Already Exist")
+					|| routeSupInsertRes.isError() == true) {
+
+				returnString = "showErrMsg";
+
+			} else if (routeSupInsertRes.isError() == false) {
+
+				returnString = "showAddRouteSupervisor";
+			}
 
 		} catch (Exception e) {
-			System.err.println("Exception in /insertRouteSup ->saveRouteSup @MastContr  " + e.getMessage());
+			
+			System.err.println("Exception in /saveRouteSuperVisorExisting ->saveRouteSup @MastContr  " + e.getMessage());
 			e.printStackTrace();
 		}
-		return "redirect:/showAddRouteSupervisor";
+		
+		return "redirect:/"+returnString;
 	}
 
 	// getEditRouteSup -ajax
@@ -1337,17 +1390,17 @@ public class MasterController {
 
 			model = new ModelAndView("masters/vehicle");
 			model.addObject("langSelected", langSelected);
-			
-			for(int i=0;i<vehicleList.size();i++) {
-				
-				vehicleList.get(i).setVehicleInServiceFrom(DateConvertor.convertToDMY(vehicleList.get(i).getVehicleInServiceFrom()));
+
+			for (int i = 0; i < vehicleList.size(); i++) {
+
+				vehicleList.get(i).setVehicleInServiceFrom(
+						DateConvertor.convertToDMY(vehicleList.get(i).getVehicleInServiceFrom()));
 			}
-			
+
 			Date now = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			String date = sdf.format(now.getTime());
 			model.addObject("date", date);
-			
 
 			model.addObject("vehicleList", vehicleList);
 
@@ -1466,7 +1519,7 @@ public class MasterController {
 			routeSupList = new ArrayList<RouteSup>(Arrays.asList(rSupRes));
 
 			model.addObject("routeSupList", routeSupList);
-			
+
 			// getNotiByNotifiType
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
