@@ -148,8 +148,9 @@
 								<div class="form-group"></div>
 								<div class="form-group">
 									<spring:message code="label.confsName" />
+									<spring:message code="label.confsName" var="selConf" />
 									<div class="input-group">
-										<select data-placeholder="" 
+										<select data-placeholder="${selConf}" required 
 											class="standardSelect" name="sel_conf" id="sel_conf"
 											oninvalid="setCustomValidity('Please Select Configuration ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -175,11 +176,11 @@
 							
 								<div class="form-group"></div>
 								<div class="form-group"></div>
-								<div class="col-md-6">
+								<div class="form-group">
 									<spring:message code="label.chooseHub" />
 									<spring:message code="label.chooseHub" var="selHub" />
 									<div class="input-group">
-										<select data-placeholder="${selHub}" multiple
+										<select data-placeholder="${selHub}" multiple required
 											class="standardSelect" name="sel_hub[]" id="sel_hub[]"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -202,8 +203,7 @@
 									</div>
 								</div>
 
-								<br></br><br></br>
-
+								
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"

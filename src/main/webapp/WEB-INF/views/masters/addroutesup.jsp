@@ -381,11 +381,12 @@
 			$("#sup_id").val(data.supId);
 			
 			$("#contact_no").val(data.supContactNo); 
-			
+			document.getElementById("contact_no").readOnly = true; 
+
 			$("#usr_pass").val(data.supPwd); 
 			$("#conf_pass").val(data.supPwd); 
 			
-
+			document.getElementById('submitButton').disabled = false;
 		});
 		
 	}
@@ -427,7 +428,7 @@ function validateMobNo(){
 	//alert("In mob no vali");
 	var mobNo=document.getElementById("contact_no").value;
 	
-	if(mobNo.length==10){
+	if(mobNo.length==10 || mobNo.length<1){
 		
 	}else{
 		

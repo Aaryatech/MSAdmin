@@ -179,7 +179,7 @@
 								<div class="form-group">
 									<spring:message code="label.item" />
 									<div class="input-group">
-										<select data-placeholder="" class="standardSelect" multiple
+										<select data-placeholder="" class="standardSelect" multiple required
 											tabindex="1" name="items[]" id="items[]"
 											oninvalid="setCustomValidity('Please Select Items')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -225,7 +225,7 @@
 								<div class="form-group">
 									<spring:message code="label.confType" />
 									<div class="input-group">
-										<select  class="standardSelect"
+										<select  class="standardSelect" required
 											name="conf_type" id="conf_type" onchange="showDiv(this.value)">
 											
 											<option selected value="1"><spring:message code="label.dateBasis" /></option>
@@ -242,11 +242,11 @@
 								<div class="form-group" id="dayDiv" style="display: none">
 									<spring:message code="label.selDays" />
 									<div class="input-group">
-										<select  class="standardSelect" multiple
+										<select  class="standardSelect" multiple required
 											name="days[]" id="days[]"
 											oninvalid="setCustomValidity('Please Select Days')"
 											onchange="try{setCustomValidity('')}catch(e){}">
-											<option  value="1">Monday</option>
+											<option  selected  value="1">Monday</option>
 											<option value="2">Tuesday</option>
 											<option value="3">Wednesday</option>
 											<option value="4">Thursday</option>

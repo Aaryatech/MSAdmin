@@ -149,9 +149,12 @@
 							<form action="${pageContext.request.contextPath}/insertVehicle"
 								method="post" enctype="multipart/form-data">
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-3">
+								
 									<spring:message code="label.vehNo" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-3">
 										<input class="form-control" name=veh_no
 											id="veh_no" type="text" required
 											oninvalid="setCustomValidity('Please enter Vehicle No ')"
@@ -159,64 +162,49 @@
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
+							
 								<input type="hidden" name="vehicle_id" id="vehicle_id" value="0">
 
-			<%-- 					<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.vehOwner" />
-									<div class="input-group">
-										<select data-placeholder="" class="standardSelect"
-											name="usr_role" id="usr_role"
-											oninvalid="setCustomValidity('Please Select Vehicle Owner ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
-													<option value="0"><spring:message code="label.self" /></option>
-													<option value="1"><spring:message code="label.contractor" /></option>
-										</select> <span class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.inServiceFrom" />
-
-									<div class="input-group">
-										<input type='date' id="veh_ser_from" name="veh_ser_from" value="0000" />  <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div> --%>
 
 
- <div class="row">
+
+
                     <div class="col-md-2"><spring:message code="label.vehOwner" /></div>
                        
-                            <div class="col-md-2"><select data-placeholder="" class="standardSelect"
+                            <div class="col-md-3"><select data-placeholder="" class="standardSelect"
 											name="veh_owner" id="veh_owner"
 											oninvalid="setCustomValidity('Please Select Vehicle Owner ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 													<option value="0"><spring:message code="label.self" /></option>
 													<option value="1"><spring:message code="label.contractor" /></option>
 										</select> <span class="error" aria-live="polite"></span></div>
+										</div>
                        
-                   
-                    <div class="col-md-3">
+                   &nbsp;
+                  <div class="row">
+								<div class="col-md-3">
+								
                        
-                          <spring:message code="label.inServiceFrom" /></div><div class="col-md-2"><input type="text" id="veh_ser_from" name="veh_ser_from" value="${date}" />  <span
+                          <spring:message code="label.inServiceFrom" /></div><div class="col-md-3"><input type="text" id="veh_ser_from" name="veh_ser_from" value="${date}" />  <span
 											class="error" aria-live="polite"></span></div>
                         
                    
                     
-                     <div class="col-md-1"></div>
-                       
-                       <div class="col-md-1">
-									<button type="submit" class="btn btn-primary"
+                     <div class="col-md-2"><button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 150px;">
 										<spring:message code="label.submit" />
 									</button>  <span
 											class="error" aria-live="polite"></span></div>
+                       
+                       <div class="col-md-3">
+									<%-- 	<button type="submit" class="btn btn-primary"
+											style="align-content: center; width: 150px;">
+											<spring:message code="label.submit" />
+										</button>  <span
+												class="error" aria-live="polite"></span> --%></div>
                         
-                    </div>
-             
+                
+             </div>
 
 
 

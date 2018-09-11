@@ -218,7 +218,7 @@
 									
 									<spring:message code="label.chooseHub" var="selHub" />
 									<div class="col-md-3">
-										<select data-placeholder="${selHub}" multiple
+										<select data-placeholder="${selHub}" multiple required
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -433,7 +433,8 @@
 			//hidden field msId
 			$("#ms_id").val(data.msId);
 			
-			$("#contact_no").val(data.msContactNo); 
+			$("#contact_no").val(data.msContactNo);
+			 document.getElementById("contact_no").readOnly = true; 
 			$("#usr_pass").val(data.msPwd); 
 			$("#conf_pass").val(data.msPwd); 
 			document.getElementById("usr_role").options.selectedIndex =data.isAdmin;
@@ -446,7 +447,8 @@
 			$("#sel_hub").trigger("chosen:updated");
 
 			//$('#sel_hub').formcontrol('refresh');
-			
+	 		document.getElementById('submitButton').disabled = false;
+
 
 		});
 		
@@ -474,7 +476,9 @@ function validatePass(){
 		document.getElementById('submitButton').disabled = true;
 	}
 	}
-	validateMobNo();
+	if(mobNo.length!=0){
+		validateMobNo();
+		}
 	
 }
 
@@ -486,7 +490,7 @@ function validateMobNo(){
 	//alert("In mob no vali");
 	var mobNo=document.getElementById("contact_no").value;
 	
-	if(mobNo.length==10){
+	if(mobNo.length==10 || mobNo.length<1){
 		
 	}else{
 		

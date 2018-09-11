@@ -135,10 +135,10 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-1">
 									
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 									
 									<button type="submit" class="btn btn-primary" id="submitButton"
 										style="align-content: center; width: 226px; margin-left: 80px;">
