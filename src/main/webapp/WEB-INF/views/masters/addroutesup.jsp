@@ -217,10 +217,11 @@
 									</div>
 								</div>
  --%>
-								<div class="form-group"></div>
-								<div class="col-md-6">
+								
+								<div class="col-md-2">
 									<spring:message code="label.confPass" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-3">
 										<input class="form-control" name="conf_pass" id="conf_pass" onblur="validatePass()"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter password ')"
@@ -228,7 +229,7 @@
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
-
+&nbsp;
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"  disabled
@@ -411,7 +412,10 @@ function validatePass(){
 		document.getElementById('submitButton').disabled = true;
 	}
 	}
+	var mobNo=document.getElementById("contact_no").value;
+	if(mobNo.length!=0){
 	validateMobNo();
+	}
 	
 }
 

@@ -142,7 +142,7 @@
 							<strong> <spring:message code="label.addNotif" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertNotif"
+							<form action="${pageContext.request.contextPath}/insertNotif" id="insert_noti_form"
 								method="post" enctype="multipart/form-data">
 								<input type="hidden" name="conf_id" id="conf_id" value="0">
 
@@ -191,6 +191,7 @@
 												class="standardSelect" name="sel_hub" id="sel_hub"
 												oninvalid="setCustomValidity('Please Select Hubs ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
+											<option selected value="${hubList[0].hubId}">${hubList[0].hubEngName}</option>
 
 												<c:forEach items="${hubList}" var="hub">
 
@@ -220,6 +221,8 @@
 												multiple 
 												oninvalid="setCustomValidity('Please Select Route Supervisiors ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
+												
+												<%-- <option selected value="${routeSupList[0].supId}">${routeSupList[0].supEngName}</option> --%>
 												<c:forEach items="${routeSupList}" var="sup">
 
 													<c:choose>
@@ -249,7 +252,7 @@
 
 								<div class="col-lg-12" align="center">
 
-									<button type="submit" class="btn btn-primary" onclick="validateForm()"
+									<button type="submit" class="btn btn-primary" onclick="validateForm1()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
@@ -374,44 +377,52 @@
 		});
 	</script>
 	
-	<!-- <script type="text/javascript">
+	<script type="text/javascript">
 	
 	function validateForm() {
-		var route=document.getElementById("route_name").value;
-		
-		 var veh=document.getElementById("veh_no").value;
-		var sup=document.getElementById("sup_name").value;
-		 var driver=document.getElementById("driver_name").value;
 	
-		 var valid=true;
-		if(route<0 ){
-			valid=false;
-			alert("Select Route");
-		}
-		else if(veh<0){
-				
-			valid=false;
-			alert("Select Vehicle");
-		}
-		else if(sup<0){
-			valid=false; 	
-			alert("Select Supervisor"); 
+		var hub=document.getElementById("sel_hub").value;
+		var sup=document.getElementById("sup_name").value;
+		var notfEng=document.getElementById("notf_eng").value;
+		alert(notfEng);
+		var hubIds=new Array();
+		
+		hubIds=JSON.stringify(hub);
+		
+		
+		alert("hub "+hubIds);
+		alert("sup "+supIds);
+		 
+		var valid=true;
+		
+		 if(notfEng==null || notfEng==""){
+			 alert("In if");
+			 valid=false;
+			 alert("Please Add Notification Text ");
+			
+		 }else{
+			 
+			 if(hubIds<0 && supIds<0){
+					valid=false;
+					alert("Select At least one Hub or one Route Supervisor ");
 				}
-		else if(driver<0){
-			valid=false; 
-			alert("Select Driver");
-					}
-				
+				if(hubIds>0){
+					valid=true;
+				}
+				 if(supIds>0){
+					valid=true; 	
+				 }
+		 }
 		if(valid==true){
 					//alert("all true");
-					var form=document.getElementById("route_alloc_form");
-					form.action="${pageContext.request.contextPath}/insertRouteAlloc";
+					var form=document.getElementById("insert_noti_form");
+					//form.action="${pageContext.request.contextPath}/insertRouteAlloc";
 					form.submit();
 				}
 			
 		}
 	</script>
-	 -->
+	
 	 
 	 <script type="text/javascript">
 	 

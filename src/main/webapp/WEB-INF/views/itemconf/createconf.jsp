@@ -261,7 +261,7 @@
 								<div class="form-group" id="dateDiv">
 									<spring:message code="label.selDate"  />
 									<div class="input-group">
-										<input type="text" id="datepicker"  value="0" required oninvalid="setCustomValidity('Please Select Date ')"
+										<input type="text" id="datepicker"  value="${date}" required oninvalid="setCustomValidity('Please Select Date ')"
 											onchange="try{setCustomValidity('')}catch(e){}"   name="date" class="form-control"> <span class="error" aria-live="polite"></span>
 									</div>
 								</div>

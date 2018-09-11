@@ -17,6 +17,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
@@ -84,6 +85,12 @@ public class ItemConfController {
 
 			GetItemName[] hubRes = rest.getForObject(Constants.url + "getAllItem", GetItemName[].class);
 			itemList = new ArrayList<GetItemName>(Arrays.asList(hubRes));
+			
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			String date = sdf.format(now.getTime());
+			model.addObject("date", date);
+			
 
 			model.addObject("itemList", itemList);
 
@@ -315,6 +322,32 @@ public class ItemConfController {
 			e.printStackTrace();
 		}
 		return "redirect:/showAssignConf";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/delAssignedConf/{setId}", method = RequestMethod.GET)
+	public String delAssignedConfMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int setId) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("settingId", setId);
+
+			ErrorMessage errMsg = rest.postForObject(Constants.url + "deleteSetting", map, ErrorMessage.class);
+
+		} catch (Exception e) {
+
+			System.err.println("Exception in /delAssignedConf @ItemConfController  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAssignConf";
+
 	}
 
 }

@@ -651,11 +651,7 @@ public class MasterController {
 		ModelAndView model = null;
 		try {
 
-			HttpSession session = request.getSession();
-
-			MahasanghUser user = (MahasanghUser) session.getAttribute("user");
-			System.err.println("USer From Session :  " + user.toString());
-
+			
 			Locale locale = LocaleContextHolder.getLocale();
 
 			// System.err.println("current language is - " + locale.toString());

@@ -171,26 +171,36 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
-									<input type="hidden" name="prevImage" id="prevImage">
-									<spring:message code="label.catPhoto" />
+								<div class="row">
+									<div class="col-md-2">
+										<input type="hidden" name="prevImage" id="prevImage">
+										<spring:message code="label.catPhoto" />
 
-									<div class="input-group">
+									</div>
+									<div class="col-md-4">
 										<input type='file' id="imgInp" name="imgInp" value="" /> <img
 											id="cat_image" name="cat_image" src="#" alt=""
-											style="width: 100px; height: 100px" align="top" /> <span
+											style="width: 100px; height: 100px"  align="right"  /> <span
 											class="error" aria-live="polite"></span>
+
 									</div>
+									<div class="col-md-1"></div>
+									<div class="col-md-2">
+									<button type="submit" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.submit" />
+									</button>
+								</div>
 								</div>
 
-								<div class="col-lg-12" align="center">
+								<%-- 	<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
 								</div>
-
+ --%>
 							</form>
 
 							<div class="content mt-3">

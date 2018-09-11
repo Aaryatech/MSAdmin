@@ -237,7 +237,7 @@
 																<th><spring:message code="label.confTypeDesc" /></th>
 																<th><spring:message code="label.hubTime" /></th>
 																<th><spring:message code="label.distTime" /></th>
-																<%-- <th><spring:message code="label.action" /></th> --%>
+																<th><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -283,18 +283,12 @@
 																	<td><c:out value="${setting.hubFromTime} To ${setting.hubToTime}" /></td>
 																	<td><c:out value="${setting.distFromTime} To ${setting.distToTime}" /></td>
 
-																	<%-- <td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editMsUser(${mhsUsr.msId})"><i
-																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
+																	<td>
 																		<div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/deleteMsUser/${mhsUsr.msId}"
+																			<a href="${pageContext.request.contextPath}/delAssignedConf/${setting.settingId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
- --%>
 																</tr>
 															</c:forEach>
 														</tbody>
