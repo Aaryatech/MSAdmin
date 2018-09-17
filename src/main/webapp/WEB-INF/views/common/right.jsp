@@ -1,9 +1,9 @@
 <%@page pageEncoding="UTF-8"%>
 
 
-<div id="right-panel" class="right-panel">
+<div id="right-panel" class="right-panel" >
 
-	<header id="header" class="header">
+	<header id="header" class="header"  style="height: 58px;">
 
 		<div class="header-menu">
 
@@ -81,16 +81,17 @@
 				</div>
 			</div>
 
-			<div class="col-sm-5">
-				<div class="user-area dropdown float-right">
+			<div class="col-sm-5" >
+				<div class="user-area dropdown float-right" >
 
 
-					<div align="right" ">
+					<div align="right" >
 
 						<a href="?lang=en" style="color: #000;"> English | </a> <a
 							href="?lang=mr" style="color: #000;">मराठी </a>
 
-					</div>
+					
+&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> <img
 						class="user-avatar rounded-circle"
@@ -104,6 +105,7 @@
 							<span class="count">13</span></a> <a class="nav-link" href="#"><i
 							class="fa fa -cog"></i>Settings</a> <a class="nav-link" href="${pageContext.request.contextPath}/logout"><i
 							class="fa fa-power -off"></i>Logout</a>
+					</div>
 					</div>
 				</div>
 
