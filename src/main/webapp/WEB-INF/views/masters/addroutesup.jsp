@@ -409,7 +409,7 @@ function validatePass(){
 	}
 	else{
 		alert("Password Mismacth for Confirm Password");
-		$("#usr_pass").focus();
+		//$("#usr_pass").focus();
 		document.getElementById('submitButton').disabled = true;
 	}
 	}
