@@ -152,6 +152,11 @@
 												<div class="card-header">
 													<strong class="card-title"><spring:message
 															code="label.itemList" /></strong>
+															
+															&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+														
+						<a	href="${pageContext.request.contextPath}/showAddItem"><strong><spring:message
+									code="label.addNewItem" /></strong></a>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"

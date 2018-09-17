@@ -34,9 +34,9 @@
 							href="${pageContext.request.contextPath}/showAddCat"><spring:message
 									code="label.addNewCategory" /></a></li>
 
-						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddItem"><spring:message
-									code="label.addNewItem" /></a></li>
+									code="label.addNewItem" /></a></li> --%>
 
 
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a

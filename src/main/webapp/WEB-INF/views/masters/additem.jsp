@@ -170,6 +170,11 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addNewItem" /></strong>
+							
+								&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+														
+						<a	href="${pageContext.request.contextPath}/showItemList"><strong><spring:message
+									code="label.itemList" /></strong></a>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertItem"
@@ -268,7 +273,7 @@
 										<input class="form-control" name="itemEng" id="itemEng"
 											type="text" required value="${editItem.itemEngName}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -281,7 +286,7 @@
 										<input class="form-control" name="itemMr" id="itemMr"
 											type="text" required value="${editItem.itemMarName}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
@@ -293,7 +298,7 @@
 											id="itemDescEng" type="text" required
 											value="${editItem.itemEngDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off"/> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -306,7 +311,7 @@
 										<input class="form-control" name="itemDescMr" id="itemDescMr"
 											type="text" required value="${editItem.itemMarDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
 								</div>
@@ -318,8 +323,8 @@
 									<div class="col-md-4">
 										<input class="form-control" name="item_rate" id="item_rate"
 											type="text" required value="${editItem.itemRate}"
-											oninvalid="setCustomValidity('Please enter rate ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											oninvalid="setCustomValidity('Please enter rate ')" onblur="checkMrp()"
+											onchange="try{setCustomValidity('')}catch(e){}" pattern="[0-9]+(\.[0-9]{0,2})?%?"  /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -330,8 +335,8 @@
 									<div class="col-md-4">
 										<input class="form-control" name="item_mrp" id="item_mrp"
 											type="text" required value="${editItem.itemMrp}"
-											oninvalid="setCustomValidity('Please enter Mrp ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											oninvalid="setCustomValidity('Please enter Mrp ')" onblur="checkMrp()"
+											onchange="try{setCustomValidity('')}catch(e){}"  pattern="[0-9]+(\.[0-9]{0,2})?%?" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -376,7 +381,8 @@
 										<input class="form-control" value="${editItem.itemWt}"
 											name="item_weight" id="item_weight" type="text" required
 											oninvalid="setCustomValidity('Please enter Weight ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											onchange="try{setCustomValidity('')}catch(e){}" 
+											/> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -455,6 +461,29 @@
 		$("#imgInp").change(function() {
 			readURL(this);
 		});
+	</script>
+	
+	<script type="text/javascript">
+	
+	function checkMrp(){
+		
+		//alert("Hio ");
+		
+		var rate=document.getElementById("item_rate").value;
+		
+		var mrp=document.getElementById("item_mrp").value;
+		
+		if(rate>0){
+		if(rate>mrp){
+			
+			alert("Distributor price  can not be greater than MRP");
+			document.getElementById("item_mrp").value="0";
+		}
+		}
+		//alert("Rate " +rate + "Mrp " +mrp);
+
+	}
+	
 	</script>
 
 

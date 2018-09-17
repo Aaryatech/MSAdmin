@@ -139,9 +139,14 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addNewCategory" /></strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="image" src="${pageContext.request.contextPath}/resources/images/addnewrecord.png" id="addButton" onclick="addButton()" height="25px;" width="25px;" ondblclick="hideButon()"/>
+										
+									
+						
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertCategory"
+						<div id="addDiv" style="display: none; ">							<form action="${pageContext.request.contextPath}/insertCategory"
 								method="post" enctype="multipart/form-data">
 								<div class="form-group"></div>
 								<div class="form-group">
@@ -202,6 +207,7 @@
 								</div>
  --%>
 							</form>
+							</div>
 
 							<div class="content mt-3">
 								<div class="animated fadeIn">
@@ -367,6 +373,21 @@ function readURL(input) {
 $("#imgInp").change(function(){
     readURL(this);
 });
+
+</script>
+<script type="text/javascript">
+
+function addButton() {
+	
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
 
 </script>
 
