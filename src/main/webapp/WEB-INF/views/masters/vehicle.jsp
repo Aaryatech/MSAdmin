@@ -144,10 +144,19 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addVehicle" /></strong>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;" /> <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;" />
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertVehicle"
 								method="post" enctype="multipart/form-data">
+								<div id="addDiv" style="display: none;">
 								<div class="form-group"></div>
 								<div class="row">
 								<div class="col-md-3">
@@ -157,7 +166,7 @@
 									<div class="col-md-3">
 										<input class="form-control" name=veh_no
 											id="veh_no" type="text" required
-											oninvalid="setCustomValidity('Please enter Vehicle No ')"
+											oninvalid="setCustomValidity('Please enter vehicle no ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
@@ -173,14 +182,14 @@
                        
                             <div class="col-md-3"><select data-placeholder="" class="standardSelect"
 											name="veh_owner" id="veh_owner"
-											oninvalid="setCustomValidity('Please Select Vehicle Owner ')"
+											oninvalid="setCustomValidity('Please select vehicle owner ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 													<option value="0"><spring:message code="label.self" /></option>
 													<option value="1"><spring:message code="label.contractor" /></option>
 										</select> <span class="error" aria-live="polite"></span></div>
 										</div>
                        
-                   &nbsp;
+                   <div class="form-group"></div>
                   <div class="row">
 								<div class="col-md-3">
 								
@@ -209,13 +218,7 @@
 
 
 
-								<%-- <div class="col-lg-12" align="center">
-
-									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div> --%>
+								</div>
 
 							</form>
 
@@ -234,22 +237,22 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.vehOwner" /></th>
-																<th><spring:message code="label.inServiceFrom" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center"><spring:message code="label.vehOwner" /></th>
+																<th style="text-align: center"><spring:message code="label.inServiceFrom" /></th>
+																<th style="text-align: center"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${vehicleList}" var="veh" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td>
+																	<td style="text-align: center">${count.index+1}</td>
+																	<td style="text-align: center">
 																			<c:out value="${veh.vehicleNo}" />
 																		</td>
-																		<td>
+																		<td style="text-align: center">
 																		<c:choose>
 																		<c:when test="${veh.vehicleOwnedBy==0}">
 																		<spring:message code="label.self" />
@@ -257,21 +260,18 @@
 																		<c:otherwise>
 																		<spring:message code="label.contractor" />
 																		</c:otherwise>
-																		
 																		</c:choose></td>
 																		
-																	<td>${veh.vehicleInServiceFrom}</td>
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center">${veh.vehicleInServiceFrom}</td>
+																	<td style="text-align: center">
 																			<a href="#" onclick="editVehicle(${veh.vehicleId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																	&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteVehicle/${veh.vehicleId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -283,9 +283,6 @@
 									</div>
 								</div>
 							</div>
-
-
-
 
 
 						</div>
@@ -384,7 +381,7 @@
 		},
 		
 		function(data){
-			
+			document.getElementById('addDiv').style.display = "block";
 			$("#veh_no").val(data.vehicleNo);
 			document.getElementById("veh_owner").options.selectedIndex =data.vehicleOwnedBy;
 			
@@ -402,6 +399,15 @@
 	}
 	
 	</script>
+	
+	<script type="text/javascript">
+function addButton() {
+	document.getElementById('addDiv').style.display = "block";
+}
+function hideButon(){
+	document.getElementById('addDiv').style = "display:none";
+}
+</script>
 
 
 </body>

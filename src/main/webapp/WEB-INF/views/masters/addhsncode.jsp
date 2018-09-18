@@ -34,9 +34,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
 
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -58,60 +55,7 @@
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<!-- <script>
-	function OnLoad() {
-		var options = {
-			sourceLanguage : google.elements.transliteration.LanguageCode.ENGLISH,
-			destinationLanguage : [ google.elements.transliteration.LanguageCode.MARATHI ],
-			shortcutKey : 'ctrl+g',
-			transliterationEnabled : true
-		};
 
-		var control = new google.elements.transliteration.TransliterationControl(
-				options);
-		control.makeTransliteratable([ "catTxtMarathi" ]);
-		var keyVal = 32; // Space key
-		$("#catTxtEnglish")
-				.on(
-						'keydown',
-						function(event) {
-							if (event.keyCode === 32) {
-								var engText = $("#catTxtEnglish").val() + " ";
-								var engTextArray = engText.split(" ");
-								$("#catTxtMarathi")
-										.val(
-												$("#catTxtMarathi").val()
-														+ engTextArray[engTextArray.length - 2]);
-
-								document.getElementById("catTxtMarathi").focus();
-								$("#catTxtMarathi").trigger({
-									type : 'keypress',
-									keyCode : keyVal,
-									which : keyVal,
-									charCode : keyVal
-								});
-							}
-
-							else if ((event.keyCode === 8 || event.keyCode === 46)) {
-								$("#catTxtMarathi").val("");
-
-								$("#catTxtEnglish").val("");
-							}
-						});
-
-		$("#catTxtMarathi").bind("keyup", function(event) {
-			setTimeout(function() {
-				$("#catTxtEnglish").val($("#catTxtEnglish").val() + " ");
-				document.getElementById("catTxtEnglish").focus()
-			}, 0);
-		});
-
-		
-
-	} //end onLoad function
-
-	google.setOnLoadCallback(OnLoad);
-</script> -->
 <!-- Translate -->
 <script type="text/javascript"
 	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -139,15 +83,26 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addHsnCode" /></strong>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertHsnCode"
 								method="post" enctype="multipart/form-data">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.hsnCode" />
-									<div class="input-group">
-										<input class="form-control" name="hsn_code" id="hsn_code"
+								
+								<div id="addDiv" style="display: none;">
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.hsnCode" /></div>
+									<div class="col-md-10">
+										<input class="form-control" name="hsn_code" id="hsn_code" maxlength="100"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter hsn code ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
@@ -156,17 +111,17 @@
 									</div>
 								</div>
 								<input type="hidden" name="hsn_id" id="hsn_id" value="0">
-
+&nbsp;
 								<div class="row">
-									<div class="col-md-1">
+									<div class="col-md-2">
 										<spring:message code="label.cgst" />
 										</div>
-										<div class="col-md-3">
-											<input class="form-control" name="cgst" id="cgst"
-												type="number" required
+										<div class="col-md-2">
+											<input class="form-control" name="cgst" id="cgst" 
+												type="text" required pattern="[0-9]+(\.[0-9]{0,2})?%?" maxlength="100" max="100"
 												oninvalid="setCustomValidity('Please enter value ')"
 												onchange="try{setCustomValidity('')}catch(e){}"
-												pattern="^[1-9]\d*(\.\d+)?$" /> <span class="error"
+												/> <span class="error"
 												aria-live="polite"></span>
 										</div>
 									
@@ -174,11 +129,11 @@
 									<div class="col-md-1">
 										<spring:message code="label.sgst" />
 										</div>
-										<div class="col-md-3">
-											<input class="form-control" name="sgst" id="sgst"
-												type="number" required
+										<div class="col-md-2">
+											<input class="form-control" name="sgst" id="sgst" maxlength="100" max="100"
+												type="text" required
 												oninvalid="setCustomValidity('Please enter value ')"
-												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												onchange="try{setCustomValidity('')}catch(e){}"  pattern="[0-9]+(\.[0-9]{0,2})?%?"/> <span
 												class="error" aria-live="polite"></span>
 										</div>
 								
@@ -186,47 +141,26 @@
 									<div class="col-md-1">
 										<spring:message code="label.igst" />
 										</div>
-									<div class="col-md-3">
-											<input class="form-control" name="igst" id="igst"
-												type="number" required
+									<div class="col-md-2">
+											<input class="form-control" name="igst" id="igst" maxlength="100" max="100"
+												type="text" required
 												oninvalid="setCustomValidity('Please enter value ')"
-												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												onchange="try{setCustomValidity('')}catch(e){}" pattern="[0-9]+(\.[0-9]{0,2})?%?"/> <span
 												class="error" aria-live="polite"></span>
 										</div>
 									</div>
 
 								
-
-								<%-- <div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.sgst" />
-									<div class="input-group">
-										<input class="form-control" name="sgst"
-											id="sgst" type="number" required
-											oninvalid="setCustomValidity('Please enter value ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-								
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.igst" />
-									<div class="input-group">
-										<input class="form-control" name="igst"
-											id="igst" type="number" required
-											oninvalid="setCustomValidity('Please enter value ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div> --%>
-<br></br>
+&nbsp;
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
+																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
+									
+								</div>
 								</div>
 
 							</form>
@@ -246,36 +180,34 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.hsnCode" /></th>
-																<th><spring:message code="label.cgst" /></th>
-																<th><spring:message code="label.sgst" /></th>
-																<th><spring:message code="label.igst" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.hsnCode" /></th>
+																<th style="text-align: center;"><spring:message code="label.cgst" /></th>
+																<th style="text-align: center;"><spring:message code="label.sgst" /></th>
+																<th style="text-align: center;"><spring:message code="label.igst" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${iHsnList}" var="hsn" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:out value="${hsn.itemHsnCode}" /></td>
-																	<td><c:out value="${hsn.itemCgst}" /></td>
-																	<td>${hsn.itemSgst}</td>
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:out value="${hsn.itemHsnCode}" /></td>
+																	<td style="text-align: center;"><c:out value="${hsn.itemCgst}" /></td>
+																	<td style="text-align: center;">${hsn.itemSgst}</td>
 																	
-																	<td><c:out value="${hsn.itemIgst}" /></td>
+																	<td style="text-align: center;"><c:out value="${hsn.itemIgst}" /></td>
 																	
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a href="#" onclick="editHsn(${hsn.itemHsnId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																	&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteHsn/${hsn.itemHsnId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -374,6 +306,23 @@
 	}
 	
 	</script>
+	
+	<script type="text/javascript">
+
+function addButton() {
+	
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
+
+</script>
+	
 
 
 </body>

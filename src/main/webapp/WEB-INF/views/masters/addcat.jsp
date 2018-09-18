@@ -139,75 +139,79 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addNewCategory" /></strong>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="image" src="${pageContext.request.contextPath}/resources/images/addnewrecord.png" id="addButton" onclick="addButton()" height="25px;" width="25px;" ondblclick="hideButon()"/>
-										
-									
-						
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
+								
+
+
 						</div>
 						<div class="card-body card-block">
-						<div id="addDiv" style="display: none; ">							<form action="${pageContext.request.contextPath}/insertCategory"
+
+							<form action="${pageContext.request.contextPath}/insertCategory"
 								method="post" enctype="multipart/form-data">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.catEngName" />
-									<div class="input-group">
-										<input class="form-control" name=catTxtEnglish
-											id="catTxtEnglish" type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
+								<div id="addDiv" style="display: none;">
 
+									<div class="row">
+
+										<div class="col-md-2">
+											<spring:message code="label.catEngName" />
+										</div>
+
+										<div class="col-md-4">
+											<input class="form-control" name=catTxtEnglish autocomplete="off"
+												id="catTxtEnglish" type="text" required maxlength="100"
+												oninvalid="setCustomValidity('Please enter name ')"
+												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												class="error" aria-live="polite"></span>
+
+										</div>
+
+										<input type="hidden" name="cat_id" id="cat_id" value="0">
+										<input type="hidden" id="url" value='${catImageUrl}' />
+
+
+										<div class="col-md-2">
+											<spring:message code="label.catMarName" />
+										</div>
+										<div class="col-md-4">
+											<input class="form-control" name="catTxtMarathi" autocomplete="off"
+												id="catTxtMarathi" type="text" required maxlength="100"
+												oninvalid="setCustomValidity('Please enter name ')"
+												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												class="error" aria-live="polite"></span>
+										</div>
+									</div>
+									&nbsp;
+									<div class="row">
+										<div class="col-md-2">
+											<input type="hidden" name="prevImage" id="prevImage">
+											<spring:message code="label.catPhoto" />
+
+										</div>
+										<div class="col-md-4">
+											<input type='file' id="imgInp" name="imgInp" value="" /> <img
+												id="cat_image" name="cat_image" src="#" alt=""
+												style="width: 100px; height: 100px" align="right" /> <span
+												class="error" aria-live="polite"></span>
+
+										</div>
+										<div class="col-md-1"></div>
+										<div class="col-md-2">
+											<button type="submit" class="btn btn-primary"
+												style="align-content: center; width: 226px; margin-left: 80px;">
+												<spring:message code="label.submit" />
+											</button>
+										</div>
 									</div>
 								</div>
-								<input type="hidden" name="cat_id" id="cat_id" value="0">
-								<input type="hidden" id="url" value='${catImageUrl}' />
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.catMarName" />
-									<div class="input-group">
-										<input class="form-control" name="catTxtMarathi"
-											id="catTxtMarathi" type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="row">
-									<div class="col-md-2">
-										<input type="hidden" name="prevImage" id="prevImage">
-										<spring:message code="label.catPhoto" />
-
-									</div>
-									<div class="col-md-4">
-										<input type='file' id="imgInp" name="imgInp" value="" /> <img
-											id="cat_image" name="cat_image" src="#" alt=""
-											style="width: 100px; height: 100px"  align="right"  /> <span
-											class="error" aria-live="polite"></span>
-
-									</div>
-									<div class="col-md-1"></div>
-									<div class="col-md-2">
-									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div>
-								</div>
-
-								<%-- 	<div class="col-lg-12" align="center">
-
-									<button type="submit" class="btn btn-primary"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-								</div>
- --%>
 							</form>
-							</div>
 
 							<div class="content mt-3">
 								<div class="animated fadeIn">
@@ -224,36 +228,34 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.catName" /></th>
-																<th><spring:message code="label.photo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.catName" /></th>
+																<th style="text-align: center;"><spring:message code="label.photo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${catList}" var="cat" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${cat.catEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${cat.catMarName}" />
 
 																		</c:if></td>
-																	<td>${cat.catPic}</td>
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">${cat.catPic}</td>
+																	<td style="text-align: center;">
 																			<a href="#" onclick="editCate(${cat.catId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteCategory/${cat.catId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -339,6 +341,7 @@
 		},
 		
 		function(data){
+			document.getElementById('addDiv').style.display = "block";
 			$("#catTxtMarathi").val(data.catMarName);
 			$("#catTxtEnglish").val(data.catEngName);
 			var url = $('#url').val();
@@ -375,7 +378,7 @@ $("#imgInp").change(function(){
 });
 
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
 function addButton() {
 	

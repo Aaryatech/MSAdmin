@@ -140,10 +140,21 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addNotif" /></strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;" /> <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;" />
+							
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertNotif" id="insert_noti_form"
 								method="post" enctype="multipart/form-data">
+								
+								<div id="addDiv" style="display: none;">
+								
 								<input type="hidden" name="conf_id" id="conf_id" value="0">
 
 								<div class="form-group">
@@ -259,6 +270,8 @@
 																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
 									
 								</div>
+								
+								</div>
 
 							</form>
 						</div>
@@ -281,29 +294,18 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.notif" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.notif" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${notifList}" var="notif" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
+																	<td style="text-align: center">${count.index+1}</td>
 																	
-																	<td>${notif.notifiText}</td>
-																	<%-- <td><div class="fa-hover col-lg-3 col-md-6">
-																			<a href="#" onclick="editCate(${cat.catId})"><i
-																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/deleteCategory/${cat.catId}"
-																				onClick="return confirm('Are you sure want to delete this record');"><i
-																				class="fa fa-trash-o"></i></a>
-																		</div></td> --%>
-
+																	<td style="text-align: left">${notif.notifiText}</td>
+																	
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -466,6 +468,14 @@
 	
 	 </script>
 
+<script type="text/javascript">
+function addButton() {
+	document.getElementById('addDiv').style.display = "block";
+}
+function hideButon(){
+	document.getElementById('addDiv').style = "display:none";
+}
+</script>
 
 
 </body>

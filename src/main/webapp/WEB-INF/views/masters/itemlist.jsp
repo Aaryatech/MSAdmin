@@ -163,15 +163,15 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.name" /></th>
+																<th style="text-align: center"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center"><spring:message code="label.name" /></th>
 																<th><spring:message code="label.category" /></th>
-																<th><spring:message code="label.hsnCode" /></th>
-																<th><spring:message code="label.UOM" /></th>
-																<th><spring:message code="label.itemWeight" /></th>
-																<th><spring:message code="label.itemRate" /></th>
-																<th><spring:message code="label.itemMrp" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center"><spring:message code="label.hsnCode" /></th>
+																<th style="text-align: center"><spring:message code="label.UOM" /></th>
+																<th style="text-align: center"><spring:message code="label.itemWeight" /></th>
+																<th style="text-align: center"><spring:message code="label.itemRate" /></th>
+																<th style="text-align: center"><spring:message code="label.itemMrp" /></th>
+																<th style="text-align: center"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -179,8 +179,8 @@
 																varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center">${count.index+1}</td>
+																	<td style="text-align: left"><c:if test="${langSelected == 0}">
 																			<c:out value="${item.itemEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -189,7 +189,7 @@
 
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left"><c:if test="${langSelected == 0}">
 																			<c:out value="${item.catEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -197,24 +197,22 @@
 
 
 																		</c:if></td>
-																	<td>${item.itemHsnCode}</td>
-																	<td><c:out value="${item.uomName}" /></td>
-																	<td>${item.itemWt}</td>
+																	<td style="text-align: center">${item.itemHsnCode}</td>
+																	<td style="text-align: left"><c:out value="${item.uomName}" /></td>
+																	<td style="text-align: right">${item.itemWt}</td>
 
-																	<td>${item.itemRate}</td>
-																	<td><c:out value="${item.itemMrp}" /></td>
+																	<td style="text-align: right">${item.itemRate}</td>
+																	<td style="text-align: right"><c:out value="${item.itemMrp}" /></td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center">
 																			<a href="${pageContext.request.contextPath}/editItem/${item.itemId}" ><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																	&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteItem/${item.itemId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>

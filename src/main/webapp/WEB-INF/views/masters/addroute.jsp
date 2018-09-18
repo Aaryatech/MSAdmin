@@ -137,44 +137,54 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addRoute" /></strong>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
+								
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertRoute"
 								id="routeForm" method="post" enctype="multipart/form-data">
 
+<div id="addDiv" style="display: none;">
 								<input type="hidden" name="route_id" id="route_id" value="0">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInEng" />
-									<div class="input-group">
-										<input class="form-control" name="route_eng" id="route_eng"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInMr" />
-									<div class="input-group">
-										<input class="form-control" name="route_mr" id="route_mr"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
 								<div class="row">
-								<div class="col-md-3">
+								<div class="col-md-2">
+									<spring:message code="label.nameInEng" /></div>
+									<div class="col-md-4">
+										<input class="form-control" name="route_eng" id="route_eng" maxlength="50"s
+											type="text" required
+											oninvalid="setCustomValidity('Please enter name ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+
+									</div>
+							
+								<div class="col-md-2">
+									<spring:message code="label.nameInMr" />
+									</div>
+									<div class="col-md-4">
+										<input class="form-control" name="route_mr" id="route_mr" maxlength="50"
+											type="text" required
+											oninvalid="setCustomValidity('Please enter name ')"
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
+											class="error" aria-live="polite"></span>
+									</div>
+								</div>
+<div class="form-group"></div>
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.routeSeqNo" />
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<input class="form-control" name="r_seq_no" id="r_seq_no"
-											min=1 type="number" required
+											min=1 type="number" required 
 											oninvalid="setCustomValidity('Please enter Seq No ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]" /> <span class="error" aria-live="polite"></span>
@@ -182,13 +192,13 @@
 								<!-- </div>
 
 
-								<div class="form-group"></div> -->
+								</div> -->
 								<div class="col-md-2">
 									<spring:message code="label.chooseHub" />
 									</div>
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="col-md-3">
-										<select data-placeholder="${selHub}" onfocus="enableSubmit()"
+									<div class="col-md-4">
+										<select data-placeholder="${selHub}" onfocus="enableSubmit()" style="width: 100%;"
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select Hub ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -223,6 +233,7 @@
 										<spring:message code="label.cancel" />
 									</button>
 								</div>
+								</div>
 
 							</form>
 
@@ -241,11 +252,11 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSeqNo" /></th>
-																<th><spring:message code="label.hubsName" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSeqNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.hubsName" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -253,18 +264,18 @@
 																varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${route.routeEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${route.routeMarName}" />
 
 																		</c:if></td>
-																	<td>${route.routeSeqNo}</td>
+																	<td style="text-align: center;">${route.routeSeqNo}</td>
 
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${route.hubEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -273,17 +284,15 @@
 																		</c:if></td>
 
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a href="#" onclick="editRoute(${route.routeId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoute/${route.routeId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -403,6 +412,22 @@ function disableSubmit(){
 function enableSubmit(){
 	document.getElementById('submitButton').disabled = false;
 }
+</script>
+
+	<script type="text/javascript">
+
+function addButton() {
+	
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
+
 </script>
 
 

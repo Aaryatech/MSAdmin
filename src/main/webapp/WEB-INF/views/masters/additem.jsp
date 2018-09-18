@@ -170,27 +170,30 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addNewItem" /></strong>
-							
-								&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;	&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-														
-						<a	href="${pageContext.request.contextPath}/showItemList"><strong><spring:message
-									code="label.itemList" /></strong></a>
+
+							&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <a
+								href="${pageContext.request.contextPath}/showItemList"><strong><spring:message
+										code="label.itemList" /></strong></a>
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertItem"
 								method="post" enctype="multipart/form-data">
-								<input type="hidden" name="item_id" id="item_id" value="${editItem.itemId}">
+								<input type="hidden" name="item_id" id="item_id"
+									value="${editItem.itemId}">
 
 								<div class="form-group"></div>
 								<div class="row">
-								<div class="col-md-2">
-									<spring:message code="label.itemCategory" />
+									<div class="col-md-2">
+										<spring:message code="label.itemCategory" />
 									</div>
 									<div class="col-md-4">
-									<spring:message code="label.itemCategory" var="selCat" />
-									
+										<spring:message code="label.itemCategory" var="selCat" />
+
 										<select data-placeholder="${selCat}" class="standardSelect"
 											tabindex="1" name="item_cat" id="item_cat"
+											style="width: 100%;"
 											oninvalid="setCustomValidity('Please Select Category ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -203,24 +206,24 @@
 
 															</c:when>
 															<c:otherwise>
-														<option value="${cat.catId}">${cat.catEngName}</option>
+																<option value="${cat.catId}">${cat.catEngName}</option>
 
 															</c:otherwise>
 														</c:choose>
 													</c:when>
 													<c:otherwise>
-													
-													<c:choose>
+
+														<c:choose>
 															<c:when test="${editItem.catId==cat.catId}">
 																<option value="${cat.catId}" selected>${cat.catMarName}</option>
 
 															</c:when>
 															<c:otherwise>
-														<option value="${cat.catId}">${cat.catMarName}</option>
+																<option value="${cat.catId}">${cat.catMarName}</option>
 
 															</c:otherwise>
 														</c:choose>
-														
+
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
@@ -232,16 +235,17 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-								<!-- </div>//prev end of row
+									<!-- </div>//prev end of row
 
 								<div class="form-group"></div> -->
-								<div class="col-md-2">
-									<spring:message code="label.selectHsnCode" />
+									<div class="col-md-2">
+										<spring:message code="label.selectHsnCode" />
 									</div>
 									<spring:message code="label.selectHsnCode" var="selHsn" />
 									<div class="col-md-4">
 										<select data-placeholder="${selHsn}" name="item_hsn"
-											id="item_hsn" class="standardSelect" tabindex="1"
+											style="width: 100%;" id="item_hsn" class="standardSelect"
+											tabindex="1"
 											oninvalid="setCustomValidity('Please Select HSN Code ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 											<c:forEach items="${iHsnList}" var="hsn">
@@ -266,91 +270,104 @@
 									</div>
 								</div>
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.catEngName" />
-									<div class="input-group">
+								&nbsp;
+								<div class="row">
+									<div class="col-md-2">
+										<spring:message code="label.catEngName" />
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" name="itemEng" id="itemEng"
-											type="text" required value="${editItem.itemEngName}"
+											maxlength="100" type="text" required
+											value="${editItem.itemEngName}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}"
+											autocomplete="off" /> <span class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.catMarName" />
-									<div class="input-group">
+									<div class="col-md-2">
+										<spring:message code="label.catMarName" />
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" name="itemMr" id="itemMr"
-											type="text" required value="${editItem.itemMarName}"
+											maxlength="100" type="text" required
+											value="${editItem.itemMarName}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}"
+											autocomplete="off" /> <span class="error" aria-live="polite"></span>
 									</div>
 								</div>
-
-								<div class="form-group">
-									<spring:message code="label.itemDescEng" />
-									<div class="input-group">
-										<input class="form-control" name="itemDescEng"
+								&nbsp;
+								<div class="row">
+									<div class="col-md-2">
+										<spring:message code="label.itemDescEng" />
+									</div>
+									<div class="col-md-10">
+										<input class="form-control" name="itemDescEng" maxlength="200"
 											id="itemDescEng" type="text" required
 											value="${editItem.itemEngDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off"/> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}"
+											autocomplete="off" /> <span class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.itemDescMr" />
-									<div class="input-group">
+								<div class="row">
+									<div class="col-md-2">
+										<spring:message code="label.itemDescMr" />
+									</div>
+									<div class="col-md-10">
 										<input class="form-control" name="itemDescMr" id="itemDescMr"
-											type="text" required value="${editItem.itemMarDesc}"
+											maxlength="200" type="text" required
+											value="${editItem.itemMarDesc}"
 											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" autocomplete="off" /> <span
-											class="error" aria-live="polite"></span>
+											onchange="try{setCustomValidity('')}catch(e){}"
+											autocomplete="off" /> <span class="error" aria-live="polite"></span>
 									</div>
 								</div>
+								&nbsp;
 
 								<div class="row">
-								<div class="col-md-2">
-									<spring:message code="label.itemRate" />
+									<div class="col-md-2">
+										<spring:message code="label.itemRate" />
 									</div>
 									<div class="col-md-4">
 										<input class="form-control" name="item_rate" id="item_rate"
 											type="text" required value="${editItem.itemRate}"
-											oninvalid="setCustomValidity('Please enter rate ')" onblur="checkMrp()"
-											onchange="try{setCustomValidity('')}catch(e){}" pattern="[0-9]+(\.[0-9]{0,2})?%?"  /> <span
-											class="error" aria-live="polite"></span>
+											oninvalid="setCustomValidity('Please enter rate ')"
+											onblur="checkMrp()"
+											onchange="try{setCustomValidity('')}catch(e){}"
+											pattern="[0-9]+(\.[0-9]{0,2})?%?" /> <span class="error"
+											aria-live="polite"></span>
 
 									</div>
 
-								<div class="col-md-2">
-									<spring:message code="label.itemMrp" />
-								</div>
+									<div class="col-md-2">
+										<spring:message code="label.itemMrp" />
+									</div>
 									<div class="col-md-4">
 										<input class="form-control" name="item_mrp" id="item_mrp"
 											type="text" required value="${editItem.itemMrp}"
-											oninvalid="setCustomValidity('Please enter Mrp ')" onblur="checkMrp()"
-											onchange="try{setCustomValidity('')}catch(e){}"  pattern="[0-9]+(\.[0-9]{0,2})?%?" /> <span
-											class="error" aria-live="polite"></span>
+											oninvalid="setCustomValidity('Please enter Mrp ')"
+											onblur="checkMrp()"
+											onchange="try{setCustomValidity('')}catch(e){}"
+											pattern="[0-9]+(\.[0-9]{0,2})?%?" /> <span class="error"
+											aria-live="polite"></span>
 
 									</div>
 								</div>
 
 								<div class="form-group"></div>
 								<div class="row">
-								<div class="col-md-2">
-									<spring:message code="label.UOM" />
+									<div class="col-md-2">
+										<spring:message code="label.UOM" />
 									</div>
 									<spring:message code="label.UOM" var="selUom" />
 									<div class="col-md-4">
-										<select data-placeholder="${selUom}" class="standardSelect"
-											tabindex="1" name="item_uom" id="item_uom"
+										<select data-placeholder="${selUom}" class="standardSelect" style="width: 100%;"
+											tabindex="1" name="item_uom" id="item_uom" required
 											oninvalid="setCustomValidity('Please Select UOM ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -373,21 +390,21 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-								
-								<div class="col-md-2">
-									<spring:message code="label.weight" />
+
+									<div class="col-md-2">
+										<spring:message code="label.weight" />
 									</div>
 									<div class="col-md-4">
 										<input class="form-control" value="${editItem.itemWt}"
 											name="item_weight" id="item_weight" type="text" required
 											oninvalid="setCustomValidity('Please enter Weight ')"
-											onchange="try{setCustomValidity('')}catch(e){}" 
-											/> <span
+											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
 								</div>
-								<input type="hidden" name="prevImage" id="prevImage" value="${editItem.itemPic}">
+								<input type="hidden" name="prevImage" id="prevImage"
+									value="${editItem.itemPic}">
 
 								<div class="form-group"></div>
 								<div class="form-group">
@@ -407,6 +424,11 @@
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
+									<button type="reset" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.cancel" />
+									</button>
+
 								</div>
 
 							</form>
@@ -432,8 +454,31 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+
 	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+
 
 	<script>
 		jQuery(document).ready(function() {
@@ -462,28 +507,28 @@
 			readURL(this);
 		});
 	</script>
-	
+
 	<script type="text/javascript">
+		function checkMrp() {
+
+			//alert("Hio ");
+
+			var rate = document.getElementById("item_rate").value;
+
+			var mrp = document.getElementById("item_mrp").value;
+
+			if (rate > 0) {
+
+				if (rate > mrp) {
+
+					alert("Distributor price  can not be greater than MRP");
+					document.getElementById("item_mrp").value = "0";
+				}
+			}
 	
-	function checkMrp(){
-		
-		//alert("Hio ");
-		
-		var rate=document.getElementById("item_rate").value;
-		
-		var mrp=document.getElementById("item_mrp").value;
-		
-		if(rate>0){
-		if(rate>mrp){
-			
-			alert("Distributor price  can not be greater than MRP");
-			document.getElementById("item_mrp").value="0";
-		}
-		}
 		//alert("Rate " +rate + "Mrp " +mrp);
 
-	}
-	
+}
 	</script>
 
 

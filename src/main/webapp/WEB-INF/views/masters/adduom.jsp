@@ -144,28 +144,31 @@
 							<form action="${pageContext.request.contextPath}/insertUom"
 								method="post" enctype="multipart/form-data">
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.UOM" />
-									<div class="input-group">
-										<input class="form-control" name="uom_name"
+									</div>
+									<div class="col-md-3">
+										<input class="form-control" name="uom_name" maxlength="200"
 											id="uom_name" type="text" required
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
+								
 								<input type="hidden" name="uom_id" id="uom_id" value="0">
 								
 
-								<div class="col-lg-12" align="center">
+								<div class="col-md-3">
 
 									<button type="submit" class="btn btn-primary"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
+									
 								</div>
-
+</div>
 							</form>
 
 							<div class="content mt-3">
@@ -183,29 +186,27 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.UOM" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.UOM" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${uomList}" var="uom" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
+																	<td style="text-align: center;">${count.index+1}</td>
 																	
-																	<td>${uom.uomName}</td>
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: left;">${uom.uomName}</td>
+																	<td style="text-align: center;">
 																			<a href="#" onclick="editUom(${uom.uomId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																	&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteUom/${uom.uomId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>

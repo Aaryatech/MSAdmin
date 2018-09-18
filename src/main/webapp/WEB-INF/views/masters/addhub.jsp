@@ -183,24 +183,23 @@
 							<form  action="${pageContext.request.contextPath}/insertHub" id="addHubForm" method="post" enctype="multipart/form-data">
 
 								<input type="hidden" name="hub_id" id="hub_id" value="0">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInEng" />
-									<div class="input-group">
-										<input class="form-control" name="hname_eng" id="hname_eng"
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.nameInEng" /></div>
+									<div class="col-md-4">
+										<input class="form-control" name="hname_eng" id="hname_eng" maxlength="50"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInMr" />
-									<div class="input-group">
-										<input class="form-control" name="hname_mr" id="hname_mr"
+								
+							
+								<div class="col-md-2">
+									<spring:message code="label.nameInMr" /></div>
+									<div class="col-md-4">
+										<input class="form-control" name="hname_mr" id="hname_mr" maxlength="50"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
@@ -208,10 +207,12 @@
 									</div>
 								</div>
 
-								<div class="form-group"></div>
-								<div class="form-group">
+								&nbsp;
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.contactNo" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-3">
 										<input class="form-control" name="contact_no" id="contact_no"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter mobile no ')"
@@ -222,23 +223,22 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.engAdd" />
-									<div class="input-group">
-										<input class="form-control" name="hadd_eng" id="hadd_eng"
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.engAdd" /></div>
+									<div class="col-md-4">
+										<input class="form-control" name="hadd_eng" id="hadd_eng" maxlength="50"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter address ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.marAdd" />
-									<div class="input-group">
-										<input class="form-control" name="hadd_mr" id="hadd_mr"
+								<div class="col-md-2">
+									<spring:message code="label.marAdd" /></div>
+									<div class="col-md-4">
+										<input class="form-control" name="hadd_mr" id="hadd_mr" maxlength="50"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter address ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
@@ -246,9 +246,7 @@
 									</div>
 								</div>
 
-
-
-
+&nbsp;
 
 								<div class="col-lg-12" align="center">
 
@@ -277,45 +275,43 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.hubsName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.address" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.hubsName" /></th>
+																<th style="text-align: center;"><spring:message code="label.contactNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.address" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${hubList}" var="hub" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${hub.hubEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${hub.hubMarName}" />
 
 																		</c:if></td>
-																	<td>${hub.hubContactNo}</td>
+																	<td style="text-align: center;">${hub.hubContactNo}</td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${hub.hubEngAdd}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${hub.hubMarAdd}" />
 
 																		</c:if></td>
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a href="#" onclick="editHub(${hub.hubId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteHub/${hub.hubId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>

@@ -137,15 +137,26 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addRouteSup" /></strong>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
+								
 						</div>
 						<div class="card-body card-block">
 							<form  action="${pageContext.request.contextPath}/insertRouteSup"  id="addRouteSupForm" method="post" enctype="multipart/form-data">
 
+<div id="addDiv" style="display: none;">
 								<input type="hidden" name="sup_id" id="sup_id" value="0">
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInEng" />
-									<div class="input-group">
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.nameInEng" /></div>
+									<div class="col-md-4">
 										<input class="form-control" name="rsup_eng" id="rsup_eng"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter name ')"
@@ -153,12 +164,11 @@
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
+							
+								<div class="col-md-2">
 									<spring:message code="label.nameInMr" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" name="rsup_mr" id="rsup_mr"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter name ')"
@@ -168,60 +178,37 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-2">
 									<spring:message code="label.contactNo" />
-									<div class="input-group">
+									</div>
+									<div class="col-md-4">
 										<input class="form-control" name="contact_no" id="contact_no" onblur="validateMobNo()"
-											type="number" required
+											type="text" required
 											oninvalid="setCustomValidity('Please enter mobile no ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]{10}" /> <span class="error"
 											aria-live="polite"></span>
 									</div>
 								</div>
-								
+								<div class="form-group"></div>
 								<div class="row">
 								<div class="col-md-2">
 									<spring:message code="label.password" />
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<input class="form-control" name="usr_pass" id="usr_pass"
 											onblur="validatePass()" type="password" required
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 									</div>
-							<!-- 	</div>
-
-								<div class="form-group"></div>
- -->								<%-- <div class="col-md-2">
-									<spring:message code="label.confPass" /></div>
-									<div class="col-md-3">
-										<input class="form-control" name="conf_pass" id="conf_pass"
-											onblur="validatePass()" type="text" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="col-md-6">
-									<spring:message code="label.password" />
-									<div class="input-group">
-										<input class="form-control" name="usr_pass" id="usr_pass" onblur="validatePass()"
-											type="password" required
-											oninvalid="setCustomValidity('Please enter password ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
- --%>
+						
 								
 								<div class="col-md-2">
 									<spring:message code="label.confPass" />
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<input class="form-control" name="conf_pass" id="conf_pass" onblur="validatePass()"
 											type="text" required
 											oninvalid="setCustomValidity('Please enter password ')"
@@ -238,6 +225,7 @@
 										<spring:message code="label.submit" />
 									</button>
 									<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
+								</div>
 								</div>
 
 							</form>
@@ -257,38 +245,36 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align:center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align:center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align:center;"><spring:message code="label.contactNo" /></th>
+																<th style="text-align:center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
 															<c:forEach items="${routeSupList}" var="rsup" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align:center;">${count.index+1}</td>
+																	<td style="text-align:left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${rsup.supEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${rsup.supMarName}" />
 
 																		</c:if></td>
-																	<td>${rsup.supContactNo}</td>
+																	<td style="text-align:center;">${rsup.supContactNo}</td>
 
 																	
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align:center;">
 																			<a href="#" onclick="editRouteSup(${rsup.supId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRouteSup/${rsup.supId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -374,6 +360,8 @@
 		},
 		
 		function(data){
+			document.getElementById('addDiv').style.display = "block";
+
 			$("#rsup_mr").val(data.supMarName);
 			$("#rsup_eng").val(data.supEngName);
         	
@@ -456,7 +444,21 @@ function disableSubmit(){
 	document.getElementById('submitButton').disabled = true;
 }
 </script>
+	<script type="text/javascript">
 
+function addButton() {
+	
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
+
+</script>
 
 </body>
 </html>

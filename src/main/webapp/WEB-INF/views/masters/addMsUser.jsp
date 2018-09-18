@@ -139,31 +139,40 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addMsUser" /></strong>
+							
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
+								
 						</div>
 						<div class="card-body card-block">
 							<form action="${pageContext.request.contextPath}/insertMsUser"
 								id="msUserForm" method="post" enctype="multipart/form-data">
-
+<div id="addDiv" style="display: none;">
 								<input type="hidden" name="ms_id" id="ms_id" value="0">
 								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInEng" />
-									<div class="input-group">
+								<div class="row">
+								<div class="col-md-2">
+									<spring:message code="label.nameInEng" /></div>
+									<div class="col-md-4">
 										<input class="form-control" name="usrname_eng"
-											id="usrname_eng" type="text" required
+											id="usrname_eng" type="text" required maxlength="100"
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.nameInMr" />
-									<div class="input-group">
+								
+								<div class="col-md-2">
+									<spring:message code="label.nameInMr" /></div>
+									<div class="col-md-4">
 										<input class="form-control" name="usrname_mr" id="usrname_mr"
-											type="text" required
+											type="text" required maxlength="100"
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -171,15 +180,41 @@
 								</div>
 
 								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.contactNo" />
-									<div class="input-group">
+								<div class="row"><div class="col-md-2">
+									<spring:message code="label.contactNo" /></div>
+									<div class="col-md-4">
 										<input class="form-control" name="contact_no" id="contact_no"
 											onblur="validateMobNo()" type="text" required
 											oninvalid="setCustomValidity('Please enter mobile no ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]{10}" /> <span class="error"
 											aria-live="polite"></span>
+									</div>
+									
+									<div class="col-md-2">
+									<spring:message code="label.role" />
+									</div>
+										<spring:message code="label.role" var="urole"/>
+									<spring:message code="label.staff" var="staff" />
+									<spring:message code="label.admin" var="admin" />
+
+									<div class="col-md-4">
+										<select data-placeholder="${urole}" class="standardSelect"
+											name="usr_role" id="usr_role" style="width: 100%"
+											oninvalid="setCustomValidity('Please Select Role ')"
+											onchange="try{setCustomValidity('')}catch(e){}">
+											<c:choose>
+												<c:when test="${langSelected == 0}">
+													<option value="0">Staff</option>
+													<option value="1">Admin</option>
+												</c:when>
+												<c:otherwise>
+													<option value="0">${staff}</option>
+													<option value="1">${admin}</option>
+												</c:otherwise>
+											</c:choose>
+
+										</select> <span class="error" aria-live="polite"></span>
 									</div>
 								</div>
 
@@ -188,7 +223,7 @@
 								<div class="col-md-2">
 									<spring:message code="label.password" />
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<input class="form-control" name="usr_pass" id="usr_pass"
 											onblur="validatePass()" type="password" required
 											oninvalid="setCustomValidity('Please enter password ')"
@@ -200,7 +235,7 @@
 								<div class="form-group"></div>
  -->								<div class="col-md-2">
 									<spring:message code="label.confPass" /></div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<input class="form-control" name="conf_pass" id="conf_pass"
 											onblur="validatePass()" type="text" required
 											oninvalid="setCustomValidity('Please enter password ')"
@@ -217,8 +252,8 @@
 									</div>
 									
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="col-md-3">
-										<select data-placeholder="${selHub}" multiple required
+									<div class="col-md-10">
+										<select data-placeholder="${selHub}" multiple required style="width: 100%;"
 											class="standardSelect" name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -242,33 +277,9 @@
 								<!-- </div>
 
 								<div class="form-group"></div> -->
-								<div class="col-md-2">
-									<spring:message code="label.role" />
-									</div>
-										<spring:message code="label.role" var="urole"/>
-									<spring:message code="label.staff" var="staff" />
-									<spring:message code="label.admin" var="admin" />
-
-									<div class="col-md-3">
-										<select data-placeholder="${urole}" class="standardSelect"
-											name="usr_role" id="usr_role"
-											oninvalid="setCustomValidity('Please Select Role ')"
-											onchange="try{setCustomValidity('')}catch(e){}">
-											<c:choose>
-												<c:when test="${langSelected == 0}">
-													<option value="0">Staff</option>
-													<option value="1">Admin</option>
-												</c:when>
-												<c:otherwise>
-													<option value="0">${staff}</option>
-													<option value="1">${admin}</option>
-												</c:otherwise>
-											</c:choose>
-
-										</select> <span class="error" aria-live="polite"></span>
-									</div>
+								
 								</div>
-
+<div class="form-group"></div>
 
 								<div class="col-lg-12" align="center">
 
@@ -277,8 +288,13 @@
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
+									
+									<button type="reset" class="btn btn-primary"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.cancel" />
+									</button>
 								</div>
-
+</div>
 							</form>
 
 							<div class="content mt-3">
@@ -296,11 +312,11 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.userName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.userType" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.userName" /></th>
+																<th style="text-align: center;"><spring:message code="label.contactNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.userType" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -308,15 +324,15 @@
 																varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${mhsUsr.msEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${mhsUsr.msMarName}" />
 
 																		</c:if></td>
-																	<td>${mhsUsr.msContactNo}</td>
+																	<td style="text-align: center;">${mhsUsr.msContactNo}</td>
 
 																	<c:choose>
 																		<c:when test="${mhsUsr.isAdmin==1}">
@@ -328,19 +344,17 @@
 																			<spring:message code="label.staff" var="userType" />
 																		</c:otherwise>
 																	</c:choose>
-																	<td><c:out value="${userType}" /></td>
+																	<td style="text-align: center;"><c:out value="${userType}" /></td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;" >
 																			<a href="#" onclick="editMsUser(${mhsUsr.msId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteMsUser/${mhsUsr.msId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -427,6 +441,7 @@
 		},
 		
 		function(data){
+			document.getElementById('addDiv').style.display = "block";
 			$("#usrname_mr").val(data.msMarName);
 			$("#usrname_eng").val(data.msEngName);
         	
@@ -438,12 +453,12 @@
 			$("#usr_pass").val(data.msPwd); 
 			$("#conf_pass").val(data.msPwd); 
 			document.getElementById("usr_role").options.selectedIndex =data.isAdmin;
+			$("#usr_role").trigger("chosen:updated");
 			var temp=new Array();
 			
 			temp=(data.hubIds).split(",");
 			//alert(temp);
 			$("#sel_hub").val(temp); 
-			$("#sel_hub").trigger("chosen:updated");
 			$("#sel_hub").trigger("chosen:updated");
 
 			//$('#sel_hub').formcontrol('refresh');
@@ -529,6 +544,20 @@ function disableSubmit(){
 		});
 	</script>
 
+<script type="text/javascript">
+
+function addButton() {
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
+
+</script>
 
 
 
