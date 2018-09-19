@@ -60,13 +60,14 @@
 			<div class="card-header">
 				<h4>
 					<spring:message code="label.startDist" />
+					${datewiseRouteList[0].currDate}
 				</h4>
 			</div>
 			<div class="card-body">
 			<form
 								action="${pageContext.request.contextPath}/startDistProcess" id="start_dist_form"
 								method="post" enctype="multipart/form-data">
-				<div class="custom-tab">
+				<%-- <div class="custom-tab">
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 
@@ -75,10 +76,10 @@
 								aria-controls="custom-nav-home" aria-selected="true">${datewiseRouteList[0].currDate}</a>
 							
 						</div>
-					</nav>
-					<div class="tab-content pl-3 pt-2" id="nav-tabContent">
+					</nav> --%>
+					<!-- <div class="tab-content pl-3 pt-2" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="custom-nav-home"
-							role="tabpanel" aria-labelledby="custom-nav-home-tab">
+							role="tabpanel" aria-labelledby="custom-nav-home-tab"> -->
 							<p>
 							<div class="content mt-3">
 								<div class="animated fadeIn">
@@ -96,13 +97,13 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th class="check" ><input type="checkbox" 
+																<th style="text-align: center" class="check" ><input type="checkbox" 
 																	name="selAll" id="selAll" /> All</th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center"><spring:message code="label.vehNo" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -110,7 +111,7 @@
 																items="${datewiseRouteList[0].routeAllocationList}"
 																var="routeAl" varStatus="count">
 																<tr>
-																	<td>
+																	<td style="text-align: center">
 																	<c:choose>
 																	<c:when test="${routeAl.isSameRoute==0}">
 																	<input type="checkbox" name="distRoute"
@@ -121,27 +122,27 @@
 																		</c:choose>
 																		</td>
 																		
-																	<td>${count.index+1}</td>
+																	<td style="text-align: center">${count.index+1}</td>
 																	
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
 																		
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center">${routeAl.vehicleNo}</td>
 																	
 																</tr>
 															</c:forEach>
@@ -153,23 +154,25 @@
 									</div>
 								</div>
 							</div>
-							</p>
-						</div>
-						
-					</div>
-
-				</div>
-				<div class="col-lg-12" align="center">
+							<div class="col-lg-12" align="center">
 
 									<button type="button" class="btn btn-primary" onclick="valthisform()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
 								</div>
-				</form>
+							</form>
+							
+						</div>
+						
+					</div>
+
+			<!-- 	</div> cutom-tab  -->
+				
+				
 			</div>
-		</div>
-	</div>
+			
+		
 	<!-- /# column -->
 
 	<script
@@ -211,7 +214,7 @@
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});

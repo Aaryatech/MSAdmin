@@ -9,15 +9,15 @@
 <meta charset="UTF-8">
 <title>Order History</title>
 
-<c:url var="getEditMsUser" value="/getEditMsUser" />
+<meta name="description" content="Sufee Admin - HTML5 Admin Template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="apple-touch-icon"
-	href="${pageContext.request.contextPath}/resources/apple-icon.png">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="apple-touch-icon" href="apple-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- css for date picker proper UI -->
+
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
@@ -32,6 +32,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
@@ -103,12 +105,11 @@
 										<spring:message code="label.chooseHub" />
 									</div>
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="com-md-2">
-										<select data-placeholder="${selHub}" class="form-control"
-											name="sel_hub" id="sel_hub"
-											oninvalid="setCustomValidity('Please Select HUbs ')"
+									<div class="col-md-3">
+										<select data-placeholder="${selHub}" class="standardSelect" tabindex="1"
+											name="sel_hub" id="sel_hub" style="width: 100%;"
+											oninvalid="setCustomValidity('Please select hub ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
-
 											<c:forEach items="${hubList}" var="hub">
 												<c:choose>
 													<c:when test="${langSelected == 0}">
@@ -138,7 +139,7 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-									<div class="col-md-1">
+									<div class="col-md-2">
 										<spring:message code="label.selDate" />
 									</div>
 
@@ -146,7 +147,7 @@
 										<input type="text" value="${ordDate}" id="datepicker"
 											name="date" /> <span class="error" aria-live="polite"></span>
 									</div>
-									&nbsp;&nbsp;
+									
 									<div class="col-md-2"></div>
 									<div class="col-md-1">
 										<button type="submit" class="btn btn-primary"
@@ -185,14 +186,14 @@
 													class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th><spring:message code="label.srNo" /></th>
-															<th><spring:message code="label.distName" /></th>
-															<th><spring:message code="label.contactNo" /></th>
-															<th><spring:message code="label.orderTotal" /></th>
-															<th><spring:message code="label.pendCrates" /></th>
-															<th><spring:message code="label.pendAmt" /></th>
-															<th><spring:message code="label.orderType" /></th>
-															<th><spring:message code="label.action" /></th>
+															<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+															<th style="text-align: center;"><spring:message code="label.distName" /></th>
+															<th style="text-align: center;"><spring:message code="label.contactNo" /></th>
+															<th style="text-align: center;"><spring:message code="label.orderTotal" /></th>
+															<th style="text-align: center;"><spring:message code="label.pendCrates" /></th>
+															<th style="text-align: center;"><spring:message code="label.pendAmt" /></th>
+															<th style="text-align: center;"><spring:message code="label.orderType" /></th>
+															<th style="text-align: center;"><spring:message code="label.action" /></th>
 
 															<!-- 
 																<th>Sr no</th>
@@ -209,8 +210,8 @@
 															varStatus="count">
 															<tr>
 
-																<td>${count.index+1}</td>
-																<td><c:if test="${langSelected == 0}">
+																<td style="text-align: center;">${count.index+1}</td>
+																<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																		<c:out value="${item.distEngName}" />
 
 																	</c:if> <c:if test="${langSelected == 1}">
@@ -220,13 +221,13 @@
 																	</c:if></td>
 
 
-																<td>${item.distContactNo}</td>
-																<td><c:out value="${item.orderTotal}" /></td>
-																<td>${item.prevPendingCrateBal}</td>
+																<td style="text-align: center;">${item.distContactNo}</td>
+																<td style="text-align: right;"><c:out value="${item.orderTotal}" /></td>
+																<td style="text-align: right;">${item.prevPendingCrateBal}</td>
 
-																<td>${item.prevPendingAmt}</td>
+																<td style="text-align: right;">${item.prevPendingAmt}</td>
 
-																<td><c:if test="${item.orderType == 0}">
+																<td style="text-align: center;"><c:if test="${item.orderType == 0}">
 																		<spring:message code="label.regOrder" />
 
 																	</c:if> <c:if test="${item.orderType == 1}">
@@ -235,7 +236,7 @@
 																	</c:if></td>
 
 
-																<td><div class="fa-hover col-lg-3 col-md-6">
+																<td style="text-align: center;"><div class="fa-hover col-lg-3 col-md-6">
 																		<a
 																			href="${pageContext.request.contextPath}/showOrderHisDetail/${item.orderHeaderId}"><i
 																			class="fa fa-edit"></i> <span class="text-muted"></span></a>
@@ -277,7 +278,7 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
+		<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -285,7 +286,6 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
@@ -316,7 +316,7 @@
 	<script>
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
+                disable_search_threshold: 2,
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
@@ -325,10 +325,18 @@
 
 	<script type="text/javascript">
         $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
+           $('#bootstrap-data-table-export').DataTable(); 
+
+
+          $("#flowcheckall").click(function () {
+              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
+          });
+          
         } );
     </script>
+	
 
+	
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>

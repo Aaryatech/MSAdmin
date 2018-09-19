@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Order List</title>
+<title>Order List Detail</title>
 
 <c:url var="getEditMsUser" value="/getEditMsUser" />
 
@@ -88,11 +88,11 @@
 							<strong> <spring:message code="label.itemList" /></strong>
 						</div> --%>
 						<div class="card-body card-block">
-							
 
 
-								<div class="form-group"></div>
-							
+
+							<div class="form-group"></div>
+							<section class="form-control">
 								<div class="row">
 
 									<div class="col-md-2">
@@ -101,10 +101,12 @@
 									</div>
 									<div class="col-md-3">
 										<c:if test="${langSelected == 0}">
-										<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b></c:if>
-										
+											<b><c:out value="${ordHeadDetail.distEngName}"></c:out></b>
+										</c:if>
+
 										<c:if test="${langSelected == 1}">
-										<b><c:out value="${ordHeadDetail.distMarName}"></c:out></b></c:if>
+											<b><c:out value="${ordHeadDetail.distMarName}"></c:out></b>
+										</c:if>
 									</div>
 
 									<div class="col-md-2">
@@ -116,7 +118,7 @@
 									</div>
 
 								</div>
-								
+
 								<hr></hr>
 								<div class="row">
 
@@ -135,7 +137,7 @@
 									<div class="col-md-2">
 										<b><c:out value="${ordHeadDetail.prevPendingCrateBal}"></c:out></b>
 									</div>
-									
+
 									<div class="col-md-2">
 										<spring:message code="label.pendAmt" />
 										<span class="error" aria-live="polite"></span>
@@ -143,12 +145,12 @@
 									<div class="col-md-2">
 										<b><c:out value="${ordHeadDetail.prevPendingAmt}"></c:out></b>
 									</div>
-									
+
 
 								</div>
-								
+							</section>
 
-								<%-- <div class="col-lg-12" align="center">
+							<%-- <div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
 										
@@ -157,72 +159,83 @@
 									</button>
 								</div> --%>
 
-							<form action="${pageContext.request.contextPath}/editOrderProcess"
+							<form
+								action="${pageContext.request.contextPath}/editOrderProcess"
 								id="order_search_form" method="post"
 								enctype="multipart/form-data">
-							<div class="content mt-3">
-								<div class="animated fadeIn">
-									<div class="row">
+								<div class="content mt-3">
+									<div class="animated fadeIn">
+										<div class="row">
 
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.orList" /></strong>
-												</div>
-												<div class="card-body">
-													<table id="bootstrap-data-table"
-														class="table table-striped table-bordered">
-														<thead>
-															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.name" /></th>
-																<th><spring:message code="label.itemWeight" /></th>
-																<th><spring:message code="label.UOM" /></th>
-																<th><spring:message code="label.itemRate" /></th>
-																<th><spring:message code="label.orderQty" /></th>
-																
-																<th><spring:message code="label.total" /></th>
- 
-																
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${ordHeadDetail.getOrderDetailList}" var="order"
-																varStatus="count">
+											<div class="col-md-12">
+												<div class="card">
+													<div class="card-header">
+														<strong class="card-title"><spring:message
+																code="label.orList" /></strong>
+													</div>
+													<div class="card-body">
+														<table id="bootstrap-data-table"
+															class="table table-striped table-bordered">
+															<thead>
 																<tr>
+																	<th style="text-align: center;"><spring:message
+																			code="label.srNo" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.name" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.itemWeight" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.UOM" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.itemRate" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.orderQty" /></th>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
-																			<c:out value="${order.itemEngName}" />
-
-																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${order.itemMarName}" />
-																		</c:if></td>
-
-
-																	<td>${order.itemWt}</td>
-																	<td><c:out value="${order.uomName}" /></td>
-																	<td>${order.itemRate}</td>
-
-																	<td style="text-align: center;	"><input  name='hub_ord_qty${order.orderDetailId}'
-											id="hub_ord_qty${order.orderDetailId}" type="number" required value="${order.msQty}" min=0  style="width: 75px;"
-											
-											onchange="updateTotal(this.value,${order.orderDetailId},${order.itemRate})" pattern="[0-9]" /> <span
-											
-											class="error" aria-live="polite"></span>
-																	</td>
-																	
-																	<td style="text-align: center;"><input  name='item_total${order.orderDetailId}'
-											id='item_total${order.orderDetailId}' style="width: 90px;" type="number" readonly  required value="${order.itemTotal}" min=0
-											oninvalid="setCustomValidity('Please enter item total')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											
-											class="error" aria-live="polite"></span>
-																	</td>
+																	<th style="text-align: center;"><spring:message
+																			code="label.total" /></th>
 
 
-<%-- 																	<td><div class="fa-hover col-lg-3 col-md-6">
+																</tr>
+															</thead>
+															<tbody>
+																<c:forEach items="${ordHeadDetail.getOrderDetailList}"
+																	var="order" varStatus="count">
+																	<tr>
+
+																		<td style="text-align: center;">${count.index+1}</td>
+																		<td style="text-align: left;"><c:if
+																				test="${langSelected == 0}">
+																				<c:out value="${order.itemEngName}" />
+
+																			</c:if> <c:if test="${langSelected == 1}">
+																				<c:out value="${order.itemMarName}" />
+																			</c:if></td>
+
+
+																		<td style="text-align: right;">${order.itemWt}</td>
+																		<td style="text-align: left;"><c:out
+																				value="${order.uomName}" /></td>
+																		<td style="text-align: right;">${order.itemRate}</td>
+																		<td style="text-align: center;"><input
+																			name='hub_ord_qty${order.orderDetailId}'
+																			id="hub_ord_qty${order.orderDetailId}" type="number"
+																			required value="${order.msQty}" min=0
+																			style="width: 75px;"
+																			onchange="updateTotal(this.value,${order.orderDetailId},${order.itemRate})"
+																			pattern="[0-9]" /> <span class="error"
+																			aria-live="polite"></span></td>
+
+																		<td style="text-align: center;"><input
+																			name='item_total${order.orderDetailId}'
+																			id='item_total${order.orderDetailId}'
+																			style="width: 90px;" type="number" readonly required
+																			value="${order.itemTotal}" min=0
+																			oninvalid="setCustomValidity('Please enter item total')"
+																			onchange="try{setCustomValidity('')}catch(e){}" /> <span
+																			class="error" aria-live="polite"></span></td>
+
+
+																		<%-- 																	<td><div class="fa-hover col-lg-3 col-md-6">
 																			<a
 																				href="${pageContext.request.contextPath}/editOrderDetail/${order.orderDetailId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
@@ -235,27 +248,27 @@
 																				class="fa fa-trash-o"></i></a>
 																		</div></td>
 
- --%>																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
+ --%>
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
 
-<div class="col-lg-12" align="center">
+								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
-										
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submit" />
 									</button>
 								</div>
-</form>
+							</form>
 
 						</div>
 					</div>
@@ -332,8 +345,8 @@
 		});
   } );
   </script>
-  
-  <script type="text/javascript">
+
+	<script type="text/javascript">
   function updateTotal(qty,detailId,rate){
 	  
 	  if(qty>=0){

@@ -102,8 +102,8 @@
 									</div>
 									<div class="col-md-3">
 										<select data-placeholder="${selHub}" class="standardSelect"
-											name="sel_hub" id="sel_hub"
-											oninvalid="setCustomValidity('Please Select HUbs ')"
+											name="sel_hub" id="sel_hub" style="width: 100%" tabindex="1"
+											oninvalid="setCustomValidity('Please select hub ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
 											<c:forEach items="${hubList}" var="hub">
@@ -186,23 +186,16 @@
 													class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th><spring:message code="label.srNo" /></th>
-															<th><spring:message code="label.distName" /></th>
-															<th><spring:message code="label.contactNo" /></th>
-															<th><spring:message code="label.orderTotal" /></th>
-															<th><spring:message code="label.pendCrates" /></th>
-															<th><spring:message code="label.pendAmt" /></th>
-															<th><spring:message code="label.orderType" /></th>
-															<th><spring:message code="label.action" /></th>
+															<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+															<th style="text-align: center;"><spring:message code="label.distName" /></th>
+															<th style="text-align: center;"><spring:message code="label.contactNo" /></th>
+															<th style="text-align: center;"><spring:message code="label.orderTotal" /></th>
+															<th style="text-align: center;"><spring:message code="label.pendCrates" /></th>
+															<th style="text-align: center;"><spring:message code="label.pendAmt" /></th>
+															<th style="text-align: center;"><spring:message code="label.orderType" /></th>
+															<th style="text-align: center;"><spring:message code="label.action" /></th>
 
-															<!-- 
-																<th>Sr no</th>
-																<th>Dist Name</th>
-																<th>Mob no</th>
-																<th>order tot</th>
-																<th>Pend crates</th>
-																<th>pend amt</th>
-																<th>action</th> -->
+															
 														</tr>
 													</thead>
 													<tbody>
@@ -210,8 +203,8 @@
 															varStatus="count">
 															<tr>
 
-																<td>${count.index+1}</td>
-																<td><c:if test="${langSelected == 0}">
+																<td style="text-align: center;">${count.index+1}</td>
+																<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																		<c:out value="${item.distEngName}" />
 
 																	</c:if> <c:if test="${langSelected == 1}">
@@ -221,13 +214,13 @@
 																	</c:if></td>
 
 
-																<td>${item.distContactNo}</td>
-																<td><c:out value="${item.orderTotal}" /></td>
-																<td>${item.prevPendingCrateBal}</td>
+																<td style="text-align: center;">${item.distContactNo}</td>
+																<td style="text-align: right;"><c:out value="${item.orderTotal}" /></td>
+																<td style="text-align: right;">${item.prevPendingCrateBal}</td>
 
-																<td>${item.prevPendingAmt}</td>
+																<td style="text-align: right;">${item.prevPendingAmt}</td>
 
-																<td><c:if test="${item.orderType == 0}">
+																<td style="text-align: center;"><c:if test="${item.orderType == 0}">
 																		<spring:message code="label.regOrder" />
 
 																	</c:if> <c:if test="${item.orderType == 1}">
@@ -236,7 +229,7 @@
 																	</c:if></td>
 
 
-																<td><div class="fa-hover col-lg-3 col-md-6">
+																<td style="text-align: center;"><div class="fa-hover col-lg-3 col-md-6">
 																		<a
 																			href="${pageContext.request.contextPath}/showProdOrderDetail/${item.orderHeaderId}" title="view Detail"><i
 																			class="fa fa-list"></i> <span class="text-muted"></span></a>
@@ -317,7 +310,7 @@
 	<script>
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
+                disable_search_threshold: 2,
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });

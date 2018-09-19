@@ -42,7 +42,6 @@
 	rel='stylesheet' type='text/css'>
 
 
-
 </head>
 
 
@@ -146,10 +145,12 @@
 
 								
 								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
 									<spring:message code="label.confsName" />
+									</div>
 									<spring:message code="label.confsName" var="selConf" />
-									<div class="input-group">
+									<div class="col-md-9">
 										<select data-placeholder="${selConf}" required 
 											class="standardSelect" name="sel_conf" id="sel_conf"
 											oninvalid="setCustomValidity('Please Select Configuration ')"
@@ -172,14 +173,14 @@
 
 									</div>
 								</div>
-
 							
 								<div class="form-group"></div>
-								<div class="form-group"></div>
-								<div class="form-group">
+								<div class="row">
+								<div class="col-md-3">
 									<spring:message code="label.chooseHub" />
+									</div>
 									<spring:message code="label.chooseHub" var="selHub" />
-									<div class="input-group">
+									<div class="col-md-9">
 										<select data-placeholder="${selHub}" multiple required
 											class="standardSelect" name="sel_hub[]" id="sel_hub[]"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
@@ -202,8 +203,7 @@
 
 									</div>
 								</div>
-
-								
+<div class="form-group"></div>
 								<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
@@ -230,14 +230,14 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.hubsName" /></th>
-																<th><spring:message code="label.confsName" /></th>
-																<th><spring:message code="label.confType" /></th>
-																<th><spring:message code="label.confTypeDesc" /></th>
-																<th><spring:message code="label.hubTime" /></th>
-																<th><spring:message code="label.distTime" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;" ><spring:message code="label.hubsName" /></th>
+																<th style="text-align: center;"><spring:message code="label.confsName" /></th>
+																<th style="text-align: center;"><spring:message code="label.confType" /></th>
+																<th style="text-align: center;"><spring:message code="label.confTypeDesc" /></th>
+																<th style="text-align: center;"><spring:message code="label.hubTime" /></th>
+																<th style="text-align: center;"><spring:message code="label.distTime" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -245,8 +245,8 @@
 																varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${setting.hubEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -254,7 +254,7 @@
 
 																		</c:if></td>
 																		
-																		<td><c:if test="${langSelected == 0}">
+																		<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${setting.configEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -262,7 +262,7 @@
 
 																		</c:if></td>
 																		
-																		<td><c:if test="${setting.configType == 1}">
+																		<td style="text-align: center;"><c:if test="${setting.configType == 1}">
 																			<spring:message code="label.dateBasis" />
 
 																		</c:if> <c:if test="${setting.configType == 2}">
@@ -278,17 +278,17 @@
 																		</td>
 																		
 																		
-																	<td>${setting.configTypeDetails}</td>
+																	<td style="text-align: left;">${setting.configTypeDetails}</td>
 
-																	<td><c:out value="${setting.hubFromTime} To ${setting.hubToTime}" /></td>
-																	<td><c:out value="${setting.distFromTime} To ${setting.distToTime}" /></td>
+																	<td style="text-align: left;"><c:out value="${setting.hubFromTime} To ${setting.hubToTime}" /></td>
+																	<td style="text-align: left;"><c:out value="${setting.distFromTime} To ${setting.distToTime}" /></td>
 
-																	<td>
-																		<div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
+																		
 																			<a href="${pageContext.request.contextPath}/delAssignedConf/${setting.settingId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -327,20 +327,44 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});
 		});
-		
-		
 	</script>
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table-export').DataTable();
@@ -448,7 +472,7 @@ function disableSubmit(){
 <script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});

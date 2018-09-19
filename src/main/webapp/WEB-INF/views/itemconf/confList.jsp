@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>Configuration List</title>
 
-<c:url var="getEditMsUser" value="/getEditMsUser" />
 
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
@@ -106,8 +105,6 @@
 			}, 0);
 		});
 
-		
-
 	} //end onLoad function
 
 	google.setOnLoadCallback(OnLoad);
@@ -137,9 +134,15 @@
 
 				<div class="col-xs-12 col-sm-12">
 					<div class="card">
-						<%-- <div class="card-header">
-							<strong> <spring:message code="label.itemList" /></strong>
-						</div> --%>
+						<div class="card-header">
+							<strong> <spring:message code="label.confList" /></strong>
+							
+								&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <a
+							href="${pageContext.request.contextPath}/showCreateItemConf"><spring:message
+									code="label.addConf" /></a>
+						</div>
 						<div class="card-body card-block">
 
 
@@ -158,13 +161,13 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.confsName" /></th>
-																<th><spring:message code="label.confType" /></th>
-																<th><spring:message code="label.confTypeDesc" /></th>
-																<th><spring:message code="label.hubTime" /></th>
-																<th><spring:message code="label.distTime" /></th>
-																<th><spring:message code="label.item" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.confsName" /></th>
+																<th style="text-align: center;"><spring:message code="label.confType" /></th>
+																<th style="text-align: center;"><spring:message code="label.confTypeDesc" /></th>
+																<th style="text-align: center;"><spring:message code="label.hubTime" /></th>
+																<th style="text-align: center;"><spring:message code="label.distTime" /></th>
+																<th style="text-align: center;"><spring:message code="label.item" /></th>
 															<%-- 	<th><spring:message code="label.action" /></th> --%>
 															</tr>
 														</thead>
@@ -173,8 +176,8 @@
 																varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${conf.configEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -183,7 +186,7 @@
 
 																		</c:if></td>
 
-																	<td><c:if test="${conf.configType == 1}">
+																	<td style="text-align: center;"><c:if test="${conf.configType == 1}">
 																			<spring:message code="label.dateBasis" />
 
 																		</c:if> <c:if test="${conf.configType == 2}">
@@ -197,10 +200,10 @@
 																		</c:if>
 																		
 																		</td>
-																	<td>${conf.configTypeDetails}</td>
-																	<td><c:out value="${conf.hubFromTime} To ${conf.hubToTime}" /></td>
-																	<td><c:out value="${conf.distFromTime} To ${conf.distToTime}" /></td>
-<td>${conf.itemIds}</td>
+																	<td style="text-align: left;">${conf.configTypeDetails}</td>
+																	<td style="text-align: center;"><c:out value="${conf.hubFromTime} To ${conf.hubToTime}" /></td>
+																	<td style="text-align: center;"><c:out value="${conf.distFromTime} To ${conf.distToTime}" /></td>
+<td style="text-align: left;">${conf.itemIds}</td>
 																	
 																	<%-- <td><div class="fa-hover col-lg-3 col-md-6">
 																			<a href="${pageContext.request.contextPath}/editItem/${conf.configId}" ><i

@@ -168,14 +168,14 @@
 															class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th><spring:message code="label.srNo" /></th>
-																	<th><spring:message code="label.name" /></th>
-																	<th><spring:message code="label.itemWeight" /></th>
-																	<th><spring:message code="label.UOM" /></th>
-																	<th><spring:message code="label.itemRate" /></th>
-																	<th><spring:message code="label.orderQty" /></th>
+																	<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																	<th style="text-align: center;"><spring:message code="label.name" /></th>
+																	<th style="text-align: center;"><spring:message code="label.itemWeight" /></th>
+																	<th style="text-align: center;"><spring:message code="label.UOM" /></th>
+																	<th style="text-align: center;"><spring:message code="label.itemRate" /></th>
+																	<th style="text-align: center;"><spring:message code="label.orderQty" /></th>
 
-																	<th><spring:message code="label.total" /></th>
+																	<th style="text-align: center;"><spring:message code="label.total" /></th>
 
 
 																</tr>
@@ -185,8 +185,8 @@
 																	var="order" varStatus="count">
 																	<tr>
 
-																		<td>${count.index+1}</td>
-																		<td><c:if test="${langSelected == 0}">
+																		<td style="text-align: center;">${count.index+1}</td>
+																		<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																				<c:out value="${order.itemEngName}" />
 
 																			</c:if> <c:if test="${langSelected == 1}">
@@ -194,11 +194,11 @@
 																			</c:if></td>
 
 
-																		<td>${order.itemWt}</td>
-																		<td><c:out value="${order.uomName}" /></td>
-																		<td>${order.itemRate}</td>
+																		<td style="text-align: right;">${order.itemWt}</td>
+																		<td style="text-align: left;"><c:out value="${order.uomName}" /></td>
+																		<td style="text-align: right;">${order.itemRate}</td>
 
-																		<td style="text-align: center;"><c:out
+																		<td style="text-align: right;"><c:out
 																				value="${order.msQty}" /></td>
 																		<td style="text-align: right;">${order.itemTotal}</td>
 

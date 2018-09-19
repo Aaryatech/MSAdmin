@@ -37,7 +37,10 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
-<!-- DatePicker --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- css for date picker proper UI -->
+<!-- DatePicker -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- css for date picker proper UI -->
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
@@ -147,65 +150,68 @@
 								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
 								id="addButton" onclick="hideButon();" height="25px;"
 								width="25px;" />
-							
+
 						</div>
 						<div class="card-body card-block">
-							<form action="${pageContext.request.contextPath}/insertNotif" id="insert_noti_form"
-								method="post" enctype="multipart/form-data">
-								
+							<form action="${pageContext.request.contextPath}/insertNotif"
+								id="insert_noti_form" method="post"
+								enctype="multipart/form-data">
+
 								<div id="addDiv" style="display: none;">
-								
-								<input type="hidden" name="conf_id" id="conf_id" value="0">
 
-								<div class="form-group">
-									<spring:message code="label.notif" />
-									<div class="input-group">
-										<input type="radio" checked name="lang" id="lang" 
-											onchange="openDiv(0)" value="0"> English <input type="radio"
-											name="lang" id="lang"  onchange="openDiv(1)" value="1">
-										Marathi
-									</div>
-								</div>
+									<input type="hidden" name="conf_id" id="conf_id" value="0">
 
-								<div class="form-group"></div>
-								<div class="form-group">
-									<spring:message code="label.engNoti" />
-									<div class="input-group">
-										<input class="form-control" name="notf_eng" id="notf_eng"
-											type="text" required
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="form-group" id="notf_mr_div" style="display: none">
-									<spring:message code="label.mrNoti" />
-									<div class="input-group">
-										<input class="form-control" name="notf_mr" id="notf_mr"
-											type="text"  
-											oninvalid="setCustomValidity('Please enter name ')"
-											onchange="try{setCustomValidity('')}catch(e){}" /> <span
-											class="error" aria-live="polite"></span>
-									</div>
-								</div>
-
-								<div class="form-group"></div>
-								<div class="row">
-									<div class="col-md-6">
-										<spring:message code="label.chooseHub" />
-										<spring:message code="label.chooseHub" var="selHub" />
+									<div class="form-group">
+										<spring:message code="label.notif" />
 										<div class="input-group">
+											<input type="radio" checked name="lang" id="lang"
+												onchange="openDiv(0)" value="0"> English <input
+												type="radio" name="lang" id="lang" onchange="openDiv(1)"
+												value="1"> Marathi
+										</div>
+									</div>
+
+									<div class="form-group"></div>
+									<div class="row">
+										<div class="col-md-3">
+											<spring:message code="label.engNoti" />
+										</div>
+										<div class="col-md-9">
+											<input class="form-control" name="notf_eng" id="notf_eng"
+												type="text" required
+												oninvalid="setCustomValidity('Please enter name ')"
+												onchange="try{setCustomValidity('')}catch(e){}" /> <span
+												class="error" aria-live="polite"></span>
+
+										</div>
+									</div>
+<div class="form-group"></div>
+
+									<div class="row" id="notf_mr_div" style="display: none;">
+										<div class="col-md-3">
+											<spring:message code="label.mrNoti" />
+										</div>
+										<div class="col-md-9">
+											<input class="form-control" name="notf_mr" id="notf_mr"
+												type="text"
+												oninvalid="setCustomValidity('Please enter name ')"
+												onchange="try{setCustomValidity('')}catch(e){}" />
+										</div>
+									</div>
+
+									<div class="form-group"></div>
+									<div class="row">
+										<div class="col-md-3">
+											<spring:message code="label.chooseHub" />
+										</div>
+										<spring:message code="label.chooseHub" var="selHub" />
+										<div class="col-md-9">
 											<select data-placeholder="${selHub}" multiple
 												class="standardSelect" name="sel_hub" id="sel_hub"
 												oninvalid="setCustomValidity('Please Select Hubs ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
-											<option selected value="${hubList[0].hubId}">${hubList[0].hubEngName}</option>
-
+												<option selected value="${hubList[0].hubId}">${hubList[0].hubEngName}</option>
 												<c:forEach items="${hubList}" var="hub">
-
 													<c:choose>
 														<c:when test="${langSelected == 0}">
 															<option value="${hub.hubId}">${hub.hubEngName}</option>
@@ -215,62 +221,51 @@
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
-
 											</select> <span class="error" aria-live="polite"></span>
-
 										</div>
 									</div>
 
-									<div class="col-md-6">
-									OR &nbsp;
-										<spring:message code="label.routeSupName" />
-										<spring:message code="label.routeSupName" var="selRouteSup" />
+									<div class="form-group"></div>
 
-										<div class="input-group">
+									<div class="row">
+										<div class="col-md-3">
+											<b>OR</b> <spring:message code="label.routeSupName" />
+										</div>
+										<spring:message code="label.routeSupName" var="selRouteSup" />
+										<div class="col-md-9">
 											<select data-placeholder="${selRouteSup}"
 												class="standardSelect" name="sup_name" id="sup_name"
-												multiple 
+												multiple
 												oninvalid="setCustomValidity('Please Select Route Supervisiors ')"
 												onchange="try{setCustomValidity('')}catch(e){}">
-												
-												<%-- <option selected value="${routeSupList[0].supId}">${routeSupList[0].supEngName}</option> --%>
 												<c:forEach items="${routeSupList}" var="sup">
-
 													<c:choose>
-
 														<c:when test="${langSelected==0}">
-
 															<option value="${sup.supId}">${sup.supEngName}</option>
-
 														</c:when>
-
 														<c:otherwise>
-
 															<option value="${sup.supId}">${sup.supMarName}</option>
-
 														</c:otherwise>
-
 													</c:choose>
-
 												</c:forEach>
-
 											</select> <span class="error" aria-live="polite"></span>
 										</div>
+									</div>
+									<div class="form-group"></div>
+									<div class="col-lg-12" align="center">
+
+										<button type="submit" class="btn btn-primary"
+											onclick="validateForm1()"
+											style="align-content: center; width: 226px; margin-left: 80px;">
+											<spring:message code="label.submit" />
+										</button>
+										<button type="reset" class="btn btn-primary"
+											style="align-content: center; width: 226px; margin-left: 80px;">
+											<spring:message code="label.cancel" />
+										</button>
 
 									</div>
-								</div>
-								<br></br>
 
-								<div class="col-lg-12" align="center">
-
-									<button type="submit" class="btn btn-primary" onclick="validateForm1()"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
-									
-								</div>
-								
 								</div>
 
 							</form>
@@ -278,44 +273,46 @@
 					</div>
 				</div>
 			</div>
-			
-				<div class="content mt-3">
-								<div class="animated fadeIn">
-									<div class="row">
 
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.notifList" /></strong>
-												</div>
-												<div class="card-body">
-													<table id="bootstrap-data-table"
-														class="table table-striped table-bordered">
-														<thead>
-															<tr>
-																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
-																<th style="text-align: center;"><spring:message code="label.notif" /></th>
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${notifList}" var="notif" varStatus="count">
-																<tr>
+			<div class="content mt-3">
+				<div class="animated fadeIn">
+					<div class="row">
 
-																	<td style="text-align: center">${count.index+1}</td>
-																	
-																	<td style="text-align: left">${notif.notifiText}</td>
-																	
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<strong class="card-title"><spring:message
+											code="label.notifList" /></strong>
+								</div>
+								<div class="card-body">
+									<table id="bootstrap-data-table"
+										class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th style="text-align: center;"><spring:message
+														code="label.srNo" /></th>
+												<th style="text-align: center;"><spring:message
+														code="label.notif" /></th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${notifList}" var="notif" varStatus="count">
+												<tr>
+
+													<td style="text-align: center">${count.index+1}</td>
+
+													<td style="text-align: left">${notif.notifiText}</td>
+
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 		</div>
@@ -326,25 +323,41 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	 <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -359,7 +372,8 @@
 		function openDiv(type) {
 
 			if (type == 1) {
-				document.getElementById('notf_mr_div').style.display = "block";
+				document.getElementById('notf_mr_div').style.display = "flow-root";
+				
 				$("#notf_eng").val("");
 				$("#notf_mr").val("");
 			} else if (type == 0) {
@@ -370,7 +384,63 @@
 
 		}
 	</script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script type="text/javascript">
+		function addButton() {
+			document.getElementById('addDiv').style.display = "inline";
+		
+		}
+		function hideButon() {
+			document.getElementById('addDiv').style = "display:none";
+		}
+	</script>
+	
+	
+		<script type="text/javascript">
+		function validateForm() {
+
+			var hub = document.getElementById("sel_hub").value;
+			var sup = document.getElementById("sup_name").value;
+			var notfEng = document.getElementById("notf_eng").value;
+			alert(notfEng);
+			var hubIds = new Array();
+
+			hubIds = JSON.stringify(hub);
+
+			//alert("hub "+hubIds);
+			//alert("sup "+supIds);
+
+			var valid = true;
+
+			if (notfEng == null || notfEng == "") {
+				// alert("In if");
+				valid = false;
+				alert("Please Add Notification Text ");
+
+			} else {
+
+				if (hubIds < 0 && supIds < 0) {
+					valid = false;
+					alert("Select At least one Hub or one Route Supervisor ");
+				}
+				if (hubIds > 0) {
+					valid = true;
+				}
+				if (supIds > 0) {
+					valid = true;
+				}
+			}
+			if (valid == true) {
+				//alert("all true");
+				var form = document.getElementById("insert_noti_form");
+				//form.action="${pageContext.request.contextPath}/insertRouteAlloc";
+				form.submit();
+			}
+
+		}
+	</script>
+	
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$(function() {
 			$('input[id$=datepicker]').datepicker({
@@ -378,105 +448,28 @@
 			});
 		});
 	</script>
-	
+
 	<script type="text/javascript">
-	
-	function validateForm() {
-	
-		var hub=document.getElementById("sel_hub").value;
-		var sup=document.getElementById("sup_name").value;
-		var notfEng=document.getElementById("notf_eng").value;
-		alert(notfEng);
-		var hubIds=new Array();
-		
-		hubIds=JSON.stringify(hub);
-		
-		
-		alert("hub "+hubIds);
-		alert("sup "+supIds);
-		 
-		var valid=true;
-		
-		 if(notfEng==null || notfEng==""){
-			 alert("In if");
-			 valid=false;
-			 alert("Please Add Notification Text ");
-			
-		 }else{
-			 
-			 if(hubIds<0 && supIds<0){
-					valid=false;
-					alert("Select At least one Hub or one Route Supervisor ");
+		$(document).ready(function() {
+			$('#sel_hub').change(function() {
+				var y = $('select#sel_hub option').length;
+				var x = document.getElementById("sel_hub").length;
+				var p = $('#sel_hub').val();
+				if (p != null) {
+					$('#sup_name').setAttr('disabled', true);
+				} else {
+
 				}
-				if(hubIds>0){
-					valid=true;
-				}
-				 if(supIds>0){
-					valid=true; 	
-				 }
-		 }
-		if(valid==true){
-					//alert("all true");
-					var form=document.getElementById("insert_noti_form");
-					//form.action="${pageContext.request.contextPath}/insertRouteAlloc";
-					form.submit();
-				}
-			
-		}
+
+			});
+		});
+
+		$(document).ready(function() {
+			$('#sup_name').change(function() {
+
+			});
+		});
 	</script>
-	
-	 
-	 <script type="text/javascript">
-	 
-	
-	 $(document).ready(function() { 
-			$('#sel_hub').change(
-					function() {
-						//alert("Hii");
-						var y=$('select#sel_hub option').length;
-						//alert("Y " +y);
-						//$('#sup_name').setAttr('disabled', true);
-						 var x = document.getElementById("sel_hub").length; 
-						// alert("x==" +x);
-						 var p=$('#sel_hub').val();
-						 //alert("P " +p);
-						 
-						 if(p!=null){
-					//	document.getElementById("sup_name").options.length = 0;
-							 //document.getElementById("sup_name").selectedIndex = "-1"; 
-							 
-							 $('#sup_name').setAttr('disabled', true);
-						 }
-						 else{
-							 //document.getElementById("sup_name").options.length=${routeSupList}
-								//$('#sup_name').formcontrol('refresh');
-
-						 }
- 
-
-					});
-		});
-	 
-	 $(document).ready(function() { 
-			$('#sup_name').change(
-					function() {
-						
-						//document.getElementById("sel_hub").options.length = 0;
-
-					});
-		});
-	
-	 </script>
-
-<script type="text/javascript">
-function addButton() {
-	document.getElementById('addDiv').style.display = "block";
-}
-function hideButon(){
-	document.getElementById('addDiv').style = "display:none";
-}
-</script>
-
 
 </body>
 </html>

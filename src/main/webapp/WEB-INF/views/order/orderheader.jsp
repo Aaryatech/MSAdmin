@@ -10,10 +10,12 @@
 <title>Order List</title>
 
 
-<link rel="apple-touch-icon"
-	href="${pageContext.request.contextPath}/resources/apple-icon.png">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="apple-touch-icon" href="apple-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/normalize.css">
@@ -29,6 +31,8 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/cs-skin-elastic.css">
 
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
@@ -39,6 +43,8 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+
+
 
 
 
@@ -99,9 +105,9 @@
 									<spring:message code="label.chooseHub" />
 									<spring:message code="label.chooseHub" var="selHub" />
 									</div>
-									<div class="col-md-3">
-										<select data-placeholder="${selHub}" class="standardSelect"
-											name="sel_hub" id="sel_hub"
+									<div class="col-md-5">
+										<select data-placeholder="${selHub}" class="standardSelect" tabindex="1"
+											name="sel_hub" id="sel_hub" style="width: 100%;"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -141,7 +147,7 @@
 									<div class="col-md-2">
 									
 									<button type="submit" class="btn btn-primary" id="submitButton"
-										style="align-content: center; width: 226px; margin-left: 80px;">
+										style="align-content: center; width: 226px;">
 										<spring:message code="label.submit" />
 									</button>
 									</div>
@@ -176,15 +182,15 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-															<th class="check" ><input type="checkbox" 
+															<th style="text-align: center;" class="check" ><input type="checkbox" 
 																	name="selAll" id="selAll" /> All</th>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.distName" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.distName" /></th>
 																<th><spring:message code="label.contactNo" /></th>
-																<th><spring:message code="label.orderTotal" /></th>
-																<th><spring:message code="label.pendCrates" /></th>
-																<th><spring:message code="label.pendAmt" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.orderTotal" /></th>
+																<th style="text-align: center;"><spring:message code="label.pendCrates" /></th>
+																<th style="text-align: center;"><spring:message code="label.pendAmt" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 
 																<!-- 
 																<th>Sr no</th>
@@ -200,11 +206,11 @@
 															<c:forEach items="${ordHeaderList}" var="item"
 																varStatus="count">
 																<tr>
-																<td><input type="checkbox" name="startProdOrdHeader"
+																<td style="text-align: center;"><input type="checkbox" name="startProdOrdHeader"
 																		value="${item.orderHeaderId}" /></td>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${item.distEngName}" />
 
 																		</c:if> <c:if test="${langSelected == 1}">
@@ -214,24 +220,24 @@
 																		</c:if></td>
 
 
-																	<td>${item.distContactNo}</td>
-																	<td><c:out value="${item.orderTotal}" /></td>
-																	<td>${item.prevPendingCrateBal}</td>
+																	<td style="text-align: center;">${item.distContactNo}</td>
+																	<td style="text-align: right;"><c:out value="${item.orderTotal}" /></td>
+																	<td style="text-align: right;">${item.prevPendingCrateBal}</td>
 
-																	<td>${item.prevPendingAmt}</td>
+																	<td style="text-align: right;">${item.prevPendingAmt}</td>
 
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;"><div class="fa-hover col-lg-3 col-md-6">
 																			<a
 																				href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																		</div>
 
 																		<div class="fa-hover col-lg-3 col-md-6">
-																			<a
+																		<%-- 	<a
 																				href="${pageContext.request.contextPath}/deleteOrder/${item.orderHeaderId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
-																				class="fa fa-trash-o"></i></a>
+																				class="fa fa-trash-o"></i></a> --%>
 																		</div></td>
 
 																</tr>
@@ -271,7 +277,7 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
+<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -308,15 +314,14 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-    </script>
-
+		jQuery(document).ready(function() {
+			jQuery(".standardSelect").chosen({
+				disable_search_threshold : 10,
+				no_results_text : "Oops, nothing found!",
+				width : "100%"
+			});
+		});
+	</script>
 	<script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

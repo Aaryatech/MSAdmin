@@ -49,6 +49,7 @@
 
 
 
+
 </head>
 <body>
 
@@ -120,12 +121,12 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center;"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center;"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -134,38 +135,36 @@
 																var="routeAl" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center;">${routeAl.vehicleNo}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a
 																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -198,12 +197,12 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center;"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center;"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -213,37 +212,35 @@
 																<tr>
 
 																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center;">${routeAl.vehicleNo}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a
 																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -277,12 +274,12 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center;"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center;"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -291,38 +288,36 @@
 																var="routeAl" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center;">${routeAl.vehicleNo}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a
 																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -359,12 +354,12 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center;"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center;"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -373,38 +368,36 @@
 																var="routeAl" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center;">${routeAl.vehicleNo}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a
 																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -439,12 +432,12 @@
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
-																<th><spring:message code="label.srNo" /></th>
-																<th><spring:message code="label.routeName" /></th>
-																<th><spring:message code="label.routeSupName" /></th>
-																<th><spring:message code="label.driverName" /></th>
-																<th><spring:message code="label.vehNo" /></th>
-																<th><spring:message code="label.action" /></th>
+																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeName" /></th>
+																<th style="text-align: center;"><spring:message code="label.routeSupName" /></th>
+																<th style="text-align: center;"><spring:message code="label.driverName" /></th>
+																<th style="text-align: center;"><spring:message code="label.vehNo" /></th>
+																<th style="text-align: center;"><spring:message code="label.action" /></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -453,38 +446,36 @@
 																var="routeAl" varStatus="count">
 																<tr>
 
-																	<td>${count.index+1}</td>
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: center;">${count.index+1}</td>
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.routeEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.routeMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;" ><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.supEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.supMarName}" />
 																		</c:if></td>
 
-																	<td><c:if test="${langSelected == 0}">
+																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
 																			<c:out value="${routeAl.driverEngName}" />
 																		</c:if> <c:if test="${langSelected == 1}">
 																			<c:out value="${routeAl.driverMarName}" />
 																		</c:if></td>
-																	<td>${routeAl.vehicleNo}</td>
+																	<td style="text-align: center;">${routeAl.vehicleNo}</td>
 
-																	<td><div class="fa-hover col-lg-3 col-md-6">
+																	<td style="text-align: center;">
 																			<a
 																				href="${pageContext.request.contextPath}/editRoutealloc/${routeAl.trId}"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
-
-																		<div class="fa-hover col-lg-3 col-md-6">
+																		&nbsp;
 																			<a
 																				href="${pageContext.request.contextPath}/deleteRoutealloc/${routeAl.trId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a>
-																		</div></td>
+																		</td>
 
 																</tr>
 															</c:forEach>
@@ -521,7 +512,6 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
-
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
 	<script
@@ -549,22 +539,26 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
-		jQuery(document).ready(function() {
-			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
-				no_results_text : "Oops, nothing found!",
-				width : "100%"
-			});
-		});
-	</script>
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 2,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
-		});
-	</script>
+        $(document).ready(function() {
+           $('#bootstrap-data-table-export').DataTable(); 
 
 
+          $("#flowcheckall").click(function () {
+              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
+          });
+          
+        } );
+    </script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$(function() {

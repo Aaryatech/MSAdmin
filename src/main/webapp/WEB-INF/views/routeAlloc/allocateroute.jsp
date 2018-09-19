@@ -148,7 +148,7 @@
 								<div class="form-group"></div>
 								<div class="row">
 
-									<div class="col-md-1">
+									<div class="col-md-2">
 										<spring:message code="label.fromDate" />
 									</div>
 									<div class="col-md-3">
@@ -158,7 +158,7 @@
 
 									</div>
 
-									<div class="col-md-1">
+									<div class="col-md-2">
 										<spring:message code="label.toDate" />
 									</div>
 									<div class="col-md-3">
@@ -167,20 +167,21 @@
 											class="error" aria-live="polite"></span>
 
 									</div>
-
-
-									<!-- </div>
-								<br></br>
-									<div class="row"> -->
-									
-									<div class="col-md-1">
-										<button type="button" class="btn btn-primary"
-											onclick="getData()"
-											style="align-content: center; width: 100px; margin-left: 80px;">
-											<spring:message code="label.submit" />
-										</button>
 									</div>
 
+
+									<div class="form-group"></div>
+									<div class="row"> 
+									
+									<div class="col-lg-12" align="center">
+
+									<button type="button" class="btn btn-primary" onclick="getData()"
+										style="align-content: center; width: 226px; margin-left: 80px;">
+										<spring:message code="label.submit" />
+									</button>
+																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
+									
+								</div>
 								</div>
 								<br></br>
 	<input type="hidden" name="tr_id" id="tr_id"
@@ -192,8 +193,8 @@
 										<spring:message code="label.routeName" />
 									</div>
 									<div class="col-md-3">
-										<select data-placeholder="" style="width: 250px;"
-											class="form-control" name="route_name" id="route_name"
+										<select data-placeholder="" style="width: 100%;"
+											class="standardSelect" name="route_name" id="route_name"
 											oninvalid="setCustomValidity('Please Select Route Name ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 											<option value="-1">Please Select Route</option>
@@ -245,8 +246,8 @@
 										<spring:message code="label.vehNo" />
 									</div>
 									<div class="col-md-3">
-										<select data-placeholder="" style="width: 250px;"
-											class="form-control" name="veh_no" id="veh_no"
+										<select data-placeholder="" style="width: 100%;"
+											class="standardSelect" name="veh_no" id="veh_no"
 											oninvalid="setCustomValidity('Please Select Vehicle No ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 											<option value="-1">Please Select Vehicle No</option>
@@ -278,8 +279,8 @@
 										<spring:message code="label.routeSupName" />
 									</div>
 									<div class="col-md-3">
-										<select data-placeholder="" style="width: 250px;"
-											class="form-control" name="sup_name" id="sup_name"
+										<select data-placeholder="" style="width: 100%;"
+											class="standardSelect" name="sup_name" id="sup_name"
 											oninvalid="setCustomValidity('Please Select Route Supervisior ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 											<option value="-1">Please Select Route Supervisor</option>
@@ -333,8 +334,8 @@
 										<spring:message code="label.driverName" />
 									</div>
 									<div class="col-md-3">
-										<select data-placeholder="" style="width: 250px;"
-											class="form-control" name="driver_name" id="driver_name"
+										<select data-placeholder="" style="width: 100%;"
+											class="standardSelect" name="driver_name" id="driver_name"
 											oninvalid="setCustomValidity('Please Select Driver')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 											<option value="-1">Please Select Driver</option>
@@ -514,7 +515,7 @@
 	<script>
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
+                disable_search_threshold: 2,
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
@@ -598,7 +599,9 @@ var valid=true;
 												+ routeName + '</option>';
 									}
 									html += '</option>';
+									
 									$('#route_name').html(html);
+									$("#route_name").trigger("chosen:updated");
 
 									var html1 = '<option value="-1" selected >Select Vehicle No</option>';
 									var len1 = data.vehicleList.length;
@@ -611,6 +614,7 @@ var valid=true;
 									}
 									html1 += '</option>';
 									$('#veh_no').html(html1);
+									$("#veh_no").trigger("chosen:updated");
 
 									var supName;
 									html = '<option value="-1" selected >Select Route Supervisor</option>';
@@ -627,6 +631,7 @@ var valid=true;
 									}
 									html += '</option>';
 									$('#sup_name').html(html);
+									$("#sup_name").trigger("chosen:updated");
 									//$('#sup_name').formcontrol('refresh');
 
 									var driverName;
@@ -646,7 +651,8 @@ var valid=true;
 									}
 									html += '</option>';
 									$('#driver_name').html(html);
-									$('#driver_name').formcontrol('refresh');
+									$("#driver_name").trigger("chosen:updated");
+									//$('#driver_name').formcontrol('refresh');
 
 								});
 
