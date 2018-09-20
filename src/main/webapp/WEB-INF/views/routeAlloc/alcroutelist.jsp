@@ -117,7 +117,7 @@
 													</strong>
 												</div>
 												<div class="card-body">
-													<table id="bootstrap-data-table"
+													<table id="bootstrap-data-table1"
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
@@ -193,7 +193,7 @@
 													</strong>
 												</div>
 												<div class="card-body">
-													<table id="bootstrap-data-table"
+													<table id="bootstrap-data-table2"
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
@@ -270,7 +270,7 @@
 													</strong>
 												</div>
 												<div class="card-body">
-													<table id="bootstrap-data-table"
+													<table id="bootstrap-data-table3"
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
@@ -350,7 +350,7 @@
 													</strong>
 												</div>
 												<div class="card-body">
-													<table id="bootstrap-data-table"
+													<table id="bootstrap-data-table4"
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
@@ -428,7 +428,7 @@
 													</strong>
 												</div>
 												<div class="card-body">
-													<table id="bootstrap-data-table"
+													<table id="bootstrap-data-table5"
 														class="table table-striped table-bordered">
 														<thead>
 															<tr>
@@ -550,12 +550,14 @@
 
 	<script type="text/javascript">
         $(document).ready(function() {
-           $('#bootstrap-data-table-export').DataTable(); 
+           $('#bootstrap-data-table1').DataTable(); 
 
+           $('#bootstrap-data-table2').DataTable(); 
+           $('#bootstrap-data-table3').DataTable(); 
+           $('#bootstrap-data-table4').DataTable(); 
+           $('#bootstrap-data-table5').DataTable(); 
 
-          $("#flowcheckall").click(function () {
-              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
-          });
+         
           
         } );
     </script>
