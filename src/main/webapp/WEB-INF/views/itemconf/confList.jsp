@@ -151,12 +151,7 @@
 									<div class="row">
 
 										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.confList" /></strong>
-												</div>
-												<div class="card-body">
+											
 													<table id="bootstrap-data-table"
 														class="table table-striped table-bordered">
 														<thead>
@@ -221,8 +216,7 @@
 															</c:forEach>
 														</tbody>
 													</table>
-												</div>
-											</div>
+												
 										</div>
 									</div>
 								</div>
