@@ -249,17 +249,25 @@ public class RouteAllocController {
 
 			model.addObject("langSelected", langSelected);
 			
-			RouteAllocationWithName rAlWithName=new RouteAllocationWithName();
-			for(int i=0;i<datewiseRouteList.get(i).getRouteAllocationList().size();i++) {
+			RouteAllocationWithName rAlWithName=null;
+
+			
+			for(DatewiseRoute d : datewiseRouteList) {
+			
+			for(int i=0;i<d.getRouteAllocationList().size();i++) {
 				
-				if(datewiseRouteList.get(i).getRouteAllocationList().get(i).getTrId()==trId) {
+				if(d.getRouteAllocationList().get(i).getTrId()==trId) {
 					
-					 rAlWithName=datewiseRouteList.get(i).getRouteAllocationList().get(i);
+					rAlWithName=new RouteAllocationWithName();
+					 rAlWithName=d.getRouteAllocationList().get(i);
+						System.err.println("List object "+d.getRouteAllocationList().get(i).toString()); 
+
 					break;
 				}
 				
 			}//end of for
-			
+			}
+
 			System.err.println("RAWN BEAN "+rAlWithName.toString()); 
 			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -287,14 +295,16 @@ public class RouteAllocController {
 			
 			System.err.println("driverList for edit  " +driverList.toString());
 
-			rAlWithName.setFromDate(DateConvertor.convertToDMY(rAlWithName.getFromDate()));
-			rAlWithName.setToDate(DateConvertor.convertToDMY(rAlWithName.getToDate()));
-
+			
+			
 			model.addObject("routeList",routeList);
 			model.addObject("vehicleList",vehicleList);
 			model.addObject("routeSupList",routeSupList);
 			model.addObject("driverList",driverList);
 			model.addObject("editRouteAll",rAlWithName);
+			model.addObject("fromDate",DateConvertor.convertToDMY(rAlWithName.getFromDate()));
+			model.addObject("toDate",DateConvertor.convertToDMY(rAlWithName.getToDate()));
+
 
 		} catch (Exception e) {
 

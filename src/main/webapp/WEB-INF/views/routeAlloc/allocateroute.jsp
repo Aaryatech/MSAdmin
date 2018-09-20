@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!doctype html>
 <html>
@@ -51,73 +52,13 @@
 <!-- Translate -->
 
 
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-<script type="text/javascript">
-	google.load("elements", "1", {
-		packages : "transliteration"
-	});
-</script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script>
-	function OnLoad() {
-		var options = {
-			sourceLanguage : google.elements.transliteration.LanguageCode.ENGLISH,
-			destinationLanguage : [ google.elements.transliteration.LanguageCode.MARATHI ],
-			shortcutKey : 'ctrl+g',
-			transliterationEnabled : true
-		};
 
-		var control = new google.elements.transliteration.TransliterationControl(
-				options);
-		control.makeTransliteratable([ "catTxtMarathi" ]);
-		var keyVal = 32; // Space key
-		$("#catTxtEnglish")
-				.on(
-						'keydown',
-						function(event) {
-							if (event.keyCode === 32) {
-								var engText = $("#catTxtEnglish").val() + " ";
-								var engTextArray = engText.split(" ");
-								$("#catTxtMarathi")
-										.val(
-												$("#catTxtMarathi").val()
-														+ engTextArray[engTextArray.length - 2]);
 
-								document.getElementById("catTxtMarathi")
-										.focus();
-								$("#catTxtMarathi").trigger({
-									type : 'keypress',
-									keyCode : keyVal,
-									which : keyVal,
-									charCode : keyVal
-								});
-							}
 
-							else if ((event.keyCode === 8 || event.keyCode === 46)) {
-								$("#catTxtMarathi").val("");
-
-								$("#catTxtEnglish").val("");
-							}
-						});
-
-		$("#catTxtMarathi").bind("keyup", function(event) {
-			setTimeout(function() {
-				$("#catTxtEnglish").val($("#catTxtEnglish").val() + " ");
-				document.getElementById("catTxtEnglish").focus()
-			}, 0);
-		});
-
-	} //end onLoad function
-
-	google.setOnLoadCallback(OnLoad);
-</script>
-<!-- Translate -->
-<script type="text/javascript"
-	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<body onload="refreshPage()">
+<body>
 
 
 	<!-- Left Panel -->
@@ -142,9 +83,8 @@
 							<strong> <spring:message code="label.routeAllocation" /></strong>
 						</div>
 						<div class="card-body card-block">
-							<form id="route_alloc_form"
-								
-								method="post" enctype="multipart/form-data">
+							<form id="route_alloc_form" method="post"
+								enctype="multipart/form-data">
 								<div class="form-group"></div>
 								<div class="row">
 
@@ -153,7 +93,7 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="from_date" name="from_date"
-											value="${editRouteAll.fromDate}" onblur="getData1()" /> <span
+											value="${editRouteAll.fromDate}" onblur="getData()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -163,28 +103,31 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="to_date" name="to_date"
-											value="${editRouteAll.toDate}" onblur="getData1()" /> <span
+											value="${editRouteAll.toDate}" onblur="getData()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
-									</div>
+								</div>
 
 
-									<div class="form-group"></div>
-									<div class="row"> 
-									
+								<div class="form-group"></div>
+								<div class="row">
+
 									<div class="col-lg-12" align="center">
 
-									<button type="button" class="btn btn-primary" onclick="getData()"
-										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
-									</button>
-																		<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
-									
+										<button type="button" class="btn btn-primary"
+											onclick="getData()"
+											style="align-content: center; width: 226px; margin-left: 80px;">
+											<spring:message code="label.submit" />
+										</button>
+										<button type="reset" class="btn btn-primary"
+											style="align-content: center; width: 226px; margin-left: 80px;">
+											<spring:message code="label.cancel" />
+										</button>
+
+									</div>
 								</div>
-								</div>
-								<br></br>
-	<input type="hidden" name="tr_id" id="tr_id"
+								<br></br> <input type="hidden" name="tr_id" id="tr_id"
 									value="${editRouteAll.trId}"> 
 
 								<div class="row">
@@ -200,42 +143,36 @@
 											<option value="-1">Please Select Route</option>
 
 											<c:forEach items="${routeList}" var="route">
+
+
 												<c:choose>
+													<c:when test="${langSelected eq 0}">
 
-													<c:when test="${langSelected==0}">
-														<c:choose>
-															<c:when test="${route.routeId==editRouteAll.routeId}">
-																<option selected value="${route.routeId}">${route.routeEngName}</option>
-
-															</c:when>
-															<c:otherwise>
-																<option value="${route.routeId}">${route.routeEngName}</option>
-
-															</c:otherwise>
-
-														</c:choose>
+														<option value="${route.routeId}"
+															>${route.routeEngName}</option>
 
 													</c:when>
-
-
 													<c:otherwise>
-														<c:choose>
-															<c:when test="${route.routeId==editRouteAll.routeId}">
-																<option selected value="${route.routeId}">${route.routeMarName}</option>
-
-															</c:when>
-															<c:otherwise>
-																<option value="${route.routeId}">${route.routeMarName}</option>
-
-															</c:otherwise>
-
-														</c:choose>
-
+														<option value="${route.routeId}"
+															>${route.routeMarName}</option>
 													</c:otherwise>
-
 												</c:choose>
 
 											</c:forEach>
+											<c:choose>
+												<c:when test="${langSelected eq 0}">
+
+													<option selected value="${editRouteAll.routeId}">${editRouteAll.routeEngName}</option>
+
+												</c:when>
+												<c:otherwise>
+													<option selected value="${editRouteAll.routeId}">${editRouteAll.routeMarName}</option>
+
+
+												</c:otherwise>
+											</c:choose>
+
+
 
 
 										</select> <span class="error" aria-live="polite"></span>
@@ -513,42 +450,37 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 2,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-    </script>
+		jQuery(document).ready(function() {
+			jQuery(".standardSelect").chosen({
+				disable_search_threshold : 2,
+				no_results_text : "Oops, nothing found!",
+				width : "100%"
+			});
+		});
+	</script>
 
-	<script type="text/javascript">
-        $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-        } );
-    </script>
 
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=from_date]').datepicker({
-		    dateFormat: 'dd-mm-yy'
+		$(function() {
+			$('input[id$=from_date]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
-  } );
-  
-  $( function() {
-	  $('input[id$=to_date]').datepicker({
-		    dateFormat: 'dd-mm-yy'
+
+		$(function() {
+			$('input[id$=to_date]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
-  } );
-  </script>
+	</script>
 
 
 
 	<script type="text/javascript">
 		function getData() {
-			
+
 			//alert("Hi");
 			//alert("Hi");
 			var fromDate = document.getElementById("from_date").value;
@@ -556,16 +488,16 @@
 
 			//alert("from Date " +fromDate);
 			//alert("toDate " +toDate);
-var valid=true;
-		if(fromDate==null || fromDate==""){
-		valid=false;
-		alert("Select From Date");
-		}else if(toDate==null || toDate==""){
-			valid=false;
-			alert("Select To Date");
-		}
-		
-		if(valid==true){
+			var valid = true;
+			if (fromDate == null || fromDate == "") {
+				valid = false;
+				alert("Select From Date");
+			} else if (toDate == null || toDate == "") {
+				valid = false;
+				alert("Select To Date");
+			}
+
+			if (valid == true) {
 
 				$
 						.getJSON(
@@ -579,9 +511,12 @@ var valid=true;
 								},
 
 								function(data) {
-									
-									var selLang = ${langSelected};
-									
+
+									var selLang = $
+									{
+										langSelected
+									}
+									;
 
 									var html = '<option value="-1" selected >Select Route</option>';
 
@@ -599,7 +534,7 @@ var valid=true;
 												+ routeName + '</option>';
 									}
 									html += '</option>';
-									
+
 									$('#route_name').html(html);
 									$("#route_name").trigger("chosen:updated");
 
@@ -656,57 +591,49 @@ var valid=true;
 
 								});
 
-		}//end of if
+			}//end of if
 
 		}
 	</script>
 
 	<script type="text/javascript">
-	
-	function validateForm() {
-		var route=document.getElementById("route_name").value;
-		
-		 var veh=document.getElementById("veh_no").value;
-		var sup=document.getElementById("sup_name").value;
-		 var driver=document.getElementById("driver_name").value;
-	
-		 var valid=true;
-		if(route<0 ){
-			valid=false;
-			alert("Select Route");
-		}
-		else if(veh<0){
-				
-			valid=false;
-			alert("Select Vehicle");
-		}
-		else if(sup<0){
-			valid=false; 	
-			alert("Select Supervisor"); 
-				}
-		else if(driver<0){
-			valid=false; 
-			alert("Select Driver");
-					}
-				
-		if(valid==true){
-					//alert("all true");
-					var form=document.getElementById("route_alloc_form");
-					form.action="${pageContext.request.contextPath}/insertRouteAlloc";
-					form.submit();
-				}
-			
+		function validateForm() {
+			var route = document.getElementById("route_name").value;
+
+			var veh = document.getElementById("veh_no").value;
+			var sup = document.getElementById("sup_name").value;
+			var driver = document.getElementById("driver_name").value;
+
+			var valid = true;
+			if (route < 0) {
+				valid = false;
+				alert("Select Route");
+			} else if (veh < 0) {
+
+				valid = false;
+				alert("Select Vehicle");
+			} else if (sup < 0) {
+				valid = false;
+				alert("Select Supervisor");
+			} else if (driver < 0) {
+				valid = false;
+				alert("Select Driver");
+			}
+
+			if (valid == true) {
+				//alert("all true");
+				var form = document.getElementById("route_alloc_form");
+				form.action = "${pageContext.request.contextPath}/insertRouteAlloc";
+				form.submit();
+			}
+
 		}
 	</script>
-	
+
 	<script type="text/javascript">
-	
-	function refreshPage() {
-		
-		
-				
-	}
-	
+		function refreshPage() {
+
+		}
 	</script>
 
 
