@@ -93,7 +93,7 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="from_date" name="from_date"
-											value="${editRouteAll.fromDate}" onblur="getData()" /> <span
+											value="${fromDate}" onblur="getData()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -103,7 +103,7 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="to_date" name="to_date"
-											value="${editRouteAll.toDate}" onblur="getData()" /> <span
+											value="${toDate}" onblur="getData()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -128,7 +128,7 @@
 									</div>
 								</div>
 								<br></br> <input type="hidden" name="tr_id" id="tr_id"
-									value="${editRouteAll.trId}"> 
+									value="${editRouteAll.trId}">
 
 								<div class="row">
 
@@ -148,13 +148,11 @@
 												<c:choose>
 													<c:when test="${langSelected eq 0}">
 
-														<option value="${route.routeId}"
-															>${route.routeEngName}</option>
+														<option value="${route.routeId}">${route.routeEngName}</option>
 
 													</c:when>
 													<c:otherwise>
-														<option value="${route.routeId}"
-															>${route.routeMarName}</option>
+														<option value="${route.routeId}">${route.routeMarName}</option>
 													</c:otherwise>
 												</c:choose>
 
@@ -190,17 +188,12 @@
 											<option value="-1">Please Select Vehicle No</option>
 
 											<c:forEach items="${vehicleList}" var="veh">
-												<c:choose>
-													<c:when test="${editRouteAll.vehicleId==veh.vehicleId}">
-														<option selected value="${veh.vehicleId}">${veh.vehicleNo}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${veh.vehicleId}">${veh.vehicleNo}</option>
-													</c:otherwise>
 
-												</c:choose>
+												<option value="${veh.vehicleId}">${veh.vehicleNo}</option>
 
 											</c:forEach>
+
+											<option selected value="${editRouteAll.vehicleId}">${editRouteAll.vehicleNo}</option>
 
 										</select> <span class="error" aria-live="polite"></span>
 									</div>
@@ -227,33 +220,12 @@
 												<c:choose>
 
 													<c:when test="${langSelected==0}">
-														<c:choose>
-															<c:when test="${sup.supId==editRouteAll.supervisorId}">
-																<option selected value="${sup.supId}">${sup.supEngName}</option>
 
-															</c:when>
-															<c:otherwise>
-																<option value="${sup.supId}">${sup.supEngName}</option>
-
-															</c:otherwise>
-
-														</c:choose>
+														<option value="${sup.supId}">${sup.supEngName}</option>
 
 													</c:when>
-
-
 													<c:otherwise>
-														<c:choose>
-															<c:when test="${sup.supId==editRouteAll.supervisorId}">
-																<option selected value="${sup.supId}">${sup.supMarName}</option>
-
-															</c:when>
-															<c:otherwise>
-																<option value="${sup.supId}">${sup.supMarName}</option>
-
-															</c:otherwise>
-
-														</c:choose>
+														<option value="${sup.supId}">${sup.supMarName}</option>
 
 													</c:otherwise>
 
@@ -261,6 +233,17 @@
 
 											</c:forEach>
 
+											<c:choose>
+												<c:when test="${langSelected eq 0}">
+
+													<option selected value="${editRouteAll.supervisorId}">${editRouteAll.supEngName}</option>
+
+												</c:when>
+												<c:otherwise>
+													<option selected value="${editRouteAll.supervisorId}">${editRouteAll.supMarName}</option>
+
+												</c:otherwise>
+											</c:choose>
 
 
 										</select> <span class="error" aria-live="polite"></span>
@@ -281,33 +264,34 @@
 											<c:forEach items="${driverList}" var="drList">
 												<c:choose>
 													<c:when test="${langSelected==0}">
-														<c:choose>
-															<c:when test="${drList.driverId==editRouteAll.driverId}">
-																<option selected value="${driver.driverId}">${drList.driverEngName}</option>
+														
+																<option  value="${driver.driverId}">${drList.driverEngName}</option>
 															</c:when>
-															<c:otherwise>
-																<option value="${drList.driverId}">${drList.driverEngName}</option>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
+															
+													
 													<c:otherwise>
-														<c:choose>
-															<c:when test="${drList.driverId==editRouteAll.driverId}">
-																<option selected value="${drList.driverId}">${drList.driverMarName}</option>
+														
+																<option  value="${drList.driverId}">${drList.driverMarName}</option>
 
-															</c:when>
-															<c:otherwise>
-																<option value="${drList.driverId}">${drList.driverMarName}</option>
-
-															</c:otherwise>
-
-														</c:choose>
+														
 
 													</c:otherwise>
 
 												</c:choose>
 
 											</c:forEach>
+											
+												<c:choose>
+												<c:when test="${langSelected eq 0}">
+
+													<option selected value="${editRouteAll.driverId}">${editRouteAll.driverEngName}</option>
+
+												</c:when>
+												<c:otherwise>
+													<option selected value="${editRouteAll.driverId}">${editRouteAll.driverMarName}</option>
+
+												</c:otherwise>
+											</c:choose>
 
 										</select> <span class="error" aria-live="polite"></span>
 									</div>
