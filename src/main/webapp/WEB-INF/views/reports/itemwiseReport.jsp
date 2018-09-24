@@ -262,11 +262,11 @@
 			alert("cxcgxc");
 			var fromDate = $("#fromDate").val();
 			var toDate = $("#toDate").val();
-			var distIdList = $("#distIdList").val();
+			var hubIdList = $("#hubIdList").val();
 
 			var langSelected = ${langSelected};
 
-			alert("distIdList" + distIdList);
+			alert("hubIdList" + hubIdList);
 			alert("langSelected" + langSelected);
 
 			$.getJSON('${getItemByDate}',
@@ -274,7 +274,7 @@
 			{
 				fromDate : fromDate,
 				toDate : toDate,
-				distIdList : distIdList,
+				hubIdList : hubIdList,
 
 				ajax : 'true'
 
@@ -367,7 +367,7 @@
 			var toDate = document.getElementById("toDate").value;
 
 			window
-					.open('${pageContext.request.contextPath}/showItemwiseDistPdf/'
+					.open('${pageContext.request.contextPath}/showItemwiseHubPdf/'
 							+ fromDate + '/' + toDate);
 			document.getElementById("expExcel").disabled = true;
 

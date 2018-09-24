@@ -45,12 +45,20 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
+<style type="text/css">
+.right {
+	text-align: right;
+}
 
+.left {
+	text-align: left;
+}
+</style>
 
 </head>
 <body>
 
-	<c:url var="gethubByDate" value="/gethubByDate"></c:url>
+	<c:url var="getHubByDate" value="/getHubByDate"></c:url>
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
 	<!-- Left Panel -->
@@ -108,7 +116,7 @@
 
 							<div class="col-md-3">
 
-								<select id="hubIdList" name="hubIdList" class="standardSelect"
+								<select id="hubId" name="hubId" class="standardSelect"
 									tabindex="1">
 									<option value=""></option>
 
@@ -262,19 +270,20 @@
 			alert("cxcgxc");
 			var fromDate = $("#fromDate").val();
 			var toDate = $("#toDate").val();
-			var hubIdList = $("#hubIdList").val();
-
+			var hubId = $("#hubId").val();
+			
 			$.getJSON('${getHubByDate}',
 
 			{
 				fromDate : fromDate,
 				toDate : toDate,
-				distIdList : distIdList,
+				hubId : hubId,
 
 				ajax : 'true'
 
 			}, function(data) {
 
+			
 				document.getElementById("expExcel").disabled = false;
 				document.getElementById("PDFButton").disabled = false;
 
@@ -284,6 +293,7 @@
 					document.getElementById("PDFButton").disabled = true;
 
 				}
+
 				var dataTable = $('#bootstrap-data-table').DataTable();
 				$.each(data, function(i, v) {
 					dataTable.row.add(

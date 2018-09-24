@@ -114,7 +114,7 @@
 
 							<div class="col-md-3">
 
-								<select id="hubIdList" name="hubIdList" multiple
+								<select id="hubIdList" name="hubIdList[]" multiple
 									class="standardSelect" tabindex="1">
 									<option value="-1">All</option>
 									<c:forEach items="${hubList}" var="hubList">
@@ -266,13 +266,9 @@
 
 			var fromDate = $("#fromDate").val();
 			var toDate = $("#toDate").val();
-			var distIdList = $("#distIdList").val();
+			var hubIdList = $("#hubIdList").val();
 
-			var langSelected = $
-			{
-				langSelected
-			}
-			;
+			var langSelected = ${langSelected};
 
 			//	alert("distIdList" + distIdList);
 			//alert("langSelected" + langSelected);
@@ -281,7 +277,7 @@
 			{
 				fromDate : fromDate,
 				toDate : toDate,
-				distIdList : distIdList,
+				hubIdList : hubIdList,
 
 				ajax : 'true'
 
@@ -371,7 +367,7 @@
 			var toDate = document.getElementById("toDate").value;
 
 			window
-					.open('${pageContext.request.contextPath}/showCatwiseDistPdf/'
+					.open('${pageContext.request.contextPath}/showCatwiseHubPdf/'
 							+ fromDate + '/' + toDate);
 			document.getElementById("expExcel").disabled = true;
 
