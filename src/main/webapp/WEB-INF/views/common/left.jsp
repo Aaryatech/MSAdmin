@@ -89,17 +89,17 @@
 						<li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showAddVehicle"><spring:message
 									code="label.addVehicle" /></a></li>
-</ul></li>
+					</ul></li>
 
 
 
-						<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
+				<%-- <li class="active"><i class="fa fa-puzzle-piece"></i><a
 							href="${pageContext.request.contextPath}/showStartDistri"><spring:message
 									code="label.startDist" /></a></li> --%>
 
 
 
-					
+
 
 
 
@@ -189,6 +189,34 @@
 						class="menu-icon fa fa-table"></i> <spring:message
 							code="label.startDist" />
 				</a></li>
+
+				<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="true"> <i class="menu-icon fa fa-table"></i> <spring:message
+							code="label.report" />
+				</a>
+					<ul class="sub-menu children dropdown-menu ">
+
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showHubReport"><spring:message
+									code="label.hubReport" /></a></li>
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showItemwiseHubReport"><spring:message
+									code="label.itemReport" /></a></li>
+
+
+						<li class="active"><i class="fa fa-puzzle-piece"></i><a
+							href="${pageContext.request.contextPath}/showCatwiseHubReport"><spring:message
+									code="label.catReport" /></a></li>
+
+
+
+
+
+					</ul></li>
+
 			</ul>
 
 
