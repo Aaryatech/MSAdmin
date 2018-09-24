@@ -49,10 +49,6 @@
 .right {
 	text-align: right;
 }
-
-.left {
-	text-align: left;
-}
 </style>
 
 </head>
@@ -117,7 +113,7 @@
 							<div class="col-md-3">
 
 								<select id="hubId" name="hubId" class="standardSelect"
-									tabindex="1">
+									tabindex="1" style="width: 100%">
 									<option value=""></option>
 
 									<c:forEach items="${hubList}" var="hubList">
@@ -164,7 +160,7 @@
 
 
 						<div class="card-body">
-							<table id="bootstrap-data-table"
+							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
 
 								<thead>
@@ -209,7 +205,7 @@
 									<spring:message code="label.pdf" />
 								</button>
 							</div>
-							&nbsp; 
+							&nbsp;
 						</div>
 					</div>
 				</div>
@@ -271,7 +267,7 @@
 			var fromDate = $("#fromDate").val();
 			var toDate = $("#toDate").val();
 			var hubId = $("#hubId").val();
-			
+
 			$.getJSON('${getHubByDate}',
 
 			{
@@ -283,7 +279,6 @@
 
 			}, function(data) {
 
-			
 				document.getElementById("expExcel").disabled = false;
 				document.getElementById("PDFButton").disabled = false;
 
@@ -294,7 +289,7 @@
 
 				}
 
-				var dataTable = $('#bootstrap-data-table').DataTable();
+				var dataTable = $('#bootstrap-data-table1').DataTable();
 				$.each(data, function(i, v) {
 					dataTable.row.add(
 							[ i + 1, v.orderDate, v.orderTotal,

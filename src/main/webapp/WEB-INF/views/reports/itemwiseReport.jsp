@@ -51,9 +51,7 @@
 	text-align: right;
 }
 
-.left {
-	text-align: left;
-}
+
 </style>
 
 </head>
@@ -163,7 +161,7 @@
 
 
 						<div class="card-body">
-							<table id="bootstrap-data-table"
+							<table id="bootstrap-data-table1"
 								class="table table-striped table-bordered">
 
 								<thead>
@@ -266,8 +264,8 @@
 
 			var langSelected = ${langSelected};
 
-			alert("hubIdList" + hubIdList);
-			alert("langSelected" + langSelected);
+			/* alert("hubIdList" + hubIdList);
+			alert("langSelected" + langSelected); */
 
 			$.getJSON('${getItemByDate}',
 
@@ -291,7 +289,7 @@
 
 				if (langSelected == 0) {
 
-					var dataTable = $('#bootstrap-data-table').DataTable();
+					var dataTable = $('#bootstrap-data-table1').DataTable();
 					$.each(data, function(i, v) {
 						dataTable.row.add(
 								[ i + 1, v.itemEngName, v.orderQty,
@@ -299,7 +297,7 @@
 					});
 
 				} else if (langSelected == 1) {
-					var dataTable = $('#bootstrap-data-table').DataTable();
+					var dataTable = $('#bootstrap-data-table1').DataTable();
 					$.each(data, function(i, v) {
 						dataTable.row.add(
 								[ i + 1, v.itemMarName, v.orderQty,
@@ -369,7 +367,7 @@
 			window
 					.open('${pageContext.request.contextPath}/showItemwiseHubPdf/'
 							+ fromDate + '/' + toDate);
-			document.getElementById("expExcel").disabled = true;
+			/* document.getElementById("expExcel").disabled = true; */
 
 		}
 	</script>
