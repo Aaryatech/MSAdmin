@@ -672,7 +672,7 @@ public class ReportController {
 	@ResponseBody
 	public List<ItemwiseDistReport> getItemByDate(HttpServletRequest request, HttpServletResponse response) {
 
-		List<ItemwiseDistReport> itemList = new ArrayList<ItemwiseDistReport>();
+		 itemList = new ArrayList<ItemwiseDistReport>();
 		try {
 
 			String fromDate = request.getParameter("fromDate");
@@ -743,7 +743,7 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/showItemwiseHubPdf/{fromDate}/{toDate}", method = RequestMethod.GET)
-	public void showItemwiseDistPdf(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate,
+	public void showItemwiseHubPdf(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate,
 			HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
 		BufferedOutputStream outStream = null;
 		System.out.println("Inside Pdf showDatewiseConsumptionPdf");

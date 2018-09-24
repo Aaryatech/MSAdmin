@@ -1,11 +1,10 @@
 package com.ats.msadmin.model.report;
 
-import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class DistReportByDate {
-	
+
 	private int orderHeaderId;
 
 	private float orderTotal;
@@ -27,7 +26,7 @@ public class DistReportByDate {
 
 	private String distContactNo;
 
-	private Date orderDate;
+	private String orderDate;
 
 	public int getOrderHeaderId() {
 		return orderHeaderId;
@@ -117,13 +116,11 @@ public class DistReportByDate {
 		this.distContactNo = distContactNo;
 	}
 
-	@JsonFormat(locale = "hi", timezone = "Asia/Kolkata", pattern = "dd-MM-yyyy")
-
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -135,6 +132,5 @@ public class DistReportByDate {
 				+ amtReceived + ", balAmount=" + balAmount + ", distEngName=" + distEngName + ", distMarName="
 				+ distMarName + ", distContactNo=" + distContactNo + ", orderDate=" + orderDate + "]";
 	}
-
 
 }
