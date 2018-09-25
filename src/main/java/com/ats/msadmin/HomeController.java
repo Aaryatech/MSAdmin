@@ -1,7 +1,11 @@
 package com.ats.msadmin;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +21,14 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
+import com.ats.msadmin.model.dashreport.DashboardData;
 import com.ats.msadmin.model.master.Category;
+import com.ats.msadmin.model.report.CategoryDistReport;
 import com.ats.msadmin.model.user.LoginResponseMU;
 
 /**
@@ -142,14 +149,65 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("home");
 		try {
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(now.getTime());
+
+			map.add("curDate", date);
+
+			map.add("orderType", 0);
 			
+			DashboardData dashBoard = rest.postForObject(Constants.url + "/getMSDashBoard", map,
+					DashboardData.class);
+
+			System.err.println("msDashboardData " + dashBoard.toString());
+			model.addObject("dashBoard", dashBoard);
+			if(dashBoard.getNoOrderHubList().size()>0)
+			model.addObject("noOrderHubCount", dashBoard.getNoOrderHubList().size());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return model;
 	}
-	
+	@RequestMapping(value = "/getCatOrdQty", method = RequestMethod.GET)
+	@ResponseBody public List<CategoryDistReport> getcatData(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<CategoryDistReport> catwiseHubOrdQtyList = new ArrayList<CategoryDistReport>();
+
+		System.err.println("In Ajax call /getCatOrdQty  MS ");
+		try {
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		
+		
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(now.getTime());
+
+		map.add("curDate", date);
+
+		map.add("hubId", 0); 
+		
+		//same web service usef for hub panel by passing specific Hub Id 
+
+		CategoryDistReport[] catwiseHubOrdQty = rest.postForObject(Constants.url + "/getHubReportCatwise", map,
+				CategoryDistReport[].class);
+		catwiseHubOrdQtyList = new ArrayList<CategoryDistReport>(Arrays.asList(catwiseHubOrdQty));
+
+		System.err.println("catwiseHubOrdQty  MS  in Ajax" + catwiseHubOrdQtyList.toString());
+		}catch (Exception e) {
+			
+			System.err.println("catwiseHubOrdQty  MS  in Ajax" + e.getMessage());
+			e.printStackTrace();
+			
+		}
+		return catwiseHubOrdQtyList;
+
+	}
+
 
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html>
 <head>
@@ -26,11 +27,11 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/scss/style.css">
-	
-	
+
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/menu.css">
-	
+
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/vector-map/jqvmap.min.css"
 	rel="stylesheet">
@@ -39,10 +40,16 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/gtranslatepopupblock.css">
-	
-<body >
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+</head>
+
+<body onload="setData()" >
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
@@ -52,11 +59,175 @@
 	<!-- Header-->
 	<jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
 	<!-- Header-->
+<c:url var="getCatOrdQty" value="/getCatOrdQty"></c:url>
 
-<div>               	
+<div class="content mt-3">
+		<div class="animated fadeIn">
 
-</div>
-     
+			<div class="row">
+
+				<div class="col-xs-12 col-sm-12">
+
+					<div class="col-xs-12 col-sm-12">
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-2">
+								<div class="card-body pb-0" align="center">
+
+									<h4 class="mb-0">
+										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderCount}</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white">Total Orders</font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-2">
+								<div class="card-body pb-0" align="center">
+
+									<h4 class="mb-0">
+										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderTotal}</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white">Order Total</font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-2">
+								<div class="card-body pb-0" align="center">
+
+									<h4 class="mb-0">
+										<span class="count" style="font-size: 50px;">${dashBoard.todaysSpOrdTotAndCount.orderCount}</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white">Special Order</font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-xs-12 col-sm-12">
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-3">
+								<div class="card-body pb-0" align="center">
+
+									<h4 class="mb-0">
+										<span class="count" style="font-size: 50px;">${noOrderHubCount}</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white">No Orders</font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-3">
+								<div class="card-body pb-0" align="center">
+
+									<h4 class="mb-0">
+										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrderPending.orderCount}</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white">Order Forward Pending</font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-6 col-lg-4">
+							<div class="card text-white bg-flat-color-3">
+								<div class="card-body pb-1" align="center">
+									<input type="text" id="dist" name="dist"
+										style="color: red; width: 100%;" value="" onchange="getDist()"
+										title="Search by mob no or dist name"
+										placeholder="Mobile No. / Distributor Name">
+
+									<h4 class="mb-0">
+										<span style="font-size: 35px;">Find Distributor</span>
+									</h4>
+									<p style="font-size: 18px; font-weight: bold; color: white;">
+										<font color="white"></font>
+									</p>
+
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+
+
+					<div class="col-xs-12 col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<strong>Distributor And Order Total</strong>
+							</div>
+							<div class="card-body card-block">
+
+								<div id="columnchart_material"></div>
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<strong>Category And Order Qty</strong>
+							</div>
+							<div class="card-body card-block">
+
+								<div id="columnchart_material2"></div>
+
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="col-xs-12 col-sm-12">
+						<div class="card">
+							<div class="card-header">
+								<strong>Categorywise Trend</strong>
+							</div>
+							<div class="card-body card-block">
+
+
+								<div id="linechart_material"></div>
+
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
@@ -121,5 +292,138 @@
         
     }
 </script>
+
+
+<script>
+		function setData(){ 
+			 getChart1(); 
+			
+
+		
+		}
+	</script>
+
+
+	<!-- <script>
+		function getChart1() {
+alert("c1");
+			google.charts.load('current', {
+				'packages' : [ 'bar' ]
+			});
+			google.charts.setOnLoadCallback(drawChart1);
+
+			function drawChart1() {
+				$.getJSON('${getChartData}', {
+
+					ajax : 'true'
+
+				},
+						function(jsonData) {
+							var data = new google.visualization.DataTable();
+
+							data.addColumn('string', 'Distributor');
+							data.addColumn('number', 'Order1');
+							data.addColumn('number', 'Order2');
+							data.addColumn('number', 'Order3');
+
+							var lan = $
+							{
+								langSelected
+							}
+							;
+							//alert(lan);
+							if (lan == 0) {
+								$.each(jsonData, function(i, obj) {
+
+									data.addRow([ obj.distEngName, obj.order1,
+											obj.order2, obj.order3 ]);
+								});
+							} else {
+
+								$.each(jsonData, function(i, obj) {
+
+									data.addRow([ obj.distMarName, obj.order1,
+											obj.order2, obj.order3 ]);
+								});
+
+							}
+
+							var options = {
+								title : '',
+								is3D : true
+							};
+							var chart = new google.charts.Bar(document
+									.getElementById('columnchart_material'));
+
+							chart.draw(data, google.charts.Bar
+									.convertOptions(options));
+
+						});
+			}
+
+		}
+	</script>
+ -->
+
+
+	<script>
+		function getChart1() {
+			alert("Hi");
+
+			google.charts.load('current', {
+				'packages' : [ 'bar' ]
+			});
+			google.charts.setOnLoadCallback(drawChart2);
+
+			function drawChart1() {
+				$.getJSON('${getCatOrdQty}', {
+
+					ajax : 'true'
+
+				},
+						function(jsonData) {
+							var data = new google.visualization.DataTable();
+
+							data.addColumn('string', 'Category');
+							data.addColumn('number', 'Order Qty');
+							var lan = ${langSelected};
+							//alert(lan);
+							if (lan == 0) {
+								$.each(jsonData, function(i, obj) {
+
+									data
+											.addRow([ obj.catEngName,
+													obj.orderQty ]);
+								});
+							} else {
+
+								$.each(jsonData, function(i, obj) {
+
+									data
+											.addRow([ obj.catMarName,
+													obj.orderQty ]);
+								});
+
+							}
+
+
+							var options = {
+								title : '',
+								is3D : true
+							};
+							var chart = new google.charts.Bar(document
+									.getElementById('columnchart_material2'));
+
+							chart.draw(data, google.charts.Bar
+									.convertOptions(options));
+
+						});
+			}
+
+		}
+	</script>
+
+
+
 </body>
 </html>
