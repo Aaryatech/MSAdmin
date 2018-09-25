@@ -120,7 +120,7 @@ public class ReportController {
 			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
 
-			map.add("orderStatus", 0);
+			map.add("orderStatus", 3);
 			map.add("hubId", hubId);
 			DistReportByDate[] dist1List = rest.postForObject(Constants.url + "getHubReportByDate", map,
 					DistReportByDate[].class);
@@ -435,7 +435,7 @@ public class ReportController {
 			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
 
-			map.add("orderStatus", 0);
+			map.add("orderStatus", 3);
 			map.add("hubIdList", items);
 			CategoryDistReport[] cat1List = rest.postForObject(Constants.url + "getcategoryHubReport", map,
 					CategoryDistReport[].class);
@@ -672,7 +672,7 @@ public class ReportController {
 	@ResponseBody
 	public List<ItemwiseDistReport> getItemByDate(HttpServletRequest request, HttpServletResponse response) {
 
-		 itemList = new ArrayList<ItemwiseDistReport>();
+		itemList = new ArrayList<ItemwiseDistReport>();
 		try {
 
 			String fromDate = request.getParameter("fromDate");
@@ -693,7 +693,7 @@ public class ReportController {
 			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
 
-			map.add("orderStatus", 0);
+			map.add("orderStatus", 3);
 			map.add("hubIdList", items);
 			ItemwiseDistReport[] itemDistList = rest.postForObject(Constants.url + "getitemwiseHubReport", map,
 					ItemwiseDistReport[].class);
