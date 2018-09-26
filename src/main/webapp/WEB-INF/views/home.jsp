@@ -61,6 +61,8 @@
 	<!-- Header-->
 <c:url var="getCatOrdQty" value="/getCatOrdQty"></c:url>
 
+<c:url var="getHubLatesOrdersForGraph" value="/getHubLatesOrdersForGraph"></c:url>
+
 <div class="content mt-3">
 		<div class="animated fadeIn">
 
@@ -130,7 +132,7 @@
 										<span class="count" style="font-size: 50px;">${noOrderHubCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">No Orders</font>
+										<font color="white">No Orders Hub</font>
 									</p>
 
 								</div>
@@ -154,7 +156,7 @@
 							</div>
 						</div>
 
-						<div class="col-sm-6 col-lg-4">
+						<!-- <div class="col-sm-6 col-lg-4">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-1" align="center">
 									<input type="text" id="dist" name="dist"
@@ -172,7 +174,7 @@
 								</div>
 							</div>
 						</div>
-
+ -->
 
 
 					</div>
@@ -181,7 +183,7 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong>Distributor And Order Total</strong>
+								<strong>Hub And Order Total</strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -297,14 +299,14 @@
 <script>
 		function setData(){ 
 			 getChart1(); 
-			
+			 getChart2(); 
 
 		
 		}
 	</script>
 
 
-	<!-- <script>
+	<script>
 		function getChart1() {
 alert("c1");
 			google.charts.load('current', {
@@ -313,7 +315,7 @@ alert("c1");
 			google.charts.setOnLoadCallback(drawChart1);
 
 			function drawChart1() {
-				$.getJSON('${getChartData}', {
+				$.getJSON('${getHubLatesOrdersForGraph}', {
 
 					ajax : 'true'
 
@@ -321,28 +323,24 @@ alert("c1");
 						function(jsonData) {
 							var data = new google.visualization.DataTable();
 
-							data.addColumn('string', 'Distributor');
+							data.addColumn('string', 'Hub');
 							data.addColumn('number', 'Order1');
 							data.addColumn('number', 'Order2');
 							data.addColumn('number', 'Order3');
 
-							var lan = $
-							{
-								langSelected
-							}
-							;
+							var lan = ${langSelected};
 							//alert(lan);
 							if (lan == 0) {
 								$.each(jsonData, function(i, obj) {
 
-									data.addRow([ obj.distEngName, obj.order1,
+									data.addRow([ obj.hubEngName, obj.order1,
 											obj.order2, obj.order3 ]);
 								});
 							} else {
 
 								$.each(jsonData, function(i, obj) {
 
-									data.addRow([ obj.distMarName, obj.order1,
+									data.addRow([ obj.hubMarName, obj.order1,
 											obj.order2, obj.order3 ]);
 								});
 
@@ -363,11 +361,11 @@ alert("c1");
 
 		}
 	</script>
- -->
+
 
 
 	<script>
-		function getChart1() {
+		function getChart2() {
 			alert("Hi");
 
 			google.charts.load('current', {
