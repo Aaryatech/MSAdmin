@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.model.dashreport.AllHubLatestOrder;
+import com.ats.msadmin.model.dashreport.CatwiseTrend;
 import com.ats.msadmin.model.dashreport.DashboardData;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.report.CategoryDistReport;
@@ -231,6 +232,38 @@ public class HomeController {
 		return hubLatesOrderList;
 
 	}
+	
+	
+	//CatwiseTrend
+	
+		@RequestMapping(value = "/getCatwiseTrend", method = RequestMethod.GET)
+		@ResponseBody
+		public CatwiseTrend getCatwiseTrend(HttpServletRequest request, HttpServletResponse response) {
+
+			System.out.println("inside Ajax call  catewise trand");
+
+			CatwiseTrend catwiseTrend =new CatwiseTrend();
+
+			try {
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				
+				map.add("hubId", -1);	
+				map.add("days", 7);
+
+				catwiseTrend = rest.postForObject(Constants.url + "/getCatwiseTrend",map, CatwiseTrend.class);
+
+			
+				System.out.println("ajax catewise trend data" + catwiseTrend);
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return catwiseTrend;
+		}
+
 	
 	
 }

@@ -135,7 +135,6 @@
 												</c:choose>
 											</c:forEach>
 
-
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>

@@ -63,6 +63,9 @@
 
 <c:url var="getHubLatesOrdersForGraph" value="/getHubLatesOrdersForGraph"></c:url>
 
+	<c:url var="getCatwiseTrend" value="/getCatwiseTrend"></c:url>
+
+
 <div class="content mt-3">
 		<div class="animated fadeIn">
 
@@ -156,16 +159,16 @@
 							</div>
 						</div>
 
-						<!-- <div class="col-sm-6 col-lg-4">
+							<div class="col-sm-6 col-lg-4">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-1" align="center">
-									<input type="text" id="dist" name="dist"
-										style="color: red; width: 100%;" value="" onchange="getDist()"
-										title="Search by mob no or dist name"
+									<input type="text" id="hub" name="hub"
+										style="color: red; width: 100%;" value="" onchange="getHub()"
+										title="Search by mob no or hub name"
 										placeholder="Mobile No. / Distributor Name">
 
 									<h4 class="mb-0">
-										<span style="font-size: 35px;">Find Distributor</span>
+										<span style="font-size: 35px;">Find Hub</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"></font>
@@ -174,7 +177,7 @@
 								</div>
 							</div>
 						</div>
- -->
+
 
 
 					</div>
@@ -300,6 +303,7 @@
 		function setData(){ 
 			 getChart1(); 
 			 getChart2(); 
+			 getChart3();
 
 		
 		}
@@ -420,8 +424,80 @@ alert("c1");
 
 		}
 	</script>
+	
+	<script>
+		function getChart3() {
+
+			google.charts.load('current', {
+				'packages' : [ 'line' ]
+			});
+			google.charts.setOnLoadCallback(drawChart3);
+
+			function drawChart3() {
+				$.getJSON('${getCatwiseTrend}', {
+
+					ajax : 'true'
+
+				}, function(jsonData) {
+
+					var data = new google.visualization.DataTable();
+					data.addColumn('string', 'Day');
+					//data.addColumn('number', 'Cat 1');
+    					
+
+					$.each(jsonData.catList, function(k, obj) {
+						catName=obj.catEngName;
+						//alert(i);
+						data.addColumn('number', obj.catEngName);
+				});
+	                data.addRows(jsonData.orderList.length);
+	                 
+					$.each(jsonData.orderList, function(i, o) {
+						data.setCell(i,0,o.date);
+					//alert("i "+i);
+						$.each(o.orderQty, function(j, q) {
+							//alert("j "+j);
+							data.setCell(i,j+1,q.toString());
+					
+						});
+						
+						});
+					
+					//alert(JSON.stringify(data));
+					var options = {
+							chart : {
+								title : '',
+								subtitle : '',
+						
+								chartArea:{left:0,top:0,width:"100%",height:"100%"}
+							 
+								
+							}
+				
+						};
+
+						var chart = new google.charts.Line(document
+								.getElementById('linechart_material'));
+
+						chart.draw(data, google.charts.Line.convertOptions(options));
+					
+
+				});
+			}
+
+		}
+	</script>
 
 
+	<script type="text/javascript">
+		function getHub() {
+
+			var hub = document.getElementById("hub").value;
+
+			window.open('${pageContext.request.contextPath}/searchHub/'+hub);
+
+		}
+	</script>
 
 </body>
 </html>

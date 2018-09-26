@@ -34,9 +34,11 @@ import com.ats.msadmin.common.Constants;
 import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.common.VpsImageUpload;
 import com.ats.msadmin.model.master.Category;
+import com.ats.msadmin.model.master.Distributor;
 import com.ats.msadmin.model.master.Driver;
 import com.ats.msadmin.model.master.ErrorMessage;
 import com.ats.msadmin.model.master.GetItemName;
+import com.ats.msadmin.model.master.GetOrderHub;
 import com.ats.msadmin.model.master.GetRoute;
 import com.ats.msadmin.model.master.Hub;
 import com.ats.msadmin.model.master.Item;
@@ -70,6 +72,111 @@ public class MasterController {
 	private ArrayList<Vehicle> vehicleList;
 
 	List<Notification> notifList;
+	
+	
+	
+	@RequestMapping(value = "/searchHub/{hub}", method = RequestMethod.GET)
+	public ModelAndView searchHubMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String hub) {
+
+		ModelAndView model = null;
+		try {
+			model = new ModelAndView("searchHub");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("hubMobOrName", hub);
+
+			Hub[] hubRes = rest.postForObject(Constants.url + "searchHub",map, Hub[].class);
+			hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
+
+			model.addObject("hubList", hubList);
+			if (hubList.size() > 0) {
+				model.addObject("hub", hubList.get(0));
+				System.err.println("hub  found " +hubList.toString());
+				
+			}
+			
+			/*Distributor[] getDistArray = rest.getForObject(Constants.url + "/getAllDistByIsUsed", Distributor[].class);
+			distArrList = new ArrayList<Distributor>(Arrays.asList(getDistArray));
+
+			model.addObject("distList", distArrList);
+			*/
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+			
+			if (hubList.isEmpty()|| hubList==null) {
+				System.err.println("inside error msg ");
+				
+					model = new ModelAndView("common/errorMsg");
+					model.addObject("errorMsg", "Record not found");
+			}
+				
+		
+			model.addObject("langSelected", langSelected);
+		} catch (Exception e) {
+
+			System.err.println("exception In getHubByMobNoOrName at Master Contr" + e.getMessage());
+
+			e.printStackTrace();
+
+		}
+
+		return model;
+
+	}
+	List<GetOrderHub> orderHubList = new ArrayList<>();
+	@RequestMapping(value = "/getOrderByDateHubId", method = RequestMethod.GET)
+	public @ResponseBody List<GetOrderHub> getOrderHistoryMethod(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		try {
+			model = new ModelAndView("order/orderhistory");
+
+			int hubId = Integer.parseInt(request.getParameter("hubId"));
+			String date = request.getParameter("date");
+			Locale locale = LocaleContextHolder.getLocale();
+
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("orderStatus", 3);
+			map.add("orderType", "0,1");
+			map.add("hubId", hubId);
+			map.add("date", DateConvertor.convertToYMD(date));
+
+			// getOrderByHubIdStausAndType
+			GetOrderHub[] orderRes = rest.postForObject(Constants.url + "getOrderByHubIdStausAndType", map,
+					GetOrderHub[].class);
+
+			orderHubList = new ArrayList<GetOrderHub>(Arrays.asList(orderRes));
+
+			System.err.println("ordHeaderList " + orderHubList.toString());
+			model.addObject("hubList", hubList);
+			model.addObject("ordHeaderList", orderHubList);
+
+			model.addObject("langSelected", langSelected);
+			model.addObject("selectedHub", hubId);
+			model.addObject("ordDate", date);
+		} catch (Exception e) {
+			//model = new ModelAndView("order/orderhistory");
+			e.printStackTrace();
+		}
+
+		return orderHubList;
+
+	}
 
 	@RequestMapping(value = "/showErrMsg", method = RequestMethod.GET)
 	public ModelAndView showErrMsgMethod(HttpServletRequest request, HttpServletResponse response) {
