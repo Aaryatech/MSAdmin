@@ -148,7 +148,7 @@
 									
 									<div class="input-group">
 									
-									<h3 style="color:red; font-family: fantasy;"><spring:message code="label.mobileNoExixts" />!!!!</h3>
+									<h3 style="color:red; font-family: fantasy;">${errorMsg}!!!!</h3>
 									
 									</div>
 								</div>

@@ -178,8 +178,8 @@ public class MasterController {
 
 	}
 
-	@RequestMapping(value = "/showErrMsg", method = RequestMethod.GET)
-	public ModelAndView showErrMsgMethod(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/showErrMsg/{msg}", method = RequestMethod.GET)
+	public ModelAndView showErrMsgMethod(HttpServletRequest request, HttpServletResponse response,@PathVariable String msg) {
 
 		ModelAndView model = null;
 		try {
@@ -196,6 +196,7 @@ public class MasterController {
 
 			model = new ModelAndView("common/errorMsg");
 			model.addObject("langSelected", langSelected);
+			model.addObject("errorMsg", msg);
 
 		} catch (Exception e) {
 
@@ -688,8 +689,8 @@ public class MasterController {
 
 			if (msUserInsertResponse.getMessage().equalsIgnoreCase("Mobile No Already Exist")
 					|| msUserInsertResponse.isError() == true) {
-
-				returnString = "showErrMsg";
+String msg="This  mobile no already exist in system";
+				returnString = "showErrMsg/"+msg;
 
 			} else if (msUserInsertResponse.isError() == false) {
 
@@ -937,8 +938,9 @@ public class MasterController {
 			
 			if (routeSupInsertRes.getMessage().equalsIgnoreCase("Mobile No Already Exist")
 					|| routeSupInsertRes.isError() == true) {
+				String msg="This  mobile no already exist in system";
+				returnString = "showErrMsg/"+msg;
 
-				returnString = "showErrMsg";
 
 			} else if (routeSupInsertRes.isError() == false) {
 
