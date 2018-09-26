@@ -289,24 +289,28 @@ google.setOnLoadCallback(OnLoad);
 									<option>Philadelphia Eagles</option>
 									<option>Washington Redskins</option>
 								</optgroup>
+								
 								<optgroup label="NFC NORTH">
 									<option>Chicago Bears</option>
 									<option>Detroit Lions</option>
 									<option>Green Bay Packers</option>
 									<option>Minnesota Vikings</option>
 								</optgroup>
+								
 								<optgroup label="NFC SOUTH">
 									<option>Atlanta Falcons</option>
 									<option>Carolina Panthers</option>
 									<option>New Orleans Saints</option>
 									<option>Tampa Bay Buccaneers</option>
 								</optgroup>
+								
 								<optgroup label="NFC WEST">
 									<option>Arizona Cardinals</option>
 									<option>St. Louis Rams</option>
 									<option>San Francisco 49ers</option>
 									<option>Seattle Seahawks</option>
 								</optgroup>
+																
 								<optgroup label="AFC EAST">
 									<option>Buffalo Bills</option>
 									<option>Miami Dolphins</option>

@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
+import com.ats.msadmin.model.dashreport.AllHubLatestOrder;
 import com.ats.msadmin.model.dashreport.DashboardData;
 import com.ats.msadmin.model.master.Category;
 import com.ats.msadmin.model.report.CategoryDistReport;
@@ -207,8 +208,29 @@ public class HomeController {
 		return catwiseHubOrdQtyList;
 
 	}
+	
+	@RequestMapping(value = "/getHubLatesOrdersForGraph", method = RequestMethod.GET)
+	@ResponseBody public List<AllHubLatestOrder> getHubLatesOrdersForGraph(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<AllHubLatestOrder> hubLatesOrderList = new ArrayList<AllHubLatestOrder>();
 
+		System.err.println("In Ajax call /getHubLatesOrdersForGraph  MS ");
+		try {
+		
 
+		AllHubLatestOrder[] hubLatesOrdRes = rest.getForObject(Constants.url + "/getHubLatesOrdersForGraph",AllHubLatestOrder[].class);
+		hubLatesOrderList = new ArrayList<AllHubLatestOrder>(Arrays.asList(hubLatesOrdRes));
+
+		System.err.println("hubLatesOrderList  MS  in Ajax" + hubLatesOrderList.toString());
+		}catch (Exception e) {
+			
+			System.err.println(" @ getHubLatesOrdersForGraph hubLatesOrderList  MS  in Ajax" + e.getMessage());
+			e.printStackTrace();
+			
+		}
+		return hubLatesOrderList;
+
+	}
 	
 	
 }
