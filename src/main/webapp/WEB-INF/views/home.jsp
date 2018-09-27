@@ -165,7 +165,7 @@
 									<input type="text" id="hub" name="hub"
 										style="color: red; width: 100%;" value="" onchange="getHub()"
 										title="Search by mob no or hub name"
-										placeholder="Mobile No. / Distributor Name">
+										placeholder="Mobile No. / Hub Name">
 
 									<h4 class="mb-0">
 										<span style="font-size: 35px;">Find Hub</span>
