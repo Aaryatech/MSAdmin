@@ -144,7 +144,6 @@
 						</div>
 						<div class="card-body card-block">
 							<form
-								<%-- action="${pageContext.request.contextPath}/insertHubUser --%>"
 								method="post">
 								<div class="row">
 									<div class="col-md-2">
@@ -389,6 +388,12 @@
 			//alert("cxcgxc");
 			var date = $("#date").val();
 			var hubId = $("#hubId").val();
+			
+			if(date==null || date==""){
+				
+				alert("Please select order date");
+				 $("#date").focus();
+			}else{
 
 			$
 					.getJSON(
@@ -433,11 +438,8 @@
 												data,
 												function(i, v) {
 
-													var lang = $
-													{
-														langSelected
-													}
-													;
+													var lang = ${langSelected};
+													
 													var distName;
 
 													if (lang == 0) {
@@ -454,7 +456,9 @@
 														ordType = "Special";
 													}
 
-													var str = "Detail";
+													var str = "<i class='fa  fa-stack-exchange'></i>";
+													//var str="Detail";
+
 													var result = str
 															.link("${pageContext.request.contextPath}/showOrderHisDetail/"
 																	+ v.orderHeaderId);
@@ -473,6 +477,8 @@
 												});
 
 							});
+			
+			}//end of else
 		}
 	</script>
 

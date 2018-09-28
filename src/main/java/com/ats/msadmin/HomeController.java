@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.msadmin.common.Constants;
+import com.ats.msadmin.common.DateConvertor;
 import com.ats.msadmin.model.dashreport.AllHubLatestOrder;
 import com.ats.msadmin.model.dashreport.CatwiseTrend;
 import com.ats.msadmin.model.dashreport.DashboardData;
@@ -40,75 +41,70 @@ import com.ats.msadmin.model.user.LoginResponseMU;
 public class HomeController {
 	RestTemplate rest = new RestTemplate();
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "login";
 	}
-	
-	
+
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public String translate(HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("Inside Login Process");
-		
+
 		ModelAndView model = null;
-		
-		String mobNo=request.getParameter("username");
-		
-		String pass=request.getParameter("password");
-	//loginResponseMah
+
+		String mobNo = request.getParameter("username");
+
+		String pass = request.getParameter("password");
+		// loginResponseMah
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		
+
 		map.add("msContactNo", mobNo);
 		map.add("msPwd", pass);
-		
-		LoginResponseMU logResMU=rest.postForObject(Constants.url + "/loginResponseMah", map, LoginResponseMU.class);
-		if(logResMU.isError()==false) {
-			
+
+		LoginResponseMU logResMU = rest.postForObject(Constants.url + "/loginResponseMah", map, LoginResponseMU.class);
+		if (logResMU.isError() == false) {
+
 			model = new ModelAndView("home");
-			
-			HttpSession session =request.getSession();
+
+			HttpSession session = request.getSession();
 			session.setAttribute("user", logResMU.getMahasnaghUser());
 			return "redirect:/home";
-		}
-		else {
+		} else {
 			model = new ModelAndView("login");
-			model.addObject("loginErr","Invalid Login");
-			
+			model.addObject("loginErr", "Invalid Login");
+
 			return "redirect:/invalidLogin";
 
 		}
-		
-		/*System.err.println("logResMU" +logResMU.toString());
-		Locale locale = LocaleContextHolder.getLocale();
 
-		// System.err.println("current language is - " + locale.toString());
-
-		int langSelected = 0;
-
-		if (locale.toString().equalsIgnoreCase("mr")) {
-			langSelected = 1;
-		}
-
-		model.addObject("langSelected", langSelected);
-*/
-		
+		/*
+		 * System.err.println("logResMU" +logResMU.toString()); Locale locale =
+		 * LocaleContextHolder.getLocale();
+		 * 
+		 * // System.err.println("current language is - " + locale.toString());
+		 * 
+		 * int langSelected = 0;
+		 * 
+		 * if (locale.toString().equalsIgnoreCase("mr")) { langSelected = 1; }
+		 * 
+		 * model.addObject("langSelected", langSelected);
+		 */
 
 	}
-	
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		System.out.println("User Logout");
@@ -129,15 +125,14 @@ public class HomeController {
 		return model;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/invalidLogin", method = RequestMethod.GET)
 	public ModelAndView invalidLogin(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		ModelAndView model = new ModelAndView("login");
 		try {
 
-			model.addObject("loginErr","Invalid Login Details");
+			model.addObject("loginErr", "Invalid Login Details");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,9 +140,10 @@ public class HomeController {
 
 		return model;
 	}
+
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		ModelAndView model = new ModelAndView("home");
 		try {
 
@@ -160,14 +156,13 @@ public class HomeController {
 			map.add("curDate", date);
 
 			map.add("orderType", 0);
-			
-			DashboardData dashBoard = rest.postForObject(Constants.url + "/getMSDashBoard", map,
-					DashboardData.class);
+
+			DashboardData dashBoard = rest.postForObject(Constants.url + "/getMSDashBoard", map, DashboardData.class);
 
 			System.err.println("msDashboardData " + dashBoard.toString());
 			model.addObject("dashBoard", dashBoard);
-			if(dashBoard.getNoOrderHubList().size()>0)
-			model.addObject("noOrderHubCount", dashBoard.getNoOrderHubList().size());
+			if (dashBoard.getNoOrderHubList().size() > 0)
+				model.addObject("noOrderHubCount", dashBoard.getNoOrderHubList().size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,95 +170,131 @@ public class HomeController {
 
 		return model;
 	}
+
 	@RequestMapping(value = "/getCatOrdQty", method = RequestMethod.GET)
-	@ResponseBody public List<CategoryDistReport> getcatData(HttpServletRequest request, HttpServletResponse response) {
-		
+	@ResponseBody
+	public List<CategoryDistReport> getcatData(HttpServletRequest request, HttpServletResponse response) {
+
 		List<CategoryDistReport> catwiseHubOrdQtyList = new ArrayList<CategoryDistReport>();
 
 		System.err.println("In Ajax call /getCatOrdQty  MS ");
 		try {
-		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		
-		
-		Date now = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sdf.format(now.getTime());
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-		map.add("curDate", date);
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(now.getTime());
 
-		map.add("hubId", 0); 
-		
-		//same web service usef for hub panel by passing specific Hub Id 
+			map.add("curDate", date);
 
-		CategoryDistReport[] catwiseHubOrdQty = rest.postForObject(Constants.url + "/getHubReportCatwise", map,
-				CategoryDistReport[].class);
-		catwiseHubOrdQtyList = new ArrayList<CategoryDistReport>(Arrays.asList(catwiseHubOrdQty));
+			map.add("hubId", 0);
 
-		System.err.println("catwiseHubOrdQty  MS  in Ajax" + catwiseHubOrdQtyList.toString());
-		}catch (Exception e) {
-			
+			// same web service usef for hub panel by passing specific Hub Id
+
+			CategoryDistReport[] catwiseHubOrdQty = rest.postForObject(Constants.url + "/getHubReportCatwise", map,
+					CategoryDistReport[].class);
+			catwiseHubOrdQtyList = new ArrayList<CategoryDistReport>(Arrays.asList(catwiseHubOrdQty));
+
+			System.err.println("catwiseHubOrdQty  MS  in Ajax" + catwiseHubOrdQtyList.toString());
+		} catch (Exception e) {
+
 			System.err.println("catwiseHubOrdQty  MS  in Ajax" + e.getMessage());
 			e.printStackTrace();
-			
+
 		}
 		return catwiseHubOrdQtyList;
 
 	}
-	
+
 	@RequestMapping(value = "/getHubLatesOrdersForGraph", method = RequestMethod.GET)
-	@ResponseBody public List<AllHubLatestOrder> getHubLatesOrdersForGraph(HttpServletRequest request, HttpServletResponse response) {
-		
+	@ResponseBody
+	public List<AllHubLatestOrder> getHubLatesOrdersForGraph(HttpServletRequest request, HttpServletResponse response) {
+
 		List<AllHubLatestOrder> hubLatesOrderList = new ArrayList<AllHubLatestOrder>();
 
 		System.err.println("In Ajax call /getHubLatesOrdersForGraph  MS ");
 		try {
-		
 
-		AllHubLatestOrder[] hubLatesOrdRes = rest.getForObject(Constants.url + "/getHubLatesOrdersForGraph",AllHubLatestOrder[].class);
-		hubLatesOrderList = new ArrayList<AllHubLatestOrder>(Arrays.asList(hubLatesOrdRes));
+			AllHubLatestOrder[] hubLatesOrdRes = rest.getForObject(Constants.url + "/getHubLatesOrdersForGraph",
+					AllHubLatestOrder[].class);
+			hubLatesOrderList = new ArrayList<AllHubLatestOrder>(Arrays.asList(hubLatesOrdRes));
 
-		System.err.println("hubLatesOrderList  MS  in Ajax" + hubLatesOrderList.toString());
-		}catch (Exception e) {
-			
+			System.err.println("hubLatesOrderList  MS  in Ajax" + hubLatesOrderList.toString());
+		} catch (Exception e) {
+
 			System.err.println(" @ getHubLatesOrdersForGraph hubLatesOrderList  MS  in Ajax" + e.getMessage());
 			e.printStackTrace();
-			
+
 		}
 		return hubLatesOrderList;
 
 	}
-	
-	
-	//CatwiseTrend
-	
-		@RequestMapping(value = "/getCatwiseTrend", method = RequestMethod.GET)
-		@ResponseBody
-		public CatwiseTrend getCatwiseTrend(HttpServletRequest request, HttpServletResponse response) {
 
-			System.out.println("inside Ajax call  catewise trand");
+	// CatwiseTrend
 
-			CatwiseTrend catwiseTrend =new CatwiseTrend();
+	@RequestMapping(value = "/getCatwiseTrend", method = RequestMethod.GET)
+	@ResponseBody
+	public CatwiseTrend getCatwiseTrend(HttpServletRequest request, HttpServletResponse response) {
 
-			try {
-				
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				
-				map.add("hubId", -1);	
-				map.add("days", 7);
+		System.out.println("inside Ajax call  catewise trand");
 
-				catwiseTrend = rest.postForObject(Constants.url + "/getCatwiseTrend",map, CatwiseTrend.class);
+		CatwiseTrend catwiseTrend = new CatwiseTrend();
 
-			
-				System.out.println("ajax catewise trend data" + catwiseTrend);
+		try {
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			map.add("hubId", -1);
+			map.add("days", 7);
 
-			return catwiseTrend;
+			catwiseTrend = rest.postForObject(Constants.url + "/getCatwiseTrend", map, CatwiseTrend.class);
+
+			System.out.println("ajax catewise trend data" + catwiseTrend);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-	
-	
+		return catwiseTrend;
+	}
+
+	@RequestMapping(value = "/showTodaysNoOrderHub", method = RequestMethod.GET)
+	public ModelAndView showTodaysNoOrderHub(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("order/noOrdHub");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(now.getTime());
+
+			map.add("curDate", date);
+
+			map.add("orderType", 0);
+
+			DashboardData dashBoard = rest.postForObject(Constants.url + "/getMSDashBoard", map, DashboardData.class);
+
+			if (dashBoard.getNoOrderHubList().size() > 0)
+				model.addObject("noOrderHub", dashBoard.getNoOrderHubList());
+
+			Locale locale = LocaleContextHolder.getLocale();
+
+			// System.err.println("current language is - " + locale.toString());
+
+			int langSelected = 0;
+
+			if (locale.toString().equalsIgnoreCase("mr")) {
+				langSelected = 1;
+			}
+			model.addObject("todaysDate", DateConvertor.convertToDMY(date));
+			model.addObject("langSelected", langSelected);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
 }

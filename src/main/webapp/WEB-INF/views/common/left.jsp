@@ -9,7 +9,7 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="#"> <spring:message
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/home"> <spring:message
 					code="label.msWebPanel" />
 			</a> <a class="navbar-brand hidden" href="./"> H</a>
 		</div>

@@ -190,6 +190,8 @@
 																<th style="text-align: center;"><spring:message code="label.orderTotal" /></th>
 																<th style="text-align: center;"><spring:message code="label.pendCrates" /></th>
 																<th style="text-align: center;"><spring:message code="label.pendAmt" /></th>
+																															<th style="text-align: center;"><spring:message code="label.orderType" /></th>
+																
 																<th style="text-align: center;"><spring:message code="label.action" /></th>
 
 																<!-- 
@@ -226,7 +228,13 @@
 
 																	<td style="text-align: right;">${item.prevPendingAmt}</td>
 
+<td style="text-align: center;"><c:if test="${item.orderType == 0}">
+																		<spring:message code="label.regOrder" />
 
+																	</c:if> <c:if test="${item.orderType == 1}">
+
+																		<spring:message code="label.spOrder" />
+																	</c:if></td>
 																	<td style="text-align: center;"><div class="fa-hover col-lg-3 col-md-6">
 																			<a
 																				href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}"><i

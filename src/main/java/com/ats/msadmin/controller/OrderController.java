@@ -64,6 +64,14 @@ public class OrderController {
 			// getAllHubByIsUsed
 			Hub[] hubRes = rest.getForObject(Constants.url + "getAllHubByIsUsed", Hub[].class);
 			hubList = new ArrayList<Hub>(Arrays.asList(hubRes));
+			
+			map.add("orderStatusList", "1");
+			//web service to get todays all order 
+			GetOrderHub[] orderRes = rest.postForObject(Constants.url + "getOrderByTypeAndStatus", map,
+					GetOrderHub[].class);
+			ordHeaderList = new ArrayList<GetOrderHub>(Arrays.asList(orderRes));
+			System.err.println("ordHeaderList " + ordHeaderList.toString());
+			model.addObject("ordHeaderList", ordHeaderList);
 
 			model.addObject("hubList", hubList);
 			model.addObject("langSelected", langSelected);
@@ -101,7 +109,7 @@ public class OrderController {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("orderStatus", 1);
-			map.add("orderType", 0);
+			map.add("orderType", "0,1");
 			map.add("hubId", hubId);
 
 			Date now = new Date();

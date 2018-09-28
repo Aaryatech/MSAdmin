@@ -75,7 +75,7 @@
 
 					<div class="col-xs-12 col-sm-12">
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderCount})" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
 
@@ -92,10 +92,9 @@
 
 
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderTotal})" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
-
 									<h4 class="mb-0">
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderTotal}</span>
 									</h4>
@@ -104,11 +103,13 @@
 									</p>
 
 								</div>
+								
 							</div>
 						</div>
+						
 
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysSpOrdTotAndCount.orderCount})" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
 
@@ -127,7 +128,7 @@
 
 					<div class="col-xs-12 col-sm-12">
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-4" onclick="showNoOrderHub()" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-0" align="center">
 
@@ -144,7 +145,7 @@
 
 
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrderPending.orderCount})" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-0" align="center">
 
@@ -497,6 +498,18 @@ alert("c1");
 			window.open('${pageContext.request.contextPath}/searchHub/'+hub);
 
 		}
+		function showTodaysOrder(count){
+			
+			if(count>0){
+			
+			window.open('${pageContext.request.contextPath}/showHubOrders',"_self");
+			}
+		}
+		function showNoOrderHub(){
+			
+			window.open('${pageContext.request.contextPath}/showTodaysNoOrderHub',"_self");
+		}
+		
 	</script>
 
 </body>
