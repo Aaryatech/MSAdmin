@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html>
@@ -83,7 +84,7 @@
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Total Orders</font>
+										<font color="white"><spring:message code="label.order" /></font>
 									</p>
 
 								</div>
@@ -99,7 +100,7 @@
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderTotal}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Order Total</font>
+										<font color="white"><spring:message code="label.orderTotal" /><!-- Order Total --></font>
 									</p>
 
 								</div>
@@ -117,7 +118,7 @@
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysSpOrdTotAndCount.orderCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Special Order</font>
+										<font color="white"><spring:message code="label.spOrder" /><!-- Special Order --></font>
 									</p>
 
 								</div>
@@ -136,7 +137,7 @@
 										<span class="count" style="font-size: 50px;">${noOrderHubCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">No Orders Hub</font>
+										<font color="white"><spring:message code="label.noOrder" /><!-- No Orders Hub --></font>
 									</p>
 
 								</div>
@@ -153,7 +154,7 @@
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrderPending.orderCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white">Order Forward Pending</font>
+										<font color="white"><spring:message code="label.orderFwdPend" /><!-- Order Forward Pending --></font>
 									</p>
 
 								</div>
@@ -169,7 +170,7 @@
 										placeholder="Mobile No. / Hub Name">
 
 									<h4 class="mb-0">
-										<span style="font-size: 35px;">Find Hub</span>
+										<span style="font-size: 35px;"><spring:message code="label.findHub" /><!-- Find Hub --></span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"></font>

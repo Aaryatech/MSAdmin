@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>Today No Order Hubs</title>
 
-<c:url var="getEditMsUser" value="/getEditMsUser" />
 
 <link rel="apple-touch-icon"
 	href="${pageContext.request.contextPath}/resources/apple-icon.png">
