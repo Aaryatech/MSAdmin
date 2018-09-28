@@ -178,10 +178,20 @@
 					<div class="card">
 						<div class="card-header">
 							<strong> <spring:message code="label.addHub" /></strong>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image"
+								src="${pageContext.request.contextPath}/resources/images/addnewrecord.png"
+								id="addButton" onclick="addButton();" height="25px;"
+								width="25px;"  />
+								<input type="image"
+								src="${pageContext.request.contextPath}/resources/images/collapse_icon.png"
+								id="addButton" onclick="hideButon();" height="25px;"
+								width="25px;"  />
+								
 						</div>
 						<div class="card-body card-block">
 							<form  action="${pageContext.request.contextPath}/insertHub" id="addHubForm" method="post" enctype="multipart/form-data">
-
+<div id="addDiv" style="display: none;">
 								<input type="hidden" name="hub_id" id="hub_id" value="0">
 								<div class="row">
 								<div class="col-md-2">
@@ -256,6 +266,7 @@
 										<spring:message code="label.submit" />
 									</button>
 									<button type="reset"  class="btn btn-primary" style="align-content: center; width: 226px; margin-left: 80px;" ><spring:message code="label.cancel" /></button>
+								</div>
 								</div>
 
 							</form>
@@ -447,6 +458,22 @@ function validatePass(){
 }
 
 </script>
+<script type="text/javascript">
+
+function addButton() {
+	
+	//document.getElementById('addDiv').style = "display:none";
+	document.getElementById('addDiv').style.display = "block";
+	
+}
+
+function hideButon(){
+	
+	document.getElementById('addDiv').style = "display:none";
+}
+
+</script>
+
 
 
 </body>

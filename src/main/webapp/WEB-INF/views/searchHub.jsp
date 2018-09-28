@@ -43,6 +43,19 @@
 <!-- css for date picker proper UI -->
 
 
+<style type="text/css">
+.right {
+	text-align: right;
+}
+
+.left {
+	text-align: left;
+}
+.center{
+text-align: center;
+}
+</style>
+
 </head>
 
 
@@ -180,6 +193,14 @@
 								</div>
 								&nbsp;
 
+
+
+																		<spring:message code="label.regOrder"  var="regOr"/>
+																			<input type="hidden" id="regOrd" value="${regOr}"> 
+																		<spring:message code="label.spOrder" var="spOr" />
+																	<input type="hidden" id="spOrd" value="${spOr}"> 
+
+
 								<%-- <div class="row">
 									<div class="col-md-2">
 										<spring:message code="label.routeSeqNo" />
@@ -245,15 +266,14 @@
 								<input type="hidden" id="hubId" name="hubId"
 									value="${hub.hubId}">
 
-								<div class="card">
+								<%-- <div class="card">
 									<div class="card-header">
 										<strong class="card-title"><spring:message
 												code="label.ordHistory" /></strong>
-									</div>
-									<div class="form-group"></div>
-									<div class="form-group">
+									
+								
 
-										<%-- <div class="col-lg-4">
+										<div class="col-lg-4">
 
 								<div>
 									<div class="input-group" style="align-items: center;">
@@ -264,7 +284,7 @@
 
 									</div>
 								</div>
-							</div> --%>
+							</div>
 
 
 									</div>
@@ -272,9 +292,10 @@
 
 
 								</div>
-
+ --%>
+ <div class="card">
 								<div class="card-body">
-									<table id="bootstrap-data-table"
+									<table id="bootstrap-data-table1"
 										class="table table-striped table-bordered">
 
 										<thead>
@@ -300,6 +321,7 @@
 										</thead>
 
 									</table>
+								</div>
 								</div>
 
 
@@ -369,13 +391,13 @@
 		$(document)
 				.ready(
 						function() {
-							$('#bootstrap-data-table-export').DataTable();
+							$('#bootstrap-data-table1-export').DataTable();
 
 							$("#flowcheckall")
 									.click(
 											function() {
 												$(
-														'#bootstrap-data-table tbody input[type="checkbox"]')
+														'#bootstrap-data-table1 tbody input[type="checkbox"]')
 														.prop('checked',
 																this.checked);
 											});
@@ -388,6 +410,8 @@
 			//alert("cxcgxc");
 			var date = $("#date").val();
 			var hubId = $("#hubId").val();
+			var regOrd = $("#regOrd").val();
+			var spOrd = $("#spOrd").val();
 			
 			if(date==null || date==""){
 				
@@ -430,7 +454,7 @@
 								document.getElementById("amountBalanced").value = (data.prevPendingAmt
 										+ data.orderTotal - data.amtReceived); */
 
-								var dataTable = $('#bootstrap-data-table')
+								var dataTable = $('#bootstrap-data-table1')
 										.DataTable();
 
 								$
@@ -451,9 +475,9 @@
 													var ordType;
 
 													if (v.orderType == 0) {
-														ordType = "Regular";
+														ordType = regOrd;
 													} else {
-														ordType = "Special";
+														ordType = spOrd;
 													}
 
 													var str = "<i class='fa  fa-stack-exchange'></i>";
@@ -491,6 +515,32 @@
 			});
 		});
 	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#bootstrap-data-table1').DataTable({
+				columnDefs : [ {
+					targets : [4, 5, 6],
+					className : "right"
+				}, ]
+			
+			});
+		});
+	</script>
+	
+	<!-- <script type="text/javascript">
+		$(document).ready(function() {
+			$('#bootstrap-data-table1').DataTable({
+				columnDefs : [ {
+					targets : [1,3,7,8],
+					className : "center"
+				}, ]
+			
+			});
+		});
+	</script> -->
+	
+	
 
 </body>
 </html>
