@@ -184,7 +184,7 @@
 									<spring:message code="label.contactNo" /></div>
 									<div class="col-md-4">
 										<input class="form-control" name="contact_no" id="contact_no"
-											onblur="validateMobNo()" type="text" required
+											onblur="validateMobNo()" type="text" required autocomplete="off"
 											oninvalid="setCustomValidity('Please enter mobile no ')"
 											onchange="try{setCustomValidity('')}catch(e){}"
 											pattern="[0-9]{10}" /> <span class="error"
@@ -225,7 +225,7 @@
 									</div>
 									<div class="col-md-4">
 										<input class="form-control" name="usr_pass" id="usr_pass"
-											onblur="validatePass()" type="password" required
+											onblur="validatePass()" type="password" required autocomplete="off"
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -237,7 +237,7 @@
 									<spring:message code="label.confPass" /></div>
 									<div class="col-md-4">
 										<input class="form-control" name="conf_pass" id="conf_pass"
-											onblur="validatePass()" type="text" required
+											onblur="validatePass()" type="text" required autocomplete="off"
 											oninvalid="setCustomValidity('Please enter password ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
@@ -410,7 +410,7 @@
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});

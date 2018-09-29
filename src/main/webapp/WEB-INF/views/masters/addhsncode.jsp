@@ -11,8 +11,6 @@
 
 <c:url var="getEditHsnCode" value="/getEditHsnCode" />
 
-<link rel="apple-touch-icon"
-	href="${pageContext.request.contextPath}/resources/apple-icon.png">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/favicon.ico">
 
@@ -34,6 +32,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
 
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -200,7 +201,10 @@
 																	<td style="text-align: center;"><c:out value="${hsn.itemIgst}" /></td>
 																	
 																	<td style="text-align: center;">
-																			<a href="#" onclick="editHsn(${hsn.itemHsnId})"><i
+																			<%-- <a href="#" onclick="editHsn(${hsn.itemHsnId})"><i
+																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
+																				 --%>
+																				<a href="#" onclick="editHsn(${hsn.itemHsnId})"><i
 																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
 																	&nbsp;
 																			<a
@@ -233,7 +237,7 @@
 		</div>
 		<!-- .animated -->
 	</div>
-	<!-- .content -->
+	<!-- .content -->	
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
@@ -293,6 +297,8 @@
 		},
 		
 		function(data){
+			document.getElementById('addDiv').style.display = "block";
+
 			$("#hsn_code").val(data.itemHsnCode);
 			$("#cgst").val(data.itemCgst);
 			$("#sgst").val(data.itemSgst);

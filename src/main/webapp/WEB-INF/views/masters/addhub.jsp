@@ -408,6 +408,8 @@
 		},
 		
 		function(data){
+			document.getElementById('addDiv').style.display = "block";
+
 			$("#hname_mr").val(data.hubMarName);
 			$("#hname_eng").val(data.hubEngName);
         	

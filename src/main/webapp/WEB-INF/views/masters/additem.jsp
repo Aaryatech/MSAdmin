@@ -366,7 +366,7 @@
 									</div>
 									<spring:message code="label.UOM" var="selUom" />
 									<div class="col-md-4">
-										<select data-placeholder="${selUom}" class="standardSelect" style="width: 100%;"
+										<select data-placeholder="${selUom}"  class="standardSelect" style="width: 100%;"
 											tabindex="1" name="item_uom" id="item_uom" required
 											oninvalid="setCustomValidity('Please Select UOM ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
@@ -446,44 +446,32 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+
 
 
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});
@@ -518,11 +506,16 @@
 			var mrp = document.getElementById("item_mrp").value;
 
 			if (rate > 0) {
-
+				
+				if(mrp==null || mrp==""){
+					
+				}
+				else
 				if (rate > mrp) {
 
 					alert("Distributor price  can not be greater than MRP");
-					document.getElementById("item_mrp").value = "0";
+					//document.getElementById("item_mrp").value = "0";
+					document.getElementById("item_rate").value = "0";
 				}
 			}
 	
