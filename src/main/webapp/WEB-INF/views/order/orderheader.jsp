@@ -175,7 +175,7 @@
 											<div class="card">
 												<div class="card-header">
 													<strong class="card-title"><spring:message
-															code="label.orList" /></strong>
+															code="label.orList" /> &nbsp; Check and Submit to Start Production</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"

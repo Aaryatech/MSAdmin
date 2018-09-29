@@ -93,7 +93,7 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="from_date" name="from_date"
-											value="${fromDate}" onblur="getData()" /> <span
+											value="${fromDate}" onblur="getData1()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -103,7 +103,7 @@
 									</div>
 									<div class="col-md-3">
 										<input type="text" id="to_date" name="to_date"
-											value="${toDate}" onblur="getData()" /> <span
+											value="${toDate}" onblur="getData1()" /> <span
 											class="error" aria-live="polite"></span>
 
 									</div>
@@ -496,11 +496,8 @@
 
 								function(data) {
 
-									var selLang = $
-									{
-										langSelected
-									}
-									;
+									var selLang = ${langSelected};
+									
 
 									var html = '<option value="-1" selected >Select Route</option>';
 

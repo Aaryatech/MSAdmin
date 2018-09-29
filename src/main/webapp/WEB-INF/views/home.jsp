@@ -47,7 +47,15 @@
 <script type="text/javascript"
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+<style type="text/css">
 
+.MyClass{
+width: 20px;
+background-color: lime;
+}
+
+
+</style>
 </head>
 
 <body onload="setData()" >
@@ -161,16 +169,16 @@
 							</div>
 						</div>
 
-							<div class="col-sm-6 col-lg-4">
+							<div class="col-sm-6 col-lg-4" onclick="getHub()" style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-1" align="center">
 									<input type="text" id="hub" name="hub"
-										style="color: red; width: 100%;" value="" onchange="getHub()"
+										style="color: red; width: 100%;" value="0" onchange="getHub1()"
 										title="Search by mob no or hub name"
-										placeholder="Mobile No. / Hub Name">
+										placeholder="<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
 
 									<h4 class="mb-0">
-										<span style="font-size: 35px;"><spring:message code="label.findHub" /><!-- Find Hub --></span>
+										<span style="font-size: 20px;"><spring:message code="label.findHub" /> &nbsp;<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" /><!-- Find Hub --></span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"></font>
@@ -188,7 +196,7 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong>Hub And Order Total</strong>
+								<strong><!-- Hub And Order Total --><spring:message code="label.hubOrderTotal" /></strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -202,7 +210,7 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong>Category And Order Qty</strong>
+								<strong><!-- Category And Order Qty --><spring:message code="label.catAndQty" /></strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -217,7 +225,7 @@
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong>Categorywise Trend</strong>
+								<strong><!-- Categorywise Trend --><spring:message code="label.catTrend" /></strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -495,8 +503,21 @@ alert("c1");
 		function getHub() {
 
 			var hub = document.getElementById("hub").value;
-
+			
+			if(hub==0){
+				
+			}
+			else
+			if(hub==null || hub==""){
+				alert("Please enter mobile no or hub name");
+				document.getElementById("hub").focus();
+				
+				$('#hub').addClass('MyClass');
+			}
+			else if(hub!=0){
+				$("#hub").val("0");
 			window.open('${pageContext.request.contextPath}/searchHub/'+hub);
+			}
 
 		}
 		function showTodaysOrder(count){
