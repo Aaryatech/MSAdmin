@@ -330,10 +330,10 @@
 										<spring:message code="label.submit" />
 									</button>
 									
-									<button type="submit" class="btn btn-primary" onclick="callSubmitView()"
+								<%-- 	<button type="submit" class="btn btn-primary" onclick="callSubmitView()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.submitAndView" />
-									</button>
+									</button> --%>
 									
 									
 										<button type="reset" class="btn btn-primary"

@@ -11,8 +11,6 @@
 
 <c:url var="getEditRoute" value="/getEditRoute" />
 
-<link rel="apple-touch-icon"
-	href="${pageContext.request.contextPath}/resources/apple-icon.png">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/favicon.ico">
 
@@ -198,8 +196,8 @@
 									</div>
 									<spring:message code="label.chooseHub" var="selHub" />
 									<div class="col-md-4">
-										<select data-placeholder="${selHub}" onfocus="enableSubmit()" style="width: 100%;"
-											class="standardSelect" name="sel_hub" id="sel_hub"
+										<select class="standardSelect" data-placeholder="${selHub}" onfocus="enableSubmit()" style="width: 100%;"
+											 name="sel_hub" id="sel_hub"
 											oninvalid="setCustomValidity('Please Select Hub ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -322,9 +320,8 @@
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-	<!-- Left Panel -->
-<!-- for multiple select  -->
-<script
+	<!-- Left Panel --> <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -332,10 +329,7 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
-	<!-- end for multiple select  -->
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
@@ -361,11 +355,22 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
 
+
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script>
+	<script>
+		jQuery(document).ready(function() {
+			jQuery(".standardSelect").chosen({
+				disable_search_threshold : 2,
+				no_results_text : "Oops, nothing found!",
+				width : "100%"
+			});
+		});
+		</script>
 
 	<script type="text/javascript">
 	

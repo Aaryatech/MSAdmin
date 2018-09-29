@@ -33,6 +33,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/lib/chosen/chosen.min.css">
 
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/lib/datatable/dataTables.bootstrap.min.css">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -161,16 +164,20 @@
 
 									<input type="hidden" name="conf_id" id="conf_id" value="0">
 
-									<div class="form-group">
+									<div class="row">
+									<div class="col-md-3">
 										<spring:message code="label.notif" />
-										<div class="input-group">
-											<input type="radio" checked name="lang" id="lang"
-												onchange="openDiv(0)" value="0"> English <input
-												type="radio" name="lang" id="lang" onchange="openDiv(1)"
-												value="1"> Marathi
 										</div>
-									</div>
-
+										<div class="col-md-2">
+											<input type="radio" checked name="lang" id="lang"
+												onchange="openDiv(0)" value="0">  <spring:message code="label.eng" />
+												</div>
+													<div class="col-md-2">
+												 <input
+												type="radio" name="lang" id="lang" onchange="openDiv(1)"
+												value="1">  <spring:message code="label.mar" /></div>
+										</div>
+								
 									<div class="form-group"></div>
 									<div class="row">
 										<div class="col-md-3">
@@ -226,10 +233,11 @@
 									</div>
 
 									<div class="form-group"></div>
-
+									<div class="row"><div class="col-md-3"></div><div class="col-md-3"><b> <spring:message code="label.or" /></b></div></div>
+<div class="form-group"></div>
 									<div class="row">
 										<div class="col-md-3">
-											<b>OR</b> <spring:message code="label.routeSupName" />
+											 <spring:message code="label.routeSupName" />
 										</div>
 										<spring:message code="label.routeSupName" var="selRouteSup" />
 										<div class="col-md-9">
@@ -323,46 +331,30 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/data-table/datatables-init.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/lib/chosen/chosen.jquery.min.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
 			jQuery(".standardSelect").chosen({
-				disable_search_threshold : 10,
+				disable_search_threshold : 2,
 				no_results_text : "Oops, nothing found!",
 				width : "100%"
 			});
