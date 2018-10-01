@@ -175,7 +175,7 @@
 											<div class="card">
 												<div class="card-header">
 													<strong class="card-title"><spring:message
-															code="label.orList" /> &nbsp; Check and Submit to Start Production</strong>
+															code="label.orList" /> &nbsp;</strong>
 												</div>
 												<div class="card-body">
 													<table id="bootstrap-data-table"
@@ -265,7 +265,7 @@
 
 									<button type="button" class="btn btn-primary" id="submitButton" onclick="valthisform()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
-										<spring:message code="label.submit" />
+										<spring:message code="label.startProd" />
 									</button>
 								</div>
 
@@ -366,7 +366,7 @@ function valthisform()
     	//form.action="${pageContext.request.contextPath}/startProd";
     	form.submit();
     }
-    else alert("Please check atleast one checkbox");
+    else alert("Please select atleast one order");
 }
 </script>
 

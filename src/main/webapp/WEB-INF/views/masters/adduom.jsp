@@ -148,9 +148,9 @@
 								<div class="col-md-2">
 									<spring:message code="label.UOM" />
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<input class="form-control" name="uom_name" maxlength="200"
-											id="uom_name" type="text" required
+											id="uom_name" type="text" required 
 											oninvalid="setCustomValidity('Please enter name ')"
 											onchange="try{setCustomValidity('')}catch(e){}" /> <span
 											class="error" aria-live="polite"></span>
