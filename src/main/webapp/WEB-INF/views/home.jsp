@@ -173,7 +173,7 @@ background-color: lime;
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-1" align="center">
 									<input type="text" id="hub" name="hub"
-										style="color: red; width: 100%;" value="0" onchange="getHub1()"
+										style="color: red; width: 100%;"  onchange="getHub()"
 										title="Search by mob no or hub name"
 										placeholder="<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
 
@@ -503,19 +503,15 @@ alert("c1");
 		function getHub() {
 
 			var hub = document.getElementById("hub").value;
-			
-			if(hub==0){
-				
-			}
-			else
+			//alert("hub " +hub);
 			if(hub==null || hub==""){
-				alert("Please enter mobile no or hub name");
+				//alert("Please enter mobile no or hub name");
 				document.getElementById("hub").focus();
 				
-				$('#hub').addClass('MyClass');
+				//$('#hub').addClass('MyClass');
 			}
 			else if(hub!=0){
-				$("#hub").val("0");
+				$("#hub").val("");
 			window.open('${pageContext.request.contextPath}/searchHub/'+hub);
 			}
 
