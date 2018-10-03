@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Order List</title>
+<title>Start Production</title>
 
 
 <link rel="apple-touch-icon" href="apple-icon.png">
@@ -101,13 +101,13 @@
 								<div class="form-group"></div>
 								<div class="form-group"></div>
 								<div class="row">
-								<div class="col-md-2">
-									<spring:message code="label.chooseHub" />
-									<spring:message code="label.chooseHub" var="selHub" />
+									<div class="col-md-2">
+										<spring:message code="label.chooseHub" />
+										<spring:message code="label.chooseHub" var="selHub" />
 									</div>
 									<div class="col-md-5">
-										<select data-placeholder="${selHub}" class="standardSelect" tabindex="1"
-											name="sel_hub" id="sel_hub" style="width: 100%;"
+										<select data-placeholder="${selHub}" class="standardSelect"
+											tabindex="1" name="sel_hub" id="sel_hub" style="width: 100%;"
 											oninvalid="setCustomValidity('Please Select HUbs ')"
 											onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -120,17 +120,17 @@
 																<option selected value="${hub.hubId}">${hub.hubEngName}</option>
 															</c:when>
 															<c:otherwise>
-																<option  value="${hub.hubId}">${hub.hubEngName}</option>
+																<option value="${hub.hubId}">${hub.hubEngName}</option>
 															</c:otherwise>
 														</c:choose>
 													</c:when>
 													<c:otherwise>
-													<c:choose>
+														<c:choose>
 															<c:when test="${hub.hubId==selectedHub}">
 																<option selected value="${hub.hubId}">${hub.hubMarName}</option>
 															</c:when>
 															<c:otherwise>
-																<option  value="${hub.hubId}">${hub.hubMarName}</option>
+																<option value="${hub.hubId}">${hub.hubMarName}</option>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
@@ -141,19 +141,18 @@
 										</select> <span class="error" aria-live="polite"></span>
 
 									</div>
-									<div class="col-md-1">
-									
-									</div>
+									<div class="col-md-1"></div>
 									<div class="col-md-2">
-									
-									<button type="submit" class="btn btn-primary" id="submitButton"
-										style="align-content: center; width: 226px;">
-										<spring:message code="label.submit" />
-									</button>
+
+										<button type="submit" class="btn btn-primary"
+											id="submitButton"
+											style="align-content: center; width: 226px;">
+											<spring:message code="label.submit" />
+										</button>
 									</div>
 								</div>
 
-							<%-- 	<div class="col-lg-12" align="center">
+								<%-- 	<div class="col-lg-12" align="center">
 
 									<button type="submit" class="btn btn-primary" id="submitButton"
 										style="align-content: center; width: 226px; margin-left: 80px;">
@@ -162,39 +161,45 @@
 								</div> --%>
 
 							</form>
-							
+
 							<form action="${pageContext.request.contextPath}/startProd"
-								id="start_prod_form" method="post"
-								enctype="multipart/form-data">
-							
-							<div class="content mt-3">
-								<div class="animated fadeIn">
-									<div class="row">
+								id="start_prod_form" method="post" enctype="multipart/form-data">
 
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-header">
-													<strong class="card-title"><spring:message
-															code="label.orList" /> &nbsp;</strong>
-												</div>
-												<div class="card-body">
-													<table id="bootstrap-data-table"
-														class="table table-striped table-bordered">
-														<thead>
-															<tr>
-															<th style="text-align: center;" class="check" ><input type="checkbox" 
-																	name="selAll" id="selAll" /> All</th>
-																<th style="text-align: center;"><spring:message code="label.srNo" /></th>
-																<th style="text-align: center;"><spring:message code="label.distName" /></th>
-																<th><spring:message code="label.contactNo" /></th>
-																<th style="text-align: center;"><spring:message code="label.orderTotal" /></th>
-																<th style="text-align: center;"><spring:message code="label.pendCrates" /></th>
-																<th style="text-align: center;"><spring:message code="label.pendAmt" /></th>
-																															<th style="text-align: center;"><spring:message code="label.orderType" /></th>
-																
-																<th style="text-align: center;"><spring:message code="label.action" /></th>
+								<div class="content mt-3">
+									<div class="animated fadeIn">
+										<div class="row">
 
-																<!-- 
+											<div class="col-md-12">
+												<div class="card">
+													<div class="card-header">
+														<strong class="card-title"><spring:message
+																code="label.orList" /> &nbsp;</strong>
+													</div>
+													<div class="card-body">
+														<table id="bootstrap-data-table"
+															class="table table-striped table-bordered">
+															<thead>
+																<tr>
+																	<th style="text-align: center;" class="check"><input
+																		type="checkbox" name="selAll" id="selAll" /> All</th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.srNo" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.distName" /></th>
+																	<th><spring:message code="label.contactNo" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.orderTotal" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.pendCrates" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.pendAmt" /></th>
+																	<th style="text-align: center;"><spring:message
+																			code="label.orderType" /></th>
+
+																	<th style="text-align: center;"><spring:message
+																			code="label.action" /></th>
+
+																	<!-- 
 																<th>Sr no</th>
 																<th>Dist Name</th>
 																<th>Mob no</th>
@@ -202,74 +207,80 @@
 																<th>Pend crates</th>
 																<th>pend amt</th>
 																<th>action</th> -->
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${ordHeaderList}" var="item"
-																varStatus="count">
-																<tr>
-																<td style="text-align: center;"><input type="checkbox" name="startProdOrdHeader"
-																		value="${item.orderHeaderId}" /></td>
+																</tr>
+															</thead>
+															<tbody>
+																<c:forEach items="${ordHeaderList}" var="item"
+																	varStatus="count">
+																	<tr>
+																		<td style="text-align: center;"><input
+																			type="checkbox" name="startProdOrdHeader"
+																			value="${item.orderHeaderId}" /></td>
 
-																	<td style="text-align: center;">${count.index+1}</td>
-																	<td style="text-align: left;"><c:if test="${langSelected == 0}">
-																			<c:out value="${item.distEngName}" />
+																		<td style="text-align: center;">${count.index+1}</td>
+																		<td style="text-align: left;"><c:if
+																				test="${langSelected == 0}">
+																				<c:out value="${item.distEngName}" />
 
-																		</c:if> <c:if test="${langSelected == 1}">
-																			<c:out value="${item.distMarName}" />
-
-
-																		</c:if></td>
+																			</c:if> <c:if test="${langSelected == 1}">
+																				<c:out value="${item.distMarName}" />
 
 
-																	<td style="text-align: center;">${item.distContactNo}</td>
-																	<td style="text-align: right;"><c:out value="${item.orderTotal}" /></td>
-																	<td style="text-align: right;">${item.prevPendingCrateBal}</td>
+																			</c:if></td>
 
-																	<td style="text-align: right;">${item.prevPendingAmt}</td>
 
-<td style="text-align: center;"><c:if test="${item.orderType == 0}">
-																		<spring:message code="label.regOrder" />
+																		<td style="text-align: center;">${item.distContactNo}</td>
+																		<td style="text-align: right;"><c:out
+																				value="${item.orderTotal}" /></td>
+																		<td style="text-align: right;">${item.prevPendingCrateBal}</td>
 
-																	</c:if> <c:if test="${item.orderType == 1}">
+																		<td style="text-align: right;">${item.prevPendingAmt}</td>
 
-																		<spring:message code="label.spOrder" />
-																	</c:if></td>
-																	<td style="text-align: center;"><div class="fa-hover col-lg-3 col-md-6">
-																			<a
-																				href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}"><i
-																				class="fa fa-edit"></i> <span class="text-muted"></span></a>
-																		</div>
+																		<td style="text-align: center;"><c:if
+																				test="${item.orderType == 0}">
+																				<spring:message code="label.regOrder" />
 
-																		<div class="fa-hover col-lg-3 col-md-6">
-																		<%-- 	<a
+																			</c:if> <c:if test="${item.orderType == 1}">
+
+																				<spring:message code="label.spOrder" />
+																			</c:if></td>
+																		<td style="text-align: center;"><div
+																				class="fa-hover col-lg-3 col-md-6">
+																				<a
+																					href="${pageContext.request.contextPath}/editOrder/${item.orderHeaderId}"><i
+																					class="fa fa-edit"></i> <span class="text-muted"></span></a>
+																			</div>
+
+																			<div class="fa-hover col-lg-3 col-md-6">
+																				<%-- 	<a
 																				href="${pageContext.request.contextPath}/deleteOrder/${item.orderHeaderId}"
 																				onClick="return confirm('Are you sure want to delete this record');"><i
 																				class="fa fa-trash-o"></i></a> --%>
-																		</div></td>
+																			</div></td>
 
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+													</div>
+
+
 												</div>
-												
-												
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-	<div class="col-lg-12" align="center">
+								<div class="col-lg-12" align="center">
 
-									<button type="button" class="btn btn-primary" id="submitButton" onclick="valthisform()"
+									<button type="button" class="btn btn-primary" id="submitButton"
+										onclick="valthisform()"
 										style="align-content: center; width: 226px; margin-left: 80px;">
 										<spring:message code="label.startProd" />
 									</button>
 								</div>
 
-</form>
+							</form>
 
 						</div>
 					</div>
@@ -285,7 +296,7 @@
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<!-- Left Panel -->
-<script
+	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/vendor/jquery-2.1.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
@@ -331,53 +342,56 @@
 		});
 	</script>
 	<script type="text/javascript">
-        $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-        } );
-    </script>
+		$(document).ready(function() {
+			$('#bootstrap-data-table-export').DataTable();
+		});
+	</script>
 
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-  $( function() {
-	  $('input[id$=datepicker]').datepicker({
-		    dateFormat: 'dd-mm-yy'
+		$(function() {
+			$('input[id$=datepicker]').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
-  } );
-  </script>
+	</script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
+		function valthisform() {
+			var checkboxs = document.getElementsByName("startProdOrdHeader");
+			var okay = false;
+			for (var i = 0, l = checkboxs.length; i < l; i++) {
+				if (checkboxs[i].checked) {
+					okay = true;
+					break;
+				}
+			}
+			if (okay) {
 
-function valthisform()
-{
-    var checkboxs=document.getElementsByName("startProdOrdHeader");
-    var okay=false;
-    for(var i=0,l=checkboxs.length;i<l;i++)
-    {
-        if(checkboxs[i].checked)
-        {
-            okay=true;
-            break;
-        }
-    }
-    if(okay){
-    	
-    	var form=document.getElementById("start_prod_form");
-    	//form.action="${pageContext.request.contextPath}/startProd";
-    	form.submit();
-    }
-    else alert("Please select atleast one order");
-}
-</script>
+				var form = document.getElementById("start_prod_form");
+				//form.action="${pageContext.request.contextPath}/startProd";
+				form.submit();
+			} else
+				alert("Please select atleast one order");
+		}
+	</script>
 
-<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
-			
-			   $("#selAll").click(function () {
-		              $('#bootstrap-data-table tbody input[type="checkbox"]').prop('checked', this.checked);
-		          });
-		});
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$('#bootstrap-data-table-export').DataTable();
+
+							$("#selAll")
+									.click(
+											function() {
+												$(
+														'#bootstrap-data-table tbody input[type="checkbox"]')
+														.prop('checked',
+																this.checked);
+											});
+						});
 	</script>
 </body>
 </html>
