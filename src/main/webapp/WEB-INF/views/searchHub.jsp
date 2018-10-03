@@ -235,6 +235,7 @@
 									${hub.hubMarAdd}
 									</c:if> --%>
 								</div>
+								</form>
 						</div>
 						&nbsp;
 
