@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html>
 <head>
@@ -48,17 +48,14 @@
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <style type="text/css">
-
-.MyClass{
-width: 20px;
-background-color: lime;
+.MyClass {
+	width: 20px;
+	background-color: lime;
 }
-
-
 </style>
 </head>
 
-<body onload="setData()" >
+<body onload="setData()">
 
 	<!-- Left Panel -->
 	<jsp:include page="/WEB-INF/views/common/left.jsp"></jsp:include>
@@ -68,14 +65,15 @@ background-color: lime;
 	<!-- Header-->
 	<jsp:include page="/WEB-INF/views/common/right.jsp"></jsp:include>
 	<!-- Header-->
-<c:url var="getCatOrdQty" value="/getCatOrdQty"></c:url>
+	<c:url var="getCatOrdQty" value="/getCatOrdQty"></c:url>
 
-<c:url var="getHubLatesOrdersForGraph" value="/getHubLatesOrdersForGraph"></c:url>
+	<c:url var="getHubLatesOrdersForGraph"
+		value="/getHubLatesOrdersForGraph"></c:url>
 
 	<c:url var="getCatwiseTrend" value="/getCatwiseTrend"></c:url>
 
 
-<div class="content mt-3">
+	<div class="content mt-3">
 		<div class="animated fadeIn">
 
 			<div class="row">
@@ -84,7 +82,9 @@ background-color: lime;
 
 					<div class="col-xs-12 col-sm-12">
 
-						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderCount})" style="cursor: pointer;">
+						<div class="col-sm-6 col-lg-4"
+							onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderCount})"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
 
@@ -101,24 +101,29 @@ background-color: lime;
 
 
 
-						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderTotal})" style="cursor: pointer;">
+						<div class="col-sm-6 col-lg-4"
+							onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderTotal})"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
 									<h4 class="mb-0">
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrdTotAndCount.orderTotal}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white"><spring:message code="label.orderTotal" /><!-- Order Total --></font>
+										<font color="white"><spring:message
+												code="label.orderTotal" /> <!-- Order Total --></font>
 									</p>
 
 								</div>
-								
+
 							</div>
 						</div>
-						
 
 
-						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysSpOrdTotAndCount.orderCount})" style="cursor: pointer;">
+
+						<div class="col-sm-6 col-lg-4"
+							onclick="showTodaysOrder(${dashBoard.todaysSpOrdTotAndCount.orderCount})"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-2">
 								<div class="card-body pb-0" align="center">
 
@@ -126,7 +131,8 @@ background-color: lime;
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysSpOrdTotAndCount.orderCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white"><spring:message code="label.spOrder" /><!-- Special Order --></font>
+										<font color="white"><spring:message
+												code="label.spOrder" /> <!-- Special Order --></font>
 									</p>
 
 								</div>
@@ -137,7 +143,8 @@ background-color: lime;
 
 					<div class="col-xs-12 col-sm-12">
 
-						<div class="col-sm-6 col-lg-4" onclick="showNoOrderHub()" style="cursor: pointer;">
+						<div class="col-sm-6 col-lg-4" onclick="showNoOrderHub()"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-0" align="center">
 
@@ -145,7 +152,8 @@ background-color: lime;
 										<span class="count" style="font-size: 50px;">${noOrderHubCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white"><spring:message code="label.noOrder" /><!-- No Orders Hub --></font>
+										<font color="white"><spring:message
+												code="label.noOrder" /> <!-- No Orders Hub --></font>
 									</p>
 
 								</div>
@@ -154,7 +162,9 @@ background-color: lime;
 
 
 
-						<div class="col-sm-6 col-lg-4" onclick="showTodaysOrder(${dashBoard.todaysOrderPending.orderCount})" style="cursor: pointer;">
+						<div class="col-sm-6 col-lg-4"
+							onclick="showTodaysOrder(${dashBoard.todaysOrderPending.orderCount})"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-0" align="center">
 
@@ -162,23 +172,30 @@ background-color: lime;
 										<span class="count" style="font-size: 50px;">${dashBoard.todaysOrderPending.orderCount}</span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
-										<font color="white"><spring:message code="label.orderFwdPend" /><!-- Order Forward Pending --></font>
+										<font color="white"><spring:message
+												code="label.orderFwdPend" /> <!-- Order Forward Pending --></font>
 									</p>
 
 								</div>
 							</div>
 						</div>
 
-							<div class="col-sm-6 col-lg-4" onclick="getHub()" style="cursor: pointer;">
+						<div class="col-sm-6 col-lg-4" onclick="getHub()"
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
 								<div class="card-body pb-1" align="center">
-									<input type="text" id="hub" name="hub"
-										style="color: red; width: 100%;"  onchange="getHub()"
+									<b><input type="text" id="hub" name="hub"
+										style="color: red; width: 100%;" onchange="getHub()"
 										title="Search by mob no or hub name"
-										placeholder="<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
-
+									
+										placeholder="     &nbsp;&nbsp;<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
+</b>
 									<h4 class="mb-0">
-										<span style="font-size: 20px;"><spring:message code="label.findHub" /> &nbsp;<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" /><!-- Find Hub --></span>
+										<span style="font-size: 20px;"><spring:message
+												code="label.findHub" /> &nbsp;<spring:message
+												code="label.hubsName" />/ <spring:message
+												code="label.contactNo" />
+											<!-- Find Hub --></span>
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"></font>
@@ -196,7 +213,10 @@ background-color: lime;
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong><!-- Hub And Order Total --><spring:message code="label.hubOrderTotal" /></strong>
+								<strong>
+									<!-- Hub And Order Total -->
+									<spring:message code="label.hubOrderTotal" />
+								</strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -210,7 +230,10 @@ background-color: lime;
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong><!-- Category And Order Qty --><spring:message code="label.catAndQty" /></strong>
+								<strong>
+									<!-- Category And Order Qty -->
+									<spring:message code="label.catAndQty" />
+								</strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -225,7 +248,10 @@ background-color: lime;
 					<div class="col-xs-12 col-sm-12">
 						<div class="card">
 							<div class="card-header">
-								<strong><!-- Categorywise Trend --><spring:message code="label.catTrend" /></strong>
+								<strong>
+									<!-- Categorywise Trend -->
+									<spring:message code="label.catTrend" />
+								</strong>
 							</div>
 							<div class="card-body card-block">
 
@@ -267,7 +293,7 @@ background-color: lime;
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-	
+
 	<script>
 		(function($) {
 			"use strict";
@@ -286,8 +312,8 @@ background-color: lime;
 			});
 		})(jQuery);
 	</script>
-	
-<script>
+
+	<script>
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en,mr', 
@@ -309,7 +335,7 @@ background-color: lime;
 </script>
 
 
-<script>
+	<script>
 		function setData(){ 
 			 getChart1(); 
 			 getChart2(); 
@@ -434,7 +460,7 @@ alert("c1");
 
 		}
 	</script>
-	
+
 	<script>
 		function getChart3() {
 
