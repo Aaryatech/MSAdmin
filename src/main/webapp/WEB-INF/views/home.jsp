@@ -81,7 +81,6 @@
 				<div class="col-xs-12 col-sm-12">
 
 					<div class="col-xs-12 col-sm-12">
-										<input type="hidden" id="lang" name="lang" value="${langSelected}">
 
 						<div class="col-sm-6 col-lg-4"
 							onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderCount})"
@@ -112,7 +111,8 @@
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"><spring:message
-												code="label.orderTotal" /> <!-- Order Total --></font>
+												code="label.orderTotal" />
+											<!-- Order Total --></font>
 									</p>
 
 								</div>
@@ -133,7 +133,8 @@
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"><spring:message
-												code="label.spOrder" /> <!-- Special Order --></font>
+												code="label.spOrder" />
+											<!-- Special Order --></font>
 									</p>
 
 								</div>
@@ -154,7 +155,8 @@
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"><spring:message
-												code="label.noOrder" /> <!-- No Orders Hub --></font>
+												code="label.noOrder" />
+											<!-- No Orders Hub --></font>
 									</p>
 
 								</div>
@@ -174,7 +176,8 @@
 									</h4>
 									<p style="font-size: 18px; font-weight: bold; color: white;">
 										<font color="white"><spring:message
-												code="label.orderFwdPend" /> <!-- Order Forward Pending --></font>
+												code="label.orderFwdPend" />
+											<!-- Order Forward Pending --></font>
 									</p>
 
 								</div>
@@ -182,15 +185,15 @@
 						</div>
 
 						<div class="col-sm-6 col-lg-4" onclick="getHub()"
-							style="cursor: pointer; height: 145px;" >
+							style="cursor: pointer;">
 							<div class="card text-white bg-flat-color-3">
-								<div class="card-body pb-0" align="center">
-									<b><input type="text" id="hub" name="hub"
+								<div class="card-body pb-1" align="center">
+									<input type="text" id="hub" name="hub"
 										style="color: red; width: 100%;" onchange="getHub()"
 										title="Search by mob no or hub name"
 									
-										placeholder="     &nbsp;&nbsp;<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
-</b>
+										placeholder= " 	&nbsp;&nbsp;<spring:message code="label.hubsName" />/ <spring:message code="label.contactNo" />">
+
 									<h4 class="mb-0">
 										<span style="font-size: 20px;"><spring:message
 												code="label.findHub" /> &nbsp;<spring:message
@@ -335,7 +338,8 @@
     }
 </script>
 
-<script>
+
+	<script>
 		function setData(){ 
 			 getChart1(); 
 			 getChart2(); 
@@ -348,10 +352,7 @@
 
 	<script>
 		function getChart1() {
-			
-			var lang = document.getElementById("lang").value;
-
-			
+alert("c1");
 			google.charts.load('current', {
 				'packages' : [ 'bar' ]
 			});
@@ -371,8 +372,9 @@
 							data.addColumn('number', 'Order2');
 							data.addColumn('number', 'Order3');
 
-						
-							if (lang == 0) {
+							var lan = ${langSelected};
+							//alert(lan);
+							if (lan == 0) {
 								$.each(jsonData, function(i, obj) {
 
 									data.addRow([ obj.hubEngName, obj.order1,
@@ -408,15 +410,14 @@
 
 	<script>
 		function getChart2() {
-		
-			var lang = document.getElementById("lang").value;
+			alert("Hi");
 
 			google.charts.load('current', {
 				'packages' : [ 'bar' ]
 			});
 			google.charts.setOnLoadCallback(drawChart2);
 
-			function drawChart2() {
+			function drawChart1() {
 				$.getJSON('${getCatOrdQty}', {
 
 					ajax : 'true'
@@ -427,18 +428,21 @@
 
 							data.addColumn('string', 'Category');
 							data.addColumn('number', 'Order Qty');
-							
-							if (lang == 0) {
+							var lan = ${langSelected};
+							//alert(lan);
+							if (lan == 0) {
 								$.each(jsonData, function(i, obj) {
 
-									data.addRow([ obj.catEngName,
+									data
+											.addRow([ obj.catEngName,
 													obj.orderQty ]);
 								});
 							} else {
 
 								$.each(jsonData, function(i, obj) {
 
-									data.addRow([ obj.catMarName,
+									data
+											.addRow([ obj.catMarName,
 													obj.orderQty ]);
 								});
 
@@ -460,13 +464,10 @@
 
 		}
 	</script>
-	
+
 	<script>
 		function getChart3() {
 
-			var lang = document.getElementById("lang").value;
-
-			
 			google.charts.load('current', {
 				'packages' : [ 'line' ]
 			});
@@ -487,15 +488,6 @@
 					$.each(jsonData.catList, function(k, obj) {
 						catName=obj.catEngName;
 						//alert(i);
-						
-						if (lang == 0) {
-							data.addColumn('number', obj.catEngName);
-
-						}else{
-							data.addColumn('number', obj.catMarName);
-							
-						}
-						
 						data.addColumn('number', obj.catEngName);
 				});
 	                data.addRows(jsonData.orderList.length);
@@ -535,7 +527,6 @@
 
 		}
 	</script>
-
 
 
 	<script type="text/javascript">

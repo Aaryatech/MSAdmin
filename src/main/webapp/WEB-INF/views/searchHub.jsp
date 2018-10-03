@@ -51,8 +51,9 @@
 .left {
 	text-align: left;
 }
-.center{
-text-align: center;
+
+.center {
+	text-align: center;
 }
 </style>
 
@@ -156,8 +157,7 @@ text-align: center;
  --%>
 						</div>
 						<div class="card-body card-block">
-							<form
-								method="post">
+							<form method="post">
 								<div class="row">
 									<div class="col-md-2">
 										<spring:message code="label.hubsName" />
@@ -195,10 +195,10 @@ text-align: center;
 
 
 
-																		<spring:message code="label.regOrder"  var="regOr"/>
-																			<input type="hidden" id="regOrd" value="${regOr}"> 
-																		<spring:message code="label.spOrder" var="spOr" />
-																	<input type="hidden" id="spOrd" value="${spOr}"> 
+								<spring:message code="label.regOrder" var="regOr" />
+								<input type="hidden" id="regOrd" value="${regOr}">
+								<spring:message code="label.spOrder" var="spOr" />
+								<input type="hidden" id="spOrd" value="${spOr}">
 
 
 								<%-- <div class="row">
@@ -293,35 +293,35 @@ text-align: center;
 
 								</div>
  --%>
- <div class="card">
-								<div class="card-body">
-									<table id="bootstrap-data-table1"
-										class="table table-striped table-bordered">
+								<div class="card">
+									<div class="card-body">
+										<table id="bootstrap-data-table1"
+											class="table table-striped table-bordered">
 
-										<thead>
-											<tr>
-												<th style="text-align: center;"><spring:message
-														code="label.srNo" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.distName" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.contactNo" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.orderTotal" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.pendCrates" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.pendAmt" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.orderType" /></th>
-												<th style="text-align: center;"><spring:message
-														code="label.action" /></th>
+											<thead>
+												<tr>
+													<th style="text-align: center;"><spring:message
+															code="label.srNo" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.distName" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.contactNo" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.orderTotal" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.pendCrates" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.pendAmt" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.orderType" /></th>
+													<th style="text-align: center;"><spring:message
+															code="label.action" /></th>
 
-											</tr>
-										</thead>
+												</tr>
+											</thead>
 
-									</table>
-								</div>
+										</table>
+									</div>
 								</div>
 
 
@@ -412,96 +412,100 @@ text-align: center;
 			var hubId = $("#hubId").val();
 			var regOrd = $("#regOrd").val();
 			var spOrd = $("#spOrd").val();
-			
-			if(date==null || date==""){
-				
+
+			if (date == null || date == "") {
+
 				alert("Please select order date");
-				 $("#date").focus();
-			}else{
+				$("#date").focus();
+			} else {
 
-			$
-					.getJSON(
-							'${getOrderByDate}',
+				$
+						.getJSON(
+								'${getOrderByDate}',
 
-							{
-								date : date,
-								hubId : hubId,
+								{
+									date : date,
+									hubId : hubId,
 
-								ajax : 'true'
+									ajax : 'true'
 
-							},
-							function(data) {
+								},
+								function(data) {
 
-								//alert(JSON.stringify(data));
+									//alert(JSON.stringify(data));
 
-								if (data == "") {
-									alert("No records found !!");
+									if (data == "") {
+										alert("No records found !!");
 
-								}
+									}
 
-								/* document.getElementById("orderDate").value = data.orderDate;
+									/* document.getElementById("orderDate").value = data.orderDate;
 
-								document.getElementById("orderTotal").value = data.orderTotal;
-								document.getElementById("prevPendingCrateBal").value = data.prevPendingCrateBal;
-								document.getElementById("cratesIssued").value = data.cratesIssued;
-								document.getElementById("cratesReceived").value = data.cratesReceived;
-								document.getElementById("cratesBalance").value = (data.prevPendingCrateBal
-										+ data.cratesIssued - data.cratesReceived);
+									document.getElementById("orderTotal").value = data.orderTotal;
+									document.getElementById("prevPendingCrateBal").value = data.prevPendingCrateBal;
+									document.getElementById("cratesIssued").value = data.cratesIssued;
+									document.getElementById("cratesReceived").value = data.cratesReceived;
+									document.getElementById("cratesBalance").value = (data.prevPendingCrateBal
+											+ data.cratesIssued - data.cratesReceived);
 
-								document.getElementById("prevPendingAmt").value = data.prevPendingAmt;
-								document.getElementById("orderTotal1").value = data.orderTotal;
-								document.getElementById("amtReceived").value = data.amtReceived;
-								document.getElementById("amountBalanced").value = (data.prevPendingAmt
-										+ data.orderTotal - data.amtReceived); */
+									document.getElementById("prevPendingAmt").value = data.prevPendingAmt;
+									document.getElementById("orderTotal1").value = data.orderTotal;
+									document.getElementById("amtReceived").value = data.amtReceived;
+									document.getElementById("amountBalanced").value = (data.prevPendingAmt
+											+ data.orderTotal - data.amtReceived); */
 
-								var dataTable = $('#bootstrap-data-table1')
-										.DataTable();
+									var dataTable = $('#bootstrap-data-table1')
+											.DataTable();
 
-								$
-										.each(
-												data,
-												function(i, v) {
+									$
+											.each(
+													data,
+													function(i, v) {
 
-													var lang = ${langSelected};
-													
-													var distName;
+														var lang = $
+														{
+															langSelected
+														}
+														;
 
-													if (lang == 0) {
-														distName = v.distEngName;
-													} else {
-														distName = v.distMarName;
-													}
+														var distName;
 
-													var ordType;
+														if (lang == 0) {
+															distName = v.distEngName;
+														} else {
+															distName = v.distMarName;
+														}
 
-													if (v.orderType == 0) {
-														ordType = regOrd;
-													} else {
-														ordType = spOrd;
-													}
+														var ordType;
 
-													var str = "<i class='fa  fa-stack-exchange'></i>";
-													//var str="Detail";
+														if (v.orderType == 0) {
+															ordType = regOrd;
+														} else {
+															ordType = spOrd;
+														}
 
-													var result = str
-															.link("${pageContext.request.contextPath}/showOrderHisDetail/"
-																	+ v.orderHeaderId);
-													dataTable.row
-															.add(
-																	[
-																			i + 1,
-																			distName,
-																			v.distContactNo,
-																			v.orderTotal,
-																			v.prevPendingCrateBal,
-																			v.prevPendingAmt,
-																			ordType,
-																			result ])
-															.draw();
-												});
+														var str = "<i class='fa  fa-stack-exchange'></i>";
+														//var str="Detail";
 
-							});
-			
+														var result = str
+																.link("${pageContext.request.contextPath}/showOrderHisDetail/"
+																		+ v.orderHeaderId);
+														dataTable.row
+																.add(
+																		[
+																				i + 1,
+																				distName,
+																				v.distContactNo,
+																				v.orderTotal,
+																				v.prevPendingCrateBal,
+																				v.prevPendingAmt,
+																				ordType,
+																				result ])
+																.draw();
+													});
+
+								});
+
 			}//end of else
 		}
 	</script>
@@ -515,19 +519,19 @@ text-align: center;
 			});
 		});
 	</script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table1').DataTable({
 				columnDefs : [ {
-					targets : [4, 5, 6],
+					targets : [ 4, 5, 6 ],
 					className : "right"
 				}, ]
-			
+
 			});
 		});
 	</script>
-	
+
 	<!-- <script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table1').DataTable({
@@ -539,8 +543,8 @@ text-align: center;
 			});
 		});
 	</script> -->
-	
-	
+
+
 
 </body>
 </html>
