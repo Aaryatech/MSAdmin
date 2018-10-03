@@ -81,6 +81,7 @@
 				<div class="col-xs-12 col-sm-12">
 
 					<div class="col-xs-12 col-sm-12">
+										<input type="hidden" id="lang" name="lang" value="${langSelected}">
 
 						<div class="col-sm-6 col-lg-4"
 							onclick="showTodaysOrder(${dashBoard.todaysOrdTotAndCount.orderCount})"
@@ -181,9 +182,9 @@
 						</div>
 
 						<div class="col-sm-6 col-lg-4" onclick="getHub()"
-							style="cursor: pointer;">
+							style="cursor: pointer; height: 145px;" >
 							<div class="card text-white bg-flat-color-3">
-								<div class="card-body pb-1" align="center">
+								<div class="card-body pb-0" align="center">
 									<b><input type="text" id="hub" name="hub"
 										style="color: red; width: 100%;" onchange="getHub()"
 										title="Search by mob no or hub name"
@@ -334,8 +335,7 @@
     }
 </script>
 
-
-	<script>
+<script>
 		function setData(){ 
 			 getChart1(); 
 			 getChart2(); 
@@ -348,7 +348,10 @@
 
 	<script>
 		function getChart1() {
-alert("c1");
+			
+			var lang = document.getElementById("lang").value;
+
+			
 			google.charts.load('current', {
 				'packages' : [ 'bar' ]
 			});
@@ -368,9 +371,8 @@ alert("c1");
 							data.addColumn('number', 'Order2');
 							data.addColumn('number', 'Order3');
 
-							var lan = ${langSelected};
-							//alert(lan);
-							if (lan == 0) {
+						
+							if (lang == 0) {
 								$.each(jsonData, function(i, obj) {
 
 									data.addRow([ obj.hubEngName, obj.order1,
@@ -406,14 +408,15 @@ alert("c1");
 
 	<script>
 		function getChart2() {
-			alert("Hi");
+		
+			var lang = document.getElementById("lang").value;
 
 			google.charts.load('current', {
 				'packages' : [ 'bar' ]
 			});
 			google.charts.setOnLoadCallback(drawChart2);
 
-			function drawChart1() {
+			function drawChart2() {
 				$.getJSON('${getCatOrdQty}', {
 
 					ajax : 'true'
@@ -424,21 +427,18 @@ alert("c1");
 
 							data.addColumn('string', 'Category');
 							data.addColumn('number', 'Order Qty');
-							var lan = ${langSelected};
-							//alert(lan);
-							if (lan == 0) {
+							
+							if (lang == 0) {
 								$.each(jsonData, function(i, obj) {
 
-									data
-											.addRow([ obj.catEngName,
+									data.addRow([ obj.catEngName,
 													obj.orderQty ]);
 								});
 							} else {
 
 								$.each(jsonData, function(i, obj) {
 
-									data
-											.addRow([ obj.catMarName,
+									data.addRow([ obj.catMarName,
 													obj.orderQty ]);
 								});
 
@@ -460,10 +460,13 @@ alert("c1");
 
 		}
 	</script>
-
+	
 	<script>
 		function getChart3() {
 
+			var lang = document.getElementById("lang").value;
+
+			
 			google.charts.load('current', {
 				'packages' : [ 'line' ]
 			});
@@ -484,6 +487,15 @@ alert("c1");
 					$.each(jsonData.catList, function(k, obj) {
 						catName=obj.catEngName;
 						//alert(i);
+						
+						if (lang == 0) {
+							data.addColumn('number', obj.catEngName);
+
+						}else{
+							data.addColumn('number', obj.catMarName);
+							
+						}
+						
 						data.addColumn('number', obj.catEngName);
 				});
 	                data.addRows(jsonData.orderList.length);
@@ -523,6 +535,7 @@ alert("c1");
 
 		}
 	</script>
+
 
 
 	<script type="text/javascript">
