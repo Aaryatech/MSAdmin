@@ -162,7 +162,26 @@
 									<div class="col-md-2">
 										<spring:message code="label.hubsName" />
 									</div>
-									<div class="col-md-2">
+									<div class="col-lg-4">
+										<div class="input-group" style="align-items: center;">
+
+
+
+											<c:set var="hubName" value="-"></c:set>
+											<c:if test="${langSelected == 0}">
+												<c:set var="hubName" value="${hub.hubEngName}"></c:set>
+											</c:if>
+											<c:if test="${langSelected == 1}">
+												<c:set var="hubName" value="${hub.hubMarName}"></c:set>
+
+											</c:if>
+											<input class="form-control" name="orderDate" id="orderDate"
+												type="text" value="${hubName}" disabled />
+
+										</div>
+									</div>
+									<%-- 	<div class="col-md-2">
+
 										<c:if test="${langSelected==0}">
 									${hub.hubEngName}
 									</c:if>
@@ -170,38 +189,64 @@
 									${hub.hubMarName}
 									</c:if>
 
-									</div>
+									</div> --%>
 
 									<div class="col-md-2">
 										<spring:message code="label.contactNo" />
 
 									</div>
-									<div class="col-md-2">${hub.hubContactNo}</div>
 
-									<div class="col-md-2">
-										<spring:message code="label.address" />
+									<div class="col-md-4">
+										<input class="form-control" name="orderDate" id="orderDate"
+											type="text" value="${hub.hubContactNo}" disabled />
 									</div>
-									<div class="col-md-2">
-										<c:if test="${langSelected==0}">
+
+
+
+									<div class="form-group"></div>
+
+									<div class="form-group">
+										<div class="col-md-5">
+											<spring:message code="label.address" />
+										</div>
+										<div class="col-md-7">
+											<div class="input-group" style="align-items: center;">
+
+
+
+												<c:set var="hubAdd" value="-"></c:set>
+												<c:if test="${langSelected == 0}">
+													<c:set var="hubAdd" value="${hub.hubEngAdd}"></c:set>
+												</c:if>
+												<c:if test="${langSelected == 1}">
+													<c:set var="hubAdd" value="${hub.hubMarAdd}"></c:set>
+
+												</c:if>
+												<input class="form-control" name="orderDate" id="orderDate"
+													type="text" value="${hubAdd}" disabled />
+
+											</div>
+										</div>
+									</div>
+									<%-- <c:if test="${langSelected==0}">
 									${hub.hubEngAdd}
 									</c:if>
 										<c:if test="${langSelected==1}">
 									${hub.hubMarAdd}
-									</c:if>
-									</div>
-
+									</c:if> --%>
 								</div>
-								&nbsp;
+						</div>
+						&nbsp;
 
 
 
-								<spring:message code="label.regOrder" var="regOr" />
-								<input type="hidden" id="regOrd" value="${regOr}">
-								<spring:message code="label.spOrder" var="spOr" />
-								<input type="hidden" id="spOrd" value="${spOr}">
+						<spring:message code="label.regOrder" var="regOr" />
+						<input type="hidden" id="regOrd" value="${regOr}">
+						<spring:message code="label.spOrder" var="spOr" />
+						<input type="hidden" id="spOrd" value="${spOr}">
 
 
-								<%-- <div class="row">
+						<%-- <div class="row">
 									<div class="col-md-2">
 										<spring:message code="label.routeSeqNo" />
 									</div>
@@ -235,38 +280,37 @@
 									<div class="col-md-2">${dist.distAmtLimit}</div>
 
 								</div> --%>
-								<div class="card">
-									<div class="card-header">
-										<strong class="card-title"><spring:message
-												code="label.search" /></strong>
-									</div>
-									<div class="form-group"></div>
-									<div class="row">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title"><spring:message
+										code="label.search" /></strong>
+							</div>
+							<div class="form-group"></div>
+							<div class="row">
 
-										<div class="col-md-2">
-											<spring:message code="label.orderDate" />
-										</div>
-										<div class="col-md-3">
-											<input type="text" id="date" name="date" />
-										</div>
-
-
-										<div class="col-md-1" align="center"></div>
-
-										<div class="col-md-3">
-											<button type="button" class="btn btn-primary"
-												onclick="callSearch()" style="width: 90%;">
-												<spring:message code="label.search" />
-											</button>
-										</div>
-									</div>
+								<div class="col-md-2">
+									<spring:message code="label.orderDate" />
+								</div>
+								<div class="col-md-3">
+									<input type="text" id="date" name="date" />
 								</div>
 
 
-								<input type="hidden" id="hubId" name="hubId"
-									value="${hub.hubId}">
+								<div class="col-md-1" align="center"></div>
 
-								<%-- <div class="card">
+								<div class="col-md-3">
+									<button type="button" class="btn btn-primary"
+										onclick="callSearch()" style="width: 90%;">
+										<spring:message code="label.search" />
+									</button>
+								</div>
+							</div>
+						</div>
+
+
+						<input type="hidden" id="hubId" name="hubId" value="${hub.hubId}">
+
+						<%-- <div class="card">
 									<div class="card-header">
 										<strong class="card-title"><spring:message
 												code="label.ordHistory" /></strong>
@@ -293,46 +337,46 @@
 
 								</div>
  --%>
-								<div class="card">
-									<div class="card-body">
-										<table id="bootstrap-data-table1"
-											class="table table-striped table-bordered">
+						<div class="card">
+							<div class="card-body">
+								<table id="bootstrap-data-table1"
+									class="table table-striped table-bordered">
 
-											<thead>
-												<tr>
-													<th style="text-align: center;"><spring:message
-															code="label.srNo" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.distName" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.contactNo" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.orderTotal" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.pendCrates" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.pendAmt" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.orderType" /></th>
-													<th style="text-align: center;"><spring:message
-															code="label.action" /></th>
+									<thead>
+										<tr>
+											<th style="text-align: center;"><spring:message
+													code="label.srNo" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.distName" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.contactNo" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.orderTotal" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.pendCrates" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.pendAmt" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.orderType" /></th>
+											<th style="text-align: center;"><spring:message
+													code="label.action" /></th>
 
-												</tr>
-											</thead>
+										</tr>
+									</thead>
 
-										</table>
-									</div>
-								</div>
-
-
-
-							</form>
+								</table>
+							</div>
 						</div>
+
+
+
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- .animated -->
+	</div>
+	<!-- .animated -->
 	</div>
 	<!-- .content -->
 
